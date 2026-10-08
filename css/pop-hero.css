@@ -1,0 +1,180 @@
+/* hero-pop: CSS-only interactivity for hero pills, stats, principles.
+   No JS. Motion = transform/opacity only, <=300ms, cubic-bezier(.2,.7,.2,1). */
+
+:root { --hero-ease: cubic-bezier(.2,.7,.2,1); }
+
+/* ---------- pills: real anchors ---------- */
+.hero-pills a.pill {
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  cursor: pointer;
+  transition: transform .25s var(--hero-ease), box-shadow .25s var(--hero-ease),
+    border-color .25s var(--hero-ease), background-color .25s var(--hero-ease);
+}
+/* idle click cue: faint chevron, settles right on hover */
+.hero-pills a.pill::after {
+  content: "\203A";
+  margin-left: auto;
+  align-self: center;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--teal);
+  opacity: .45;
+  transform: translateX(-2px);
+  transition: opacity .25s var(--hero-ease), transform .25s var(--hero-ease);
+}
+.hero-pills a.pill:hover,
+.hero-pills a.pill:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(45,212,191,.75);
+  background: rgba(45,212,191,.13);
+  box-shadow: 0 6px 22px -8px rgba(45,212,191,.55);
+}
+.hero-pills a.pill:hover::after,
+.hero-pills a.pill:focus-visible::after {
+  opacity: 1;
+  transform: translateX(2px);
+}
+/* numeral emphasis on hover */
+.hero-pills a.pill b {
+  transition: text-shadow .25s var(--hero-ease), transform .25s var(--hero-ease);
+  display: inline-block;
+}
+.hero-pills a.pill:hover b,
+.hero-pills a.pill:focus-visible b {
+  text-shadow: 0 0 14px rgba(45,212,191,.8);
+  transform: scale(1.06);
+}
+.hero-pills a.pill:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+
+/* ---------- stats: cross-highlight + CSS-only reveal ---------- */
+.stat {
+  transition: background-color .25s var(--hero-ease);
+}
+.stat:hover,
+.stat:focus-within,
+.stat:focus-visible {
+  background: rgba(45,212,191,.08);
+}
+.stat b em {
+  transition: text-shadow .25s var(--hero-ease), color .25s var(--hero-ease);
+}
+.stat:hover b em,
+.stat:focus-within b em,
+.stat:focus-visible b em {
+  color: #5eead4;
+  text-shadow: 0 0 16px rgba(45,212,191,.75);
+}
+/* one-line "so what": max-height/opacity reveal, facts only */
+.stat .so-what {
+  display: block;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  font-size: .78rem;
+  line-height: 1.35;
+  color: var(--teal);
+  transform: translateY(-2px);
+  transition: max-height .3s var(--hero-ease), opacity .25s var(--hero-ease),
+    transform .25s var(--hero-ease), margin-top .3s var(--hero-ease);
+}
+.stat:hover .so-what,
+.stat:focus-within .so-what,
+.stat:focus-visible .so-what {
+  max-height: 3.5em;
+  opacity: 1;
+  margin-top: .35rem;
+  transform: none;
+}
+
+/* ---------- principles: rule-draw + lift + sibling spotlight ---------- */
+.principle {
+  position: relative;
+  border-radius: 0 8px 8px 0;
+  transition: transform .25s var(--hero-ease), background-color .25s var(--hero-ease),
+    opacity .25s var(--hero-ease);
+}
+.principle::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 2px;
+  background: #5eead4;
+  box-shadow: 0 0 12px rgba(45,212,191,.7);
+  transform: scaleY(.2);
+  transform-origin: top;
+  opacity: .55;
+  transition: transform .3s var(--hero-ease), opacity .25s var(--hero-ease);
+}
+.principle:hover,
+.principle:focus-visible {
+  transform: translateY(-2px);
+  background: rgba(45,212,191,.06);
+}
+.principle:hover::before,
+.principle:focus-visible::before {
+  transform: scaleY(1);
+  opacity: 1;
+}
+.principle:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+/* spotlight: dim siblings while one is engaged (CSS-only :has) */
+.principles:has(.principle:hover) .principle:not(:hover),
+.principles:has(.principle:focus-visible) .principle:not(:focus-visible) {
+  opacity: .5;
+}
+
+/* ---------- reduced motion: static end-states, info always visible ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .hero-pills a.pill,
+  .hero-pills a.pill::after,
+  .hero-pills a.pill b,
+  .stat,
+  .stat b em,
+  .stat .so-what,
+  .principle,
+  .principle::before {
+    transition: none !important;
+    animation: none !important;
+  }
+  .hero-pills a.pill,
+  .principle {
+    transform: none !important;
+  }
+  .stat .so-what {
+    max-height: none !important;
+    opacity: 1 !important;
+    margin-top: .35rem !important;
+    transform: none !important;
+  }
+  .principles:has(.principle:hover) .principle:not(:hover),
+  .principles:has(.principle:focus-visible) .principle:not(:focus-visible) {
+    opacity: 1 !important;
+  }
+}
+
+/* ---------- print: content visible, no hover-dependency ---------- */
+@media print {
+  .hero-pills a.pill::after {
+    display: none !important;
+  }
+  .stat .so-what {
+    max-height: none !important;
+    opacity: 1 !important;
+    margin-top: .25rem !important;
+    transform: none !important;
+    color: #000 !important;
+  }
+  .principle::before {
+    display: none !important;
+  }
+}

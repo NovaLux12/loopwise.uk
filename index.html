@@ -38,6 +38,11 @@
 <link rel="stylesheet" href="/css/repos.css">
 <link rel="stylesheet" href="/css/conversion.css">
 <link rel="stylesheet" href="/css/motion.css">
+<link rel="stylesheet" href="/css/pop-hero.css">
+<link rel="stylesheet" href="/css/pop-pilots.css">
+<link rel="stylesheet" href="/css/pop-images.css">
+<link rel="stylesheet" href="/css/pop-scroll.css">
+<link rel="stylesheet" href="/css/pop-format.css">
 </head>
 <body>
 <div class="announce" role="status" aria-label="Project status">
@@ -109,7 +114,7 @@
         <path class="cgm-fill" d="M34,300 C58,296 74,292 96,288 S122,282 142,287 S162,293 182,296 S204,302 222,310 S238,322 250,318 S262,304 274,300 S282,297 286,296 L286,340 L34,340 Z" fill="url(#cgmFill)"/>
         <path class="cgm-trace" d="M34,300 C58,296 74,292 96,288 S122,282 142,287 S162,293 182,296 S204,302 222,310 S238,322 250,318 S262,304 274,300 S282,297 286,296"/>
         <path class="cgm-trace low" d="M222,310 S238,322 250,318 S262,304 272,301"/>
-        <circle cx="250" cy="318" r="3" fill="#f5a524"/>
+        <circle cx="250" cy="318" r="3" fill="#f5a524"><animate attributeName="opacity" values="1;.35;1" dur="2.4s" repeatCount="indefinite"/></circle>
         <circle cx="286" cy="296" r="3" fill="#2dd4bf"/>
         <circle class="cgm-tracer" cx="34" cy="300" r="3.5" fill="#2dd4bf" opacity=".9"/>
         <text x="62" y="354" fill="#5d6b82" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">00</text>
@@ -125,20 +130,20 @@
       </div>
     </div>
     <div class="hero-pills">
-      <div class="pill"><b>66</b><span>MCP tools, 6 gated writes</span></div>
-      <div class="pill"><b>1 hour</b><span>to first reading</span></div>
-      <div class="pill"><b>0</b><span>dosing decisions on the bridge</span></div>
+      <a class="pill" href="#mcp"><b>66</b><span>MCP tools, 6 gated writes</span></a>
+      <a class="pill" href="#bridge"><b>1 hour</b><span>to first reading</span></a>
+      <a class="pill" href="#faq"><b>0</b><span>dosing decisions on the bridge</span></a>
     </div>
     <div class="stats">
-      <div class="stat"><b><em>66</em></b><span>MCP tools: 60 read, 6 confirm-gated writes</span></div>
-      <div class="stat"><b><em>8</em></b><span>bridge releases shipped, v0.1.0 to v0.2.0</span></div>
-      <div class="stat"><b><em>4</em></b><span>repos maintained: bridge, MCP, reports, graphs</span></div>
-      <div class="stat"><b><em>0</em></b><span>dosing decisions delegated to software — ever</span></div>
+      <div class="stat" tabindex="0"><b><em>66</em></b><span>MCP tools: 60 read, 6 confirm-gated writes</span><span class="so-what">Every write gated and audited — see #mcp</span></div>
+      <div class="stat" tabindex="0"><b><em>8</em></b><span>bridge releases shipped, v0.1.0 to v0.2.0</span><span class="so-what">BLE fix for 780G, Guardian 4, Simplera — see #bridge</span></div>
+      <div class="stat" tabindex="0"><b><em>4</em></b><span>repos maintained: bridge, MCP, reports, graphs</span><span class="so-what">ns-reports + ns-cgm-graph, stdlib only — see #toolkit</span></div>
+      <div class="stat" tabindex="0"><b><em>0</em></b><span>dosing decisions delegated to software — ever</span><span class="so-what">Research and educational tooling only — see #faq</span></div>
     </div>
     <div class="principles">
-      <div class="principle"><b>Safety first, then clever</b><span>The mmol/L conversion shipped before any feature work. Correctness outranks novelty on every roadmap.</span></div>
-      <div class="principle"><b>Docs or it didn't happen</b><span>User guides, architecture records, security models, changelogs — every repo ships the full suite, not a README-and-hope.</span></div>
-      <div class="principle"><b>No silent forks</b><span>Every carried fix is traceable to upstream. If upstream wakes up, we fold back — we're keeping it alive, not replacing it.</span></div>
+      <div class="principle" tabindex="0"><b>Safety first, then clever</b><span>The mmol/L conversion shipped before any feature work. Correctness outranks novelty on every roadmap.</span></div>
+      <div class="principle" tabindex="0"><b>Docs or it didn't happen</b><span>User guides, architecture records, security models, changelogs — every repo ships the full suite, not a README-and-hope.</span></div>
+      <div class="principle" tabindex="0"><b>No silent forks</b><span>Every carried fix is traceable to upstream. If upstream wakes up, we fold back — we're keeping it alive, not replacing it.</span></div>
     </div>
   </header>
 
@@ -157,13 +162,13 @@
         <span class="pilot-state recruiting"><span class="dot" aria-hidden="true"></span>Recruiting · slot 02</span>
         <b>Household · 780G + Guardian 4</b>
         <p>Recruiting. UK-based preferred while the clinic-reports bet is in alpha.</p>
-        <a class="pilot-cta" href="mailto:founder@loopwise.uk?subject=Pilot%20slot%2002">Express interest →</a>
+        <a class="pilot-cta" href="mailto:founder@loopwise.uk?subject=Pilot%20slot%2002">Express interest <span class="arr" aria-hidden="true">→</span></a>
       </div>
       <div class="pilot empty is-open">
         <span class="pilot-state recruiting"><span class="dot" aria-hidden="true"></span>Recruiting · slot 03</span>
         <b>Caregiver · second pair of eyes</b>
         <p>Recruiting. For a parent or partner who is the second reader of the trace.</p>
-        <a class="pilot-cta" href="mailto:founder@loopwise.uk?subject=Pilot%20slot%2003">Express interest →</a>
+        <a class="pilot-cta" href="mailto:founder@loopwise.uk?subject=Pilot%20slot%2003">Express interest <span class="arr" aria-hidden="true">→</span></a>
       </div>
     </div>
     <figure class="photo-slot photo-side status-side">
@@ -177,16 +182,8 @@
         <div class="slotmap-meter" aria-hidden="true"><span class="fill-live"></span><span class="fill-open"></span></div>
         <div class="slotmap-legend" aria-hidden="true"><span>live</span><span>recruiting</span></div>
       </div>
-      <figcaption id="photo-cap"><a class="photo-enlarge" href="#photo-pilots">View photo</a> · Illustrative status board</figcaption>
+      <figcaption>Status board · live slotmap, updated with the section</figcaption>
     </figure>
-    </div>
-    <div id="photo-pilots" class="lightbox" role="dialog" aria-modal="true" aria-label="Pilot story photo">
-      <a href="#pilots" class="lightbox-backdrop" tabindex="-1" aria-hidden="true"></a>
-      <figure class="lightbox-frame">
-        <a href="#pilots" class="lightbox-close" aria-label="Close (return to pilots section)">×</a>
-        <img src="/assets/pilots-01.jpg" width="1200" height="900" alt="Illustrative photo: a woman checking her morning glucose read at the breakfast table (full size)">
-        <figcaption>Illustrative photo · <a href="#pilots">close</a></figcaption>
-      </figure>
     </div>
   </section>
 
@@ -228,10 +225,6 @@
     <div class="kicker">Repository 01 · MIT · Community fork</div>
     <div class="repo-bar"><span class="repo-mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 12h4l2.5-6 3 12 2.5-6H20" stroke="#2dd4bf" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>carelink-bridge</h2><a class="repo-slug" href="https://github.com/NovaLux12/carelink-bridge"><code>github.com/NovaLux12/carelink-bridge</code></a><span class="repo-meta">fetch · normalise · upload · <code>v0.2.0</code></span></div>
     <p class="section-sub">Signs into CareLink the way the official app does, piping Medtronic pump and CGM data into Nightscout automatically. A community fork kept alive while upstream is quiet — BLE fix for <b>780G, Guardian 4 and Simplera</b> included.</p>
-    <figure class="photo-slot thumb">
-      <img src="/assets/sensor-macro.jpg" width="1200" height="900" alt="Illustrative close-up photo of a glucose sensor on an arm" loading="lazy">
-      <figcaption>Illustrative photo · the hardware this pipe serves</figcaption>
-    </figure>
     <div class="grid repo-grid">
       <div class="card"><span class="tag safe">Safety</span><h3>mmol/L converted at the source</h3><p>mg/dL values converted at the SGV site — without it, looping clients would over-deliver insulin.</p></div>
       <div class="card"><span class="tag safe">Safety</span><h3>Atomic, locked-down credentials</h3><p>Tokens written atomically with 0600 permissions — wiped only on permanent auth failure, never a blip.</p></div>
@@ -361,6 +354,7 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
     <div class="kicker">How it fits together</div>
     <h2>From sensor to sentence.</h2>
     <p class="section-sub">Four maintained repos form the pipe; the Claude layer turns the flow into something a human — and their clinic — can act on. The toolkit already produces the metrics and visuals; Claude composes them into the story.</p>
+    <div class="pipe-story">
     <div class="pipe cv-pipe" role="list" aria-label="Data pipeline from sensor to sentence">
       <div class="node" role="listitem"><span class="node-step" aria-hidden="true">1</span><b>Pump + CGM</b><span>780G · Guardian 4 · Simplera</span></div><div class="arrow cv-flow" aria-hidden="true">→</div>
       <div class="node" role="listitem"><span class="node-step" aria-hidden="true">2</span><b>carelink-bridge</b><span>fetch · normalise · upload</span></div><div class="arrow cv-flow" aria-hidden="true">→</div>
@@ -373,6 +367,7 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
       <div class="brief"><span class="when">Morning brief · illustrative</span><b>Steady night, one dip at 05:40.</b><span>Time in range 82% overnight. Pattern flagged for your review — every decision stays with you and your clinic.</span></div>
       <div class="brief"><span class="when">Morning brief · illustrative</span><b>More variability than usual after 22:00.</b><span>Overnight trace swings wider than your recent baseline. Worth a look with your diabetes team — nothing here tells you what to do.</span></div>
       <div class="brief"><span class="when">Morning brief · illustrative</span><b>Sensor gap 02:10–02:40, then clean.</b><span>The bridge watchdog logged the gap and resumed on its own. No data was invented to fill it — gaps stay gaps.</span></div>
+    </div>
     </div>
   </section>
 
@@ -392,10 +387,6 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
       </ul>
       <div class="paper-foot" aria-hidden="true"><span>Traceable to Nightscout source data</span><span>Flags only · never advice</span></div>
     </div>
-    <figure class="photo-slot cv-photo">
-      <img src="/assets/clinic-report.jpg" width="1200" height="900" alt="Illustrative photo: a clinician and patient reviewing a one-page health report together" loading="lazy">
-      <figcaption>Illustrative photo · built for this conversation</figcaption>
-    </figure>
   </section>
 
   <div class="mid-cta cv-midcta">

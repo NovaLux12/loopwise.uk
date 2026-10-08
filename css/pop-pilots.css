@@ -1,0 +1,105 @@
+/* pilots-pop.css — pop pass for #pilots ONLY (preview: .tmp/pop/pilots.html).
+   CSS-only interactivity (CSP script-src 'none'): :hover / :focus-within /
+   :focus-visible / :has cross-highlight, transitions + finite keyframes.
+   Layered AFTER css/repos.css; #pilots-scoped throughout. British English. */
+
+/* ---------- card lift + state-pill glow ---------- */
+#pilots .pilot{transition:transform .22s ease,border-color .22s ease,box-shadow .28s ease}
+#pilots .pilot:hover,#pilots .pilot:focus-within{
+  transform:translateY(-3px);
+  border-color:rgba(45,212,191,.55);
+  box-shadow:0 14px 34px -18px rgba(45,212,191,.5);
+}
+#pilots .pilot:hover .pilot-state.live,#pilots .pilot:focus-within .pilot-state.live{
+  box-shadow:0 0 0 .3rem rgba(45,212,191,.18),0 0 18px rgba(45,212,191,.35);
+  border-color:var(--teal);
+}
+#pilots .pilot:hover .pilot-state.recruiting,#pilots .pilot:focus-within .pilot-state.recruiting{
+  border-color:var(--teal);
+  border-style:solid;
+  color:var(--teal);
+  box-shadow:0 0 14px rgba(45,212,191,.25);
+}
+#pilots .pilot .pilot-state{transition:border-color .22s ease,color .22s ease,box-shadow .28s ease}
+
+/* ---------- slotmap rows: hover state ---------- */
+#pilots .slotmap li{transition:transform .2s ease,border-color .2s ease,background-color .2s ease,box-shadow .25s ease}
+#pilots .slotmap li:hover{
+  border-color:rgba(45,212,191,.55);
+  border-style:solid;
+  transform:translateX(3px);
+  box-shadow:0 10px 26px -16px rgba(45,212,191,.5);
+}
+#pilots .slotmap li:hover .dot{background:var(--teal)}
+#pilots .slotmap li.is-live:hover{transform:translateX(3px)}
+
+/* recruiting dots breathe on row hover; live dot breathes deeper on hover */
+@keyframes breathe{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(45,212,191,.45)}50%{transform:scale(1.45);box-shadow:0 0 0 .4rem rgba(45,212,191,0)}}
+#pilots .slotmap li:hover .dot{animation:breathe 1.6s ease-in-out infinite}
+#pilots .slotmap li.is-live:hover .dot{animation:breathe 1.6s ease-in-out infinite}
+
+/* ---------- cross-highlight: row <-> card, both directions ---------- */
+/* hovering slot row 01/02/03 lifts the matching pilot card */
+#pilots .pilot-board:has(.slotmap ol li:nth-child(1):hover) .pilots .pilot:nth-child(1),
+#pilots .pilot-board:has(.slotmap ol li:nth-child(2):hover) .pilots .pilot:nth-child(2),
+#pilots .pilot-board:has(.slotmap ol li:nth-child(3):hover) .pilots .pilot:nth-child(3){
+  transform:translateY(-3px);
+  border-color:rgba(45,212,191,.55);
+  border-style:solid;
+  box-shadow:0 14px 34px -18px rgba(45,212,191,.5);
+}
+#pilots .pilot-board:has(.slotmap ol li:nth-child(1):hover) .pilots .pilot:nth-child(1)::after,
+#pilots .pilot-board:has(.slotmap ol li:nth-child(2):hover) .pilots .pilot:nth-child(2)::after,
+#pilots .pilot-board:has(.slotmap ol li:nth-child(3):hover) .pilots .pilot:nth-child(3)::after{
+  -webkit-text-stroke-color:rgba(45,212,191,.65);
+}
+/* hovering pilot card 01/02/03 highlights the matching slot row */
+#pilots .pilot-board:has(.pilots .pilot:nth-child(1):hover) .slotmap ol li:nth-child(1),
+#pilots .pilot-board:has(.pilots .pilot:nth-child(2):hover) .slotmap ol li:nth-child(2),
+#pilots .pilot-board:has(.pilots .pilot:nth-child(3):hover) .slotmap ol li:nth-child(3){
+  border-color:rgba(45,212,191,.55);
+  border-style:solid;
+  transform:translateX(3px);
+  box-shadow:0 10px 26px -16px rgba(45,212,191,.5);
+}
+#pilots .pilot-board:has(.pilots .pilot:nth-child(1):hover) .slotmap ol li:nth-child(1) .dot,
+#pilots .pilot-board:has(.pilots .pilot:nth-child(2):hover) .slotmap ol li:nth-child(2) .dot,
+#pilots .pilot-board:has(.pilots .pilot:nth-child(3):hover) .slotmap ol li:nth-child(3) .dot{
+  background:var(--teal);
+}
+
+/* ---------- Express interest CTA: arrow nudge + underline draw ---------- */
+#pilots .pilot-cta{
+  display:inline-block;
+  text-decoration:none;
+  background-image:linear-gradient(90deg,var(--teal),var(--teal));
+  background-size:0% 2px;
+  background-position:left calc(100% - 1px);
+  background-repeat:no-repeat;
+  padding-bottom:2px;
+  transition:background-size .25s ease,color .2s ease;
+}
+#pilots .pilot-cta .arr{display:inline-block;transition:transform .22s ease}
+#pilots .pilot-cta:hover,#pilots .pilot-cta:focus-visible{background-size:100% 2px;color:var(--teal)}
+#pilots .pilot-cta:hover .arr,#pilots .pilot-cta:focus-visible .arr{transform:translateX(4px)}
+#pilots .pilot-cta:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:2px}
+
+/* ---------- slotmap meter: fills while the section is hovered ---------- */
+#pilots .slotmap-meter .fill-live{transform-origin:left center}
+#pilots .slotmap-meter .fill-open{transform-origin:left center}
+@keyframes meterfill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+#pilots:hover .slotmap-meter .fill-live{animation:meterfill 1.1s ease-out}
+#pilots:hover .slotmap-meter .fill-open{animation:meterfill 1.1s ease-out .3s backwards}
+
+/* ---------- guards ---------- */
+@media(prefers-reduced-motion:reduce){
+  #pilots .pilot,#pilots .slotmap li,#pilots .pilot-cta,#pilots .pilot-cta .arr{transition:none!important;transform:none!important}
+  #pilots .pilot:hover,#pilots .slotmap li:hover{transform:none!important}
+  #pilots .slotmap li:hover .dot,#pilots .slotmap li.is-live:hover .dot{animation:none!important}
+  #pilots:hover .slotmap-meter .fill-live,#pilots:hover .slotmap-meter .fill-open{animation:none!important}
+}
+@media print{
+  #pilots .pilot,#pilots .slotmap li{transform:none!important;box-shadow:none!important}
+  #pilots .slotmap-meter .fill-live,#pilots .slotmap-meter .fill-open{transform:none!important;animation:none!important}
+  #pilots .pilot-cta{background:none!important;padding-bottom:0;text-decoration:underline}
+}

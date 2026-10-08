@@ -1,0 +1,13 @@
+/* images-pop.css — post-JPG-removal rhythm for #bridge + #sample-brief.
+   Layered AFTER styles.css + css/* + motion.css; deletion fixes only. No JS. */
+
+/* #bridge: the demoted thumb sat between .section-sub and the 9-card grid.
+   With it gone the grid's own top margin carries the rhythm; restore the
+   standard section-sub → content gap the figure used to absorb. */
+#bridge .repo-grid{margin-top:1.5rem}
+
+/* #sample-brief: the .cv-photo sat between the paper artefact and the
+   mid-cta. The paper keeps its own block margin; nothing extra needed —
+   this rule documents the deliberate no-op so a future reader doesn't
+   "fix" a gap that isn't there. */
+#sample-brief .cv-paper{margin-bottom:0}

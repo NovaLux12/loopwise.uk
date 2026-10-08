@@ -26,7 +26,6 @@
 .pilot-state.recruiting .dot{background:var(--faint);animation:none}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(45,212,191,.5)}100%{box-shadow:0 0 0 .55rem rgba(45,212,191,0)}}
 #pilots .photo-side{margin:0;position:sticky;top:5rem;display:flex;flex-direction:column}
-#pilots .photo-side img{aspect-ratio:4/3;object-fit:cover}
 #pilots .photo-side figcaption{border-top:1px solid var(--line);display:flex;gap:.5rem;align-items:baseline}
 @media(max-width:900px){#pilots .photo-side{position:static}}
 
@@ -73,10 +72,6 @@ a.repo-slug:hover{color:var(--teal);text-decoration:none}
 #bridge .repo-grid .card p,#mcp .repo-grid .card p{font-size:.85rem;line-height:1.5}
 /* bridge hardware banner: wide crop, pipe-served feel */
 /* R3: sensor photo demoted to a small captioned thumbnail — the 9-card grid is the proof */
-#bridge .photo-slot.thumb{display:flex;align-items:center;gap:.9rem;margin-top:1.25rem;max-width:30rem;padding:.6rem .9rem .6rem .6rem}
-#bridge .photo-slot.thumb img{width:7.5rem;flex:none;aspect-ratio:4/3;object-fit:cover;border-radius:8px}
-#bridge .photo-slot.thumb figcaption{border-top:0;padding:0;text-transform:none;letter-spacing:.02em;font-size:.8rem}
-@media(max-width:640px){#bridge .photo-slot.thumb img{width:5.5rem}}
 
 /* ---------- toolkit: real-product terminals, designed tabs ---------- */
 .showdown{margin-top:1.5rem}

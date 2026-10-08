@@ -146,8 +146,6 @@ table.cv-compare.cv-compare{font-size:.92rem;min-width:44rem}
   padding:.7rem 1.4rem;background:#efeadd;border-top:1px solid #e2dccb;
   font-family:"JetBrains Mono",monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
   color:var(--cv-paper-mute)}
-.cv-photo{margin-top:1.25rem;border-color:var(--cv-hair)}
-.cv-photo img{aspect-ratio:16/8;object-fit:cover}
 
 /* ---------- mid-cta: genuine conversion moment ---------- */
 .cv-midcta{background:linear-gradient(120deg,rgba(45,212,191,.14),rgba(45,212,191,.04) 55%,transparent),

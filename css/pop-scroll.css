@@ -1,0 +1,245 @@
+/* scroll-pop.css — scroll-driven + ambient pop slice (CSS only, no JS).
+   Covers research ideas #3, #4, #7, #8, #9, #11, #13, #14 in scroll/ambient
+   scope. Sibling slices own card/region interactivity; this file only adds
+   scroll-linked and interaction-triggered motion plus one subtle SMIL-adjacent
+   static context rule. British English throughout.
+   No perpetual hero loops: the only open-ended animations here are the
+   pre-existing desktop brief crossfade (left untouched) and the single
+   contact-frame border orbit mandated by the TOP 8. */
+
+/* ---------- 0. registered custom properties ---------- */
+@property --sp-num {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+@property --sp-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* ---------- 1. scroll progress bar (idea #3) ----------
+   Base wiring already lives in shell.css; this pins scroll(root)
+   explicitly and keeps the teal fill. Fallback + reduced-motion hide. */
+.scroll-progress {
+  animation-timeline: scroll(root);
+}
+@supports not (animation-timeline: scroll(root)) {
+  .scroll-progress { display: none; }
+}
+
+/* ---------- 2. scroll-scrubbed stat count-up (idea #4) ----------
+   Real <em> numerals stay in the DOM (AT + copy-paste). Where
+   view() timelines are supported, the real text is tinted transparent
+   (still selectable) and a counter overlay rolls 0 -> target as garnish. */
+.stats .stat:nth-child(1) { --sp-target: 66; }
+.stats .stat:nth-child(2) { --sp-target: 8; }
+.stats .stat:nth-child(3) { --sp-target: 4; }
+.stats .stat:nth-child(4) { --sp-target: 0; }
+@supports (animation-timeline: view()) {
+  .stats .stat b {
+    position: relative;
+    counter-reset: sp-n var(--sp-num);
+    animation: sp-count 1.4s linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+  }
+  @keyframes sp-count {
+    from { --sp-num: 0; }
+    to { --sp-num: var(--sp-target, 0); }
+  }
+  .stats .stat b em {
+    color: transparent;
+    text-shadow: none;
+  }
+  .stats .stat b::after {
+    content: counter(sp-n);
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--teal);
+    background: var(--surface);
+    padding-right: .5rem;
+  }
+}
+
+/* ---------- 3. animated details (idea #7) ----------
+   Progressive enhancement: glide where ::details-content +
+   interpolate-size are supported, snap open everywhere else. */
+@supports (interpolate-size: allow-keywords) {
+  :root { interpolate-size: allow-keywords; }
+}
+@supports selector(::details-content) {
+  details.faq::details-content {
+    height: 0;
+    opacity: 0;
+    overflow: clip;
+    transition: height .28s ease, opacity .28s ease,
+      content-visibility .28s allow-discrete;
+  }
+  details.faq[open]::details-content {
+    height: auto;
+    opacity: 1;
+  }
+}
+details.faq > summary::after {
+  transition: transform .25s ease;
+}
+details.faq[open] > summary::after {
+  transform: rotate(90deg);
+}
+
+/* ---------- 4. sticky pipeline (idea #11, restrained variant) ----------
+   .pipe-story wraps pipe + briefs (one plain div, aria-clean). On wide
+   screens the diagram pins while the brief captions pass beneath it.
+   Full scrollytelling (sticky stage + scrolling step columns) would need
+   a column restructure owned by the format slice — noted in scroll.md. */
+@media (min-width: 861px) {
+  #pipeline .pipe-story .pipe {
+    position: sticky;
+    top: 4.25rem;
+    z-index: 2;
+    background: var(--bg);
+  }
+}
+
+/* ---------- 5. snap briefs on mobile (idea #14) ----------
+   <=700px the crossfade stack becomes a swipeable snap row; desktop
+   keeps the crossfade. Snapping is user-driven scrolling, so it stays
+   under reduced-motion while the auto-rotation stays off. */
+@media (max-width: 700px) {
+  .briefs {
+    display: flex;
+    gap: .75rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1.5rem;
+    padding-bottom: .5rem;
+    min-height: 0;
+  }
+  .briefs .brief {
+    flex: 0 0 86%;
+    scroll-snap-align: center;
+    position: static;
+    margin: 0;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+/* ---------- 6. rotating gradient border, contact frame ONLY (idea #8) ----------
+   @property angle + conic-gradient ::before; static teal hairline fallback. */
+.contact-frame {
+  position: relative;
+  max-width: 44rem;
+  border: 1px solid rgba(45, 212, 191, .35);
+  border-radius: calc(var(--radius) + 6px);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: var(--surface);
+}
+@supports (background: conic-gradient(from 0deg, red, blue)) {
+  .contact-frame::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: conic-gradient(from var(--sp-angle),
+      transparent 0 68%, var(--teal) 84%, #8ef5e3 90%, transparent 96%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    animation: sp-orbit 7s linear infinite;
+  }
+  @keyframes sp-orbit {
+    to { --sp-angle: 360deg; }
+  }
+}
+
+/* ---------- 8. underline draw, centre-out (idea #9) ----------
+   Nav links (desktop), footer links, pilot + compare CTAs. */
+footer.site .col a,
+.pilot-cta,
+.compare td a {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 50% 100%;
+  background-size: 0% 1px;
+  transition: background-size .22s ease, color .15s ease;
+}
+.pilot-cta,
+.compare td a {
+  background-position: 50% calc(100% - 1px);
+  background-size: 0% 1.5px;
+}
+footer.site .col a:hover,
+footer.site .col a:focus-visible,
+.pilot-cta:hover,
+.pilot-cta:focus-visible,
+.compare td a:hover,
+.compare td a:focus-visible {
+  background-size: 100% 1px;
+  text-decoration: none;
+}
+.pilot-cta:hover,
+.pilot-cta:focus-visible,
+.compare td a:hover,
+.compare td a:focus-visible {
+  background-size: 100% 1.5px;
+}
+@media (min-width: 821px) {
+  nav .links a {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 50% calc(100% - 3px);
+    background-size: 0% 1px;
+    transition: background-size .22s ease, color .15s ease, background-color .15s ease;
+  }
+  nav .links a:hover,
+  nav .links a:focus-visible {
+    background-color: rgba(255, 255, 255, .045);
+    background-size: 100% 1px;
+    text-decoration: none;
+  }
+}
+
+/* ---------- reduced motion: static end-states everywhere ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress { display: none; }
+  .stats .stat b { animation: none; }
+  .stats .stat b::after { display: none; }
+  .stats .stat b em { color: var(--teal); text-shadow: none; }
+  details.faq::details-content { transition: none; }
+  details.faq > summary::after { transition: none; transform: none; }
+  .contact-frame::before { animation: none; }
+  footer.site .col a,
+  .pilot-cta,
+  .compare td a,
+  nav .links a {
+    transition: none;
+  }
+}
+
+/* ---------- print: no hidden content, no motion artefacts ---------- */
+@media print {
+  .scroll-progress { display: none !important; }
+  .stats .stat b { animation: none !important; }
+  .stats .stat b::after { display: none !important; }
+  .stats .stat b em { color: #000 !important; text-shadow: none !important; }
+  details.faq::details-content { transition: none !important; }
+  details.faq > summary::after { transform: none !important; }
+  #pipeline .pipe-story .pipe { position: static !important; background: none !important; }
+  .contact-frame { background: #fff !important; border-color: #999 !important; }
+  .contact-frame::before { display: none !important; }
+  footer.site .col a,
+  .pilot-cta,
+  .compare td a,
+  nav .links a {
+    background-image: none !important;
+  }
+}

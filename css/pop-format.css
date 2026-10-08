@@ -1,0 +1,143 @@
+/* format-pop.css — formatting audit fixes for the pop pass.
+   CSS-only (CSP script-src 'none': no JS). Layered AFTER styles.css +
+   all slice css. Owns ONLY: #open .docs-strip terminal treatment,
+   plus unambiguous whole-page formatting defects (overflow, widowed
+   headings, table affordance, focus gaps, kicker rhythm, print).
+   MUST NOT restyle hero pills/stats/principles, pilots, or photos. */
+
+/* ============ 1. docs-strip: status-line terminal treatment (#open) ============
+   Diagnosis of the user's "empty space here": #open ends with a quiet
+   hairline footnote (repos.css R2 made both docs-strips borderless with
+   only a top hairline), then repos.css adds margin-bottom:
+   clamp(4rem,8vw,7rem) on #bridge/#mcp/#toolkit — so the strip reads as
+   a trailing footnote floating above a full section-gap of dead air
+   before #bridge. Fix: give the #open strip its own designed terminal
+   block (it carries release facts: v0.2.0, BLE fix, mmol/L, doctor,
+   8 releases) and pull #bridge's lead gap back so the strip lands as
+   the section's terminal/status line, not a footnote in a void. */
+#open .docs-strip{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(180deg,rgba(45,212,191,.07),var(--surface) 70%);
+  border:1px solid rgba(45,212,191,.35);
+  border-left:3px solid var(--teal);
+  border-radius:var(--radius);
+  padding:1rem 1.25rem 1rem 3.1rem;
+  font-size:.88rem;
+  line-height:1.65;
+  color:var(--muted);
+  margin-top:1.5rem;
+  margin-bottom:0;
+}
+/* status glyph: teal prompt block, decorative */
+#open .docs-strip::before{
+  content:"$";
+  position:absolute;
+  left:1.15rem;
+  top:1rem;
+  font-family:"JetBrains Mono",monospace;
+  font-weight:600;
+  font-size:.85rem;
+  line-height:1.65;
+  color:var(--teal);
+}
+/* release-facts line stays selectable; trailing summary reads as status */
+#open .docs-strip .cmd-unit{
+  background:rgba(45,212,191,.08);
+  border-style:solid;
+  border-color:rgba(45,212,191,.3);
+}
+#open .docs-strip .cmd-unit:hover{border-color:rgba(45,212,191,.55)}
+/* close the dead-air gap: strip is the terminal line of #open */
+#open{padding-bottom:clamp(2rem,4vw,3rem)}
+#bridge{margin-top:0 !important;padding-top:clamp(2rem,4vw,3rem)}
+/* bridge keeps its own closing air (repos.css margin-bottom untouched) */
+@media(max-width:600px){
+  /* let the release facts flow as text; no orphaned label above a box */
+  #open .docs-strip .cmd-unit{display:inline;padding:.1rem .35rem}
+  #open .docs-strip{padding-left:2.7rem}
+}
+
+/* ============ 2. compare table: mobile scroll affordance + containment ============
+   .compare-wrap scrolls, but at 390px the table (704px) bleeds to the
+   wrap edge with no hint it scrolls; wrap itself reports scrollW 704.
+   Keep scroll (facts intact), add edge fade + scroll-snap start + focus. */
+.compare-wrap{
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain;
+  scrollbar-width:thin;
+  -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 2.5rem),transparent 100%);
+  mask-image:linear-gradient(90deg,#000 calc(100% - 2.5rem),transparent 100%);
+}
+.compare-wrap:focus-within{
+  -webkit-mask-image:none;
+  mask-image:none;
+}
+.compare{min-width:44rem}
+.compare-wrap:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+
+/* ============ 3. announce bar: stop 390px page-width forcing ============
+   .announce-text is nowrap 621px inside body; html/body scrollW 433 at
+   390px viewport. Clamp the bar to the viewport so nothing else pays. */
+.announce{max-width:100%;overflow:hidden}
+.announce-inner{max-width:100%}
+
+/* ============ 4. toolkit terminal: stop 390px page-width forcing ============
+   .term is white-space:pre with long lines (scrollW 446). Contain the
+   scroll inside .term (already overflow-x:auto) instead of the page. */
+.tool-panel{min-width:0;overflow:hidden}
+.term-win{min-width:0;max-width:100%}
+.term{max-width:100%}
+
+/* ============ 5. kicker/h2/sub rhythm: consistent trailing space ============
+   .section-sub margin-bottom varies by section content that follows;
+   normalise: sub followed by a grid/strip/table always gets 1.75rem
+   (already), sub followed by nothing (FAQ) keeps flow. FAQ has no h2 —
+   its kicker+sub opens the section bare; give the sub a terminal margin
+   so the accordion doesn't crowd the kicker block. */
+#faq .section-sub{margin-bottom:1.25rem}
+.kicker + h2{margin-top:0}
+/* widowed short h2s ("What's next.") fine; keep together with sub */
+#roadmap h2,#faq .kicker{break-after:avoid}
+
+/* ============ 6. footer balance: contact col never orphans ============
+   At 820px the 4-col sitemap becomes 2-col; at 480px 1-col. The contact
+   col (email + hint) is the conversion point — keep its lines together
+   and give legal breathing room on narrow screens. */
+footer.site .col{break-inside:avoid}
+footer.site .legal{line-height:1.7}
+
+/* ============ 7. focus-visible gaps: repo slugs, pilot CTAs, faq ============
+   Global rule covers a/.btn only; repo-slug links, pilot CTAs, tool-tab
+   labels and faq summaries need the same visible ring for keyboard. */
+.repo-slug:focus-visible,.pilot-cta:focus-visible,
+.tool-tabs label:focus-visible,details.faq > summary:focus-visible,
+.ship-links a:focus-visible,.safety a:focus-visible{
+  outline:2px solid var(--teal);
+  outline-offset:3px;
+  border-radius:4px;
+}
+
+/* ============ 8. print: docs-strip + compare + safety ============ */
+@media print{
+  #open .docs-strip{
+    background:#fafafa !important;
+    border:1px solid #999 !important;
+    border-left:3px solid #0a7e72 !important;
+    color:#222 !important;
+    padding:.8rem 1rem !important;
+    break-inside:avoid;
+  }
+  #open .docs-strip::before{color:#0a7e72 !important}
+  #open{padding-bottom:.5rem}
+  #bridge{margin-top:0 !important;padding-top:.5rem}
+  .compare-wrap{
+    -webkit-mask-image:none !important;
+    mask-image:none !important;
+    overflow:visible;
+  }
+  .compare{min-width:0}
+}
+@media(prefers-reduced-motion:reduce){
+  #open .docs-strip::before{content:"$"}
+}

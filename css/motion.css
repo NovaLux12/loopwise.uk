@@ -216,10 +216,6 @@ nav .links a {
 /* -- Photo hover (R2: unified 3px nudge grammar, zoom cut) ------------------
    The lone scale(1.015) zoom read accidental beside the lift nudges;
    photos now lift like cards, inside the overflow-hidden cropped slot. */
-.photo-slot { transition: transform var(--dur-micro) var(--ease-out); }
-.photo-slot:hover { transform: translateY(-3px); }
-.photo-slot img { transition: none; }
-.photo-slot:hover img { transform: none; }
 
 /* -- Toolkit tab panel switch entrance ------------------------------------ */
 #tool-reports:checked ~ .tool-panels #panel-reports,
@@ -248,8 +244,6 @@ details.faq[open] > summary ~ * {
 }
 
 /* -- Lightbox entrance (fade backdrop, rise frame) ------------------------- */
-.lightbox:target .lightbox-backdrop { animation: lb-fade .2s var(--ease-out); }
-.lightbox:target .lightbox-frame     { animation: lb-in var(--dur-small) var(--ease-snap); }
 @keyframes lb-fade { from { opacity: 0; } }
 @keyframes lb-in {
   from { opacity: 0; transform: translateY(10px) scale(.98); }
@@ -300,7 +294,7 @@ a:focus-visible, .btn:focus-visible, .to-top:focus-visible {
   .tracer-phone { animation: none !important; opacity: .9 !important; transform: none; offset-distance: 100% !important; }
   .hero .cgm-tracer { animation: none !important; opacity: .9 !important; offset-distance: 100% !important; }
   .card:hover, .tool:hover, .phase:hover,
-  .photo-slot:hover, .to-top:hover, .pilot-cta:hover { transform: none !important; }
+  .to-top:hover, .pilot-cta:hover { transform: none !important; }
 }
 
 /* -- Print: no hidden content, no motion artefacts -------------------------- */
@@ -326,8 +320,8 @@ a:focus-visible, .btn:focus-visible, .to-top:focus-visible {
   }
   .briefs { min-height: 0 !important; }
   .ticker-track, .tracer-phone, .eyebrow::after,
-  .lightbox, details.faq[open] > summary ~ * {
+  details.faq[open] > summary ~ * {
     animation: none !important;
   }
-  .card:hover, .tool:hover, .phase:hover, .photo-slot:hover { transform: none !important; }
+  .card:hover, .tool:hover, .phase:hover { transform: none !important; }
 }

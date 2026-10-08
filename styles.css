@@ -318,19 +318,7 @@ nav .links a.nav-pill:hover{filter:brightness(1.08);text-decoration:none;color:#
 #tool-reports:focus-visible ~ .tool-tabs label[for="tool-reports"],#tool-graph:focus-visible ~ .tool-tabs label[for="tool-graph"]{outline:2px solid var(--teal);outline-offset:3px}
 .tool-panel{display:none}
 #tool-reports:checked ~ .tool-panels #panel-reports,#tool-graph:checked ~ .tool-panels #panel-graph{display:block}
-/* :target lightbox — no JS, click backdrop or close to shut */
-.photo-trigger img{cursor:zoom-in}
-.photo-slot figcaption a.photo-enlarge{color:var(--teal);font-weight:600;margin-right:.25rem}
-.lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:90;padding:1.5rem}
-.lightbox:target{display:flex}
-.lightbox .lightbox-backdrop{position:absolute;inset:0;background:rgba(10,14,20,.94);cursor:zoom-out}
-.lightbox .lightbox-frame{position:relative;margin:0;max-width:92vw;max-height:84vh;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:.85rem;box-shadow:0 24px 60px rgba(0,0,0,.6)}
-.lightbox .lightbox-frame img{max-width:100%;max-height:68vh;height:auto;display:block;border-radius:8px}
-.lightbox .lightbox-close{position:absolute;top:.5rem;right:.5rem;width:2.25rem;height:2.25rem;border-radius:50%;background:var(--bg);border:1px solid var(--line);color:var(--text);font-size:1.3rem;line-height:1;display:flex;align-items:center;justify-content:center;text-decoration:none}
-.lightbox .lightbox-close:hover{background:var(--teal);color:#052e2a;border-color:var(--teal);text-decoration:none}
-.lightbox .lightbox-close:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
-.lightbox figcaption{margin-top:.75rem;color:var(--muted);font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
-.lightbox figcaption a{color:var(--teal);text-decoration:underline}
+/* lightbox removed 2026-10-08 (pop-pass: all photos deleted) */
 /* Releases copy-paste unit — selectable as a block, wraps on mobile */
 .cmd-unit{display:inline-block;padding:.2rem .5rem;margin:0 .15rem;background:var(--surface2);border:1px dashed var(--line);border-radius:6px;color:var(--text);cursor:text;user-select:all;-webkit-user-select:all;font-family:inherit}
 .cmd-unit code{user-select:all;-webkit-user-select:all;background:none;border:0;padding:0;color:var(--text);font-weight:600;margin-right:.15rem}
@@ -341,7 +329,7 @@ nav .links a.nav-pill:hover{filter:brightness(1.08);text-decoration:none;color:#
 .to-top{display:inline-flex;align-items:center;gap:.4rem;margin:0 0 1.5rem;padding:.45rem .85rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--muted);font-family:"JetBrains Mono",monospace;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none}
 .to-top:hover{color:var(--teal);border-color:var(--teal);text-decoration:none}
 .to-top:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
-@media print{.lightbox,.to-top,.tool-tabs{display:none!important}.tool-panel{display:block!important;margin-bottom:1rem;padding-top:.75rem;border-top:1px solid #999;break-inside:avoid}.tool-panel:first-of-type{border-top:0;padding-top:0}}
+@media print{.to-top,.tool-tabs{display:none!important}.tool-panel{display:block!important;margin-bottom:1rem;padding-top:.75rem;border-top:1px solid #999;break-inside:avoid}.tool-panel:first-of-type{border-top:0;padding-top:0}}
 /* Scroll-driven section reveals — progressive, visible by default */
 @keyframes reveal-up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @supports (animation-timeline:view()){.reveal{animation:reveal-up linear both;animation-timeline:view();animation-range:entry 0% cover 28%}}
