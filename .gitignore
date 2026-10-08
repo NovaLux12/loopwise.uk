@@ -1,0 +1,13 @@
+.tmp/
+node_modules/
+*.log
+AGENTS.md
+APPLY.md
+IDENTITY.md
+PROGRESS.md
+README.md
+SOUL.md
+USER.md
+memory/
+media/
+worker.js

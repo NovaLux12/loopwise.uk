@@ -1,0 +1,108 @@
+/* shell.css — site chrome: announce bar, nav, footer, dead-end (404).
+   Linear-grade pass R1. Chrome-only; body sections stay in styles.css.
+   All motion is CSS keyframes / scroll-driven, guarded for reduced motion.
+   No JavaScript required or referenced. */
+:root{
+  --shell-nav-h:3.25rem;
+  --shell-blur:14px;
+  --shell-glow:rgba(45,212,191,.09);
+  --shell-hairline:rgba(45,212,191,.16);
+  --shell-wash:rgba(45,212,191,.08);
+  --shell-pill-text:#052e2a;
+}
+
+/* ---------- announce: truncated static hairline (scrolls away; sticky header is nav alone) ---------- */
+.announce{background:rgba(10,14,20,.6);border-bottom:1px solid var(--line)}
+.announce-inner{display:flex;align-items:center;justify-content:center;gap:.5rem;max-width:72rem;margin:0 auto;padding:.3rem 1.5rem;font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.02em;color:var(--faint)}
+.announce-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.announce b{color:var(--muted);font-weight:600}
+.pulse{flex:none;width:.4rem;height:.4rem;border-radius:50%;background:var(--faint)}
+
+/* ---------- nav: one slim sticky blurred row (Linear-whisper) ---------- */
+nav{position:sticky;top:0;z-index:50;background:rgba(10,14,20,.68);-webkit-backdrop-filter:blur(var(--shell-blur)) saturate(1.35);backdrop-filter:blur(var(--shell-blur)) saturate(1.35);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:1.25rem;min-height:var(--shell-nav-h);height:auto}
+section[id]{scroll-margin-top:3.75rem}
+a.brand{display:inline-flex;align-items:center;gap:.5rem;font-weight:800;letter-spacing:-.02em;font-size:.95rem;color:var(--text);text-decoration:none}
+a.brand:hover{color:var(--text);text-decoration:none}
+a.brand svg{flex:none;display:block;width:20px;height:20px}
+a.brand .wordmark{white-space:nowrap}
+a.brand .wordmark span{color:var(--muted);font-weight:600}
+nav .links{margin-left:auto;display:flex;align-items:center;gap:0;font-size:.83rem;font-weight:500}
+nav .links a{position:relative;color:var(--muted);padding:.35rem .6rem;border-radius:8px;text-decoration:none;transition:color .15s ease,background .15s ease}
+nav .links a:hover{color:var(--text);background:rgba(255,255,255,.045);text-decoration:none}
+nav .links a:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+/* active section without JS: the targeted section reflects back via body :has */
+body:has(#bridge:target) nav .links a[href="#bridge"],
+body:has(#mcp:target) nav .links a[href="#mcp"],
+body:has(#toolkit:target) nav .links a[href="#toolkit"],
+body:has(#pipeline:target) nav .links a[href="#pipeline"],
+body:has(#roadmap:target) nav .links a[href="#roadmap"],
+body:has(#faq:target) nav .links a[href="#faq"]{color:var(--text);background:var(--shell-wash);box-shadow:inset 0 0 0 1px var(--shell-hairline)}
+nav a.nav-pill{flex:none;display:inline-block;padding:.36rem .95rem;border-radius:999px;font-weight:600;font-size:.78rem;background:transparent;color:var(--muted);margin-left:auto;text-decoration:none;border:1px solid var(--line);transition:color .15s ease,border-color .15s ease}
+nav a.nav-pill:hover{color:var(--text);border-color:var(--shell-ring);text-decoration:none;background:var(--shell-wash)}
+/* R3 quietness: only Bridge / MCP / Toolkit / FAQ ride in the header; Pipeline, Roadmap and GitHub live in the footer anchor lists */
+nav .links a[href="#pipeline"],nav .links a[href="#roadmap"],nav .links a[href$="carelink-bridge"]{display:none}
+/* scroll progress hairline: scroll-driven, no JS */
+.scroll-progress{position:absolute;left:0;bottom:-1px;display:block;width:100%;height:2px;transform:scaleX(0);transform-origin:0 50%;background:linear-gradient(90deg,var(--teal),#8ef5e3);animation:shell-scroll linear both;animation-timeline:scroll()}
+@keyframes shell-scroll{to{transform:scaleX(1)}}
+@supports not (animation-timeline:scroll()){
+  .scroll-progress{display:none}
+}
+
+/* mobile: one quiet row (brand + ghost CTA); section links live in the footer anchor lists */
+@media(max-width:820px){
+  nav .wrap{flex-wrap:nowrap;gap:.75rem}
+  nav a.nav-pill{margin-left:auto;white-space:nowrap}
+  nav .links{display:none}
+}
+
+/* ---------- footer: sitemap grid + legal baseline ---------- */
+footer.site{display:flex;flex-direction:column;margin:5rem 0 2.5rem;padding-top:2.5rem;border-top:1px solid var(--line);font-size:.87rem;color:var(--muted)}
+.to-top{align-self:flex-start;display:inline-flex;align-items:center;gap:.4rem;margin:0 0 .25rem;padding:.45rem .9rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--muted);font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;transition:color .15s ease,border-color .15s ease}
+.to-top:hover{color:var(--teal);border-color:var(--shell-ring);text-decoration:none}
+.to-top:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+footer.site .sitemap{display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr;gap:3.5rem 3rem;margin:2.5rem 0 2.75rem;border:0;padding:0}
+footer.site .col .kicker{display:flex;align-items:center;gap:.5rem;margin:0 0 1rem;font-family:"JetBrains Mono",monospace;font-size:.68rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.brand-lockup{display:inline-flex;align-items:center;gap:.55rem;color:var(--text);font-weight:800;font-size:.98rem;letter-spacing:-.01em}
+.brand-lockup svg{flex:none;display:block}
+footer.site .col p{margin:0 0 .6rem;line-height:1.7;max-width:22rem}
+footer.site .col ul{list-style:none;margin:0;padding:0;display:grid;gap:.55rem}
+footer.site .col.nav-col ul{grid-template-columns:1fr 1fr;gap:.55rem 1.75rem}
+footer.site .col li{margin:0}
+footer.site .col ul a{color:var(--muted);text-decoration:none;border-radius:4px;transition:color .15s ease}
+footer.site .col ul a:hover{color:var(--teal);text-decoration:none}
+footer.site .col p a{color:var(--muted);transition:color .15s ease}
+footer.site .col p a:hover{color:var(--teal)}
+footer.site .col .hint{color:var(--faint);font-size:.78rem;margin-top:.7rem;line-height:1.6}
+footer.site .legal{border-top:1px solid var(--line);padding-top:1.25rem;margin-top:0;font-size:.74rem;line-height:1.6;color:var(--faint);letter-spacing:.01em}
+@media(max-width:900px){
+  footer.site .sitemap{grid-template-columns:repeat(2,1fr);gap:2.75rem 2rem}
+}
+@media(max-width:560px){
+  footer.site .sitemap{grid-template-columns:1fr;gap:2.5rem}
+}
+
+/* ---------- dead-end (404): re-centred card, CTAs close the page ---------- */
+.dead-end{min-height:100svh;display:flex;flex-direction:column}
+.dead-end-top{border-bottom:1px solid var(--line);background:rgba(10,14,20,.68);-webkit-backdrop-filter:blur(var(--shell-blur));backdrop-filter:blur(var(--shell-blur))}
+.dead-end-top .wrap{display:flex;align-items:center;min-height:var(--shell-nav-h)}
+.dead-end-main{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;padding:4.5rem 1.5rem;background:radial-gradient(46rem 20rem at 50% -4rem,var(--shell-glow),transparent 70%)}
+.dead-end-card{max-width:34rem;display:flex;flex-direction:column;align-items:center}
+.code-404{display:block;font-family:"JetBrains Mono",monospace;font-weight:600;font-size:clamp(3.25rem,11vw,5rem);line-height:1;letter-spacing:-.04em;background:linear-gradient(180deg,#fff 30%,var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:0}
+.dead-end-card .eyebrow{margin:.9rem 0}
+.dead-end-card h1{font-size:clamp(1.8rem,4.5vw,2.6rem)}
+.dead-end-card .lede{margin-left:auto;margin-right:auto;max-width:28rem}
+.dead-end .cta-row{margin-bottom:0;margin-top:.25rem}
+.ghost-links{display:flex;flex-wrap:wrap;justify-content:center;gap:.35rem;margin:0 0 1.25rem}
+.ghost-links a{padding:.32rem .8rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--faint);font-size:.76rem;font-weight:500;text-decoration:none;transition:color .15s ease,border-color .15s ease}
+.ghost-links a:hover{color:var(--text);border-color:var(--shell-ring);text-decoration:none}
+.slim-foot{border-top:1px solid var(--line);padding:1.25rem 1.5rem 1.5rem;text-align:center;font-family:"JetBrains Mono",monospace;font-size:.74rem;letter-spacing:.02em;color:var(--faint)}
+.slim-foot a{color:var(--muted)}
+
+/* ---------- motion guards ---------- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .pulse,.scroll-progress{animation:none}
+  .scroll-progress{display:none}
+  nav .links a,.ghost-links a,.to-top,nav .links a.nav-pill{transition:none}
+}

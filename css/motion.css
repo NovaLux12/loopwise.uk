@@ -1,0 +1,333 @@
+/* ==========================================================================
+   Loopwise Health — global motion language (css/motion.css)
+   Loads AFTER styles.css and wins. Pure CSS: no JavaScript, no new hosts.
+   Linear-grade feel: fast, snappy micro-interactions, soft cubic-bezier
+   exits. Every duration deliberate; nothing one-shot runs longer than
+   800ms — only ambient loops (ticker, 20s tracer ride-with-dwell, briefs)
+   run open-ended; the caret blink is finite and ends solid. Hero glow and
+   eyebrow sheen stay cut (R2). Entrances use transform/opacity only, so
+   there is no layout shift.
+   British spelling throughout.
+   ========================================================================== */
+
+/* -- Easing + duration palette (applied consistently below) -------------- */
+:root {
+  --ease-out:  cubic-bezier(.2, .7, .2, 1);   /* entrances, lifts */
+  --ease-snap: cubic-bezier(.25, .9, .3, 1);   /* pop-in, press states */
+  --ease-soft: cubic-bezier(.4, 0, .2, 1);    /* line draws, fades */
+  --dur-micro: 150ms;                          /* hovers, presses */
+  --dur-small: 250ms;                          /* popovers, panels */
+  --dur-med:   500ms;                          /* hero entrances */
+  --dur-draw:  800ms;                          /* one-shot line draw, max */
+}
+
+/* -- Base interactive transitions ---------------------------------------- */
+a { transition: color var(--dur-micro) var(--ease-out); }
+nav .links a {
+  transition: color var(--dur-micro) var(--ease-out),
+              border-color var(--dur-micro) var(--ease-out),
+              background-color var(--dur-micro) var(--ease-out);
+}
+.btn {
+  transition: transform var(--dur-micro) var(--ease-out),
+              border-color var(--dur-micro) var(--ease-out),
+              background-color var(--dur-micro) var(--ease-out),
+              filter var(--dur-micro) var(--ease-out);
+}
+.btn:active, .nav-pill:active { transform: scale(.97); }
+.to-top {
+  transition: color var(--dur-micro) var(--ease-out),
+              border-color var(--dur-micro) var(--ease-out),
+              transform .2s var(--ease-out);
+}
+.to-top:hover { transform: translateY(-3px); }
+.tool-tabs label {
+  transition: color var(--dur-micro) var(--ease-out),
+              border-color var(--dur-micro) var(--ease-out),
+              background-color .2s var(--ease-out),
+              transform var(--dur-micro) var(--ease-out);
+}
+.tool-tabs label:active { transform: scale(.97); }
+.cmd-unit, .docs-strip code {
+  transition: border-color var(--dur-micro) var(--ease-out);
+}
+.pilot-cta {
+  display: inline-block;
+  transition: transform var(--dur-micro) var(--ease-out);
+}
+.pilot-cta:hover { transform: translateX(3px); }
+
+/* -- Hero entrance choreography (R2: tightened tail for immediate paint) --
+   Supersedes the styles.css @supports(animation-name:hi) block: .5s rises
+   with ~60ms stagger instead of .7s with ~140ms stagger. Cascade now
+   settles ~.9s (was ~1.1s) so first paint feels immediate; terminal
+   typing starts at 1.1s, after the cascade lands, Linear-style. */
+@keyframes hi {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+@supports (animation-name: hi) {
+  .hero .eyebrow, .hero h1, .hero .lede, .hero .cta-row,
+  .hero .phone-card, .hero .stats, .hero .principles {
+    animation: hi var(--dur-med) var(--ease-out) both;
+  }
+  .hero .eyebrow    { animation-delay: 0s; }
+  .hero h1          { animation-delay: .06s; }
+  .hero .lede       { animation-delay: .12s; }
+  .hero .cta-row    { animation-delay: .18s; }
+  .hero .phone-card { animation-delay: .24s; }
+  .hero .stats      { animation-delay: .30s; }
+  .hero .principles  { animation-delay: .36s; }
+  .hero .hero-pills .pill {
+    animation: hi .45s var(--ease-out) both;
+  }
+  .hero .hero-pills .pill:nth-child(1) { animation-delay: .27s; }
+  .hero .hero-pills .pill:nth-child(2) { animation-delay: .33s; }
+  .hero .hero-pills .pill:nth-child(3) { animation-delay: .39s; }
+}
+
+/* -- Scroll-driven reveals (refined + explicit no-support story) ----------
+   Supersedes the styles.css reveal-up: 10px rise, same view() range.
+   No-support fallback: .reveal is plain visible (no animation applied),
+   so older browsers simply show content — nothing to polyfill. */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+.reveal { opacity: 1; }
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: reveal-up linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 28%;
+  }
+}
+
+/* -- Ambient hero glow: CUT in R2 (critic: near-invisible ambience --------
+   competing with the cascade in the same viewport; stillness does more).
+   The static radial in styles.css .hero::before is untouched; this sheet
+   no longer breathes it. */
+
+/* -- Flow-line draw (fixed + quickened) -----------------------------------
+   Supersedes styles.css .flow-line: dasharray 1200 hid the visible draw in
+   the last fifth of a 5s sweep. Matched to the ~260px path so the whole
+   800ms is visible drawing; the amber dip keeps its .3s stagger. */
+.flow-line {
+  stroke-dasharray: 340;
+  stroke-dashoffset: 340;
+  animation: draw var(--dur-draw) var(--ease-soft) forwards;
+}
+.flow-line.low { animation-delay: .3s; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+/* -- Phone tracer (R3: ride with dwell — true stillness) ----------------------
+   Supersedes styles.css tracer-pulse, the R1 heartbeat, AND the styles.css
+   trip keyframes (from 0% to 100% with no rest): our trip rides ~40% of a
+   20s cycle (~8s traverse), then the dot DWELLS at the end dot, opacity
+   steady, no motion, for the remaining ~12s before looping. Cycle sized
+   deliberately: screenshot page ages (~16s at t15, ~31s at t30, ~2s sweep
+   overhead included) both land mid-dwell with multi-second margins, so the
+   first viewport sits visibly still for seconds at a time. Higher-
+   specificity .hero-scoped rule keeps the styles.css `trip 7s … 5.2s`
+   shorthand from winning; our later @keyframes trip wins the name. */
+.hero .phone-card .tracer-phone,
+.tracer-phone {
+  transform-box: fill-box;
+  transform-origin: center;
+  stroke: #2dd4bf;
+  stroke-opacity: 0;
+  animation: trip 20s linear 1s infinite;
+}
+@keyframes trip {
+  0%        { offset-distance: 0%; opacity: .9; }
+  40%, 100% { offset-distance: 100%; opacity: .9; }
+}
+/* -- CGM hero tracer (composed-cascade stillness) ---------------------------
+   The hero device visual rides a CGM dot (`.cgm-tracer`, hero.css) on its own
+   `cgm-trip` + `cgm-pulse` infinite loops. In the composed cascade the first
+   viewport must sit still after the entrance settles, so motion — owner of
+   keyframes/ambient — parks it at the end dot, mirroring hero.css's
+   park-at-end intent. Hero's rule stays; this later, higher-specificity
+   rule wins the cascade. */
+.hero .cgm-tracer {
+  animation: none;
+  offset-distance: 100%;
+  opacity: .9;
+}
+/* -- Terminal typewriter (R3: finite caret — typing completes, caret rests) -
+   Supersedes styles.css .term .t1/.t2 timings AND the styles.css infinite
+   blink (higher-specificity re-declaration wins on equal origins). Typing
+   still plays after the cascade (1.1s/1.3s); each caret blinks 7 times then
+   ends SOLID (forwards-held `to` frame keeps the teal border visible, no
+   blink). After ~7.7s/9.7s the terminal is pixel-static forever. */
+.toolkit .term .t1, .term .t1 { animation: type1 .7s steps(20, end) 1.1s backwards, blink .8s step-end 1.1s 7 forwards; }
+.toolkit .term .t2, .term .t2 { animation: type2 .8s steps(42, end) 1.3s backwards, blink .8s step-end 1.3s 7 forwards; }
+@keyframes type1 { to { width: 20ch; } }
+@keyframes type2 { to { width: 42ch; } }
+@keyframes blink { 0%, 100% { border-color: var(--teal); } 50% { border-color: transparent; } }
+
+/* -- Eyebrow sheen: CUT in R2 (critic: perpetual motion on the first -----
+   element the eye reads; Linear's eyebrow is static and wins for it).
+   Base styles.css still defines .eyebrow::after + @keyframes sheen, so
+   the loop is killed outright here — content/gradient untouched. */
+.eyebrow::after { animation: none; }
+
+/* -- Morning-brief rotator (R2: opacity-only, positional jitter cut) --------
+   Supersedes styles.css briefcycle (and R1's 6px rise / 4px settle):
+   crossfade with no rise or settle, still absolute-positioned, still no
+   layout shift. 18s ambient loop on the documented soft easing. */
+.brief { animation-timing-function: var(--ease-soft); }
+@keyframes briefcycle {
+  0%        { opacity: 0; }
+  3%        { opacity: 1; }
+  29%       { opacity: 1; }
+  33%, 100% { opacity: 0; }
+}
+
+/* -- Metrics ticker (polish: 40s loop, compositor hint) --------------------
+   Supersedes styles.css tick timing only; hover/focus pause is untouched. */
+.ticker-track { animation: tick 40s linear infinite; will-change: transform; }
+@keyframes tick { to { transform: translateX(-50%); } }
+
+/* -- Unified card hover language (new single rule) -------------------------
+   Supersedes BOTH competing styles.css .card:hover rules (the -2px lift
+   and the separate shadow rule): one -3px lift with border glow plus soft
+   shadow, all on one timing family. Extended gently to tools and phases. */
+.card {
+  transition: transform .2s var(--ease-out),
+              border-color var(--dur-micro) var(--ease-out),
+              box-shadow .25s var(--ease-out);
+}
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(45, 212, 191, .45);
+  box-shadow: 0 12px 30px -12px rgba(45, 212, 191, .35),
+              0 0 0 1px rgba(45, 212, 191, .2);
+}
+.tool, .phase {
+  transition: transform .2s var(--ease-out),
+              border-color var(--dur-micro) var(--ease-out),
+              box-shadow .25s var(--ease-out);
+}
+.tool:hover, .phase:hover {
+  transform: translateY(-3px);
+  border-color: rgba(45, 212, 191, .35);
+}
+
+/* -- Photo hover (R2: unified 3px nudge grammar, zoom cut) ------------------
+   The lone scale(1.015) zoom read accidental beside the lift nudges;
+   photos now lift like cards, inside the overflow-hidden cropped slot. */
+.photo-slot { transition: transform var(--dur-micro) var(--ease-out); }
+.photo-slot:hover { transform: translateY(-3px); }
+.photo-slot img { transition: none; }
+.photo-slot:hover img { transform: none; }
+
+/* -- Toolkit tab panel switch entrance ------------------------------------ */
+#tool-reports:checked ~ .tool-panels #panel-reports,
+#tool-graph:checked ~ .tool-panels #panel-graph {
+  animation: panel-in var(--dur-small) var(--ease-out);
+}
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* -- FAQ open entrance (no-JS best effort) ---------------------------------
+   The markup has no inner wrapper, so the grid-template-rows trick is not
+   available without HTML changes; instead the revealed body gets a short
+   keyframed rise on open. Plus a snappy marker transition. */
+details.faq > summary::after {
+  transition: transform var(--dur-micro) var(--ease-out),
+              color var(--dur-micro) var(--ease-out);
+}
+details.faq[open] > summary ~ * {
+  animation: faq-in var(--dur-small) var(--ease-out);
+}
+@keyframes faq-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* -- Lightbox entrance (fade backdrop, rise frame) ------------------------- */
+.lightbox:target .lightbox-backdrop { animation: lb-fade .2s var(--ease-out); }
+.lightbox:target .lightbox-frame     { animation: lb-in var(--dur-small) var(--ease-snap); }
+@keyframes lb-fade { from { opacity: 0; } }
+@keyframes lb-in {
+  from { opacity: 0; transform: translateY(10px) scale(.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* -- Focus-visible motion (ring eases in rather than snapping) ------------- */
+a:focus-visible, .btn:focus-visible, .to-top:focus-visible {
+  animation: focus-in .18s var(--ease-out);
+}
+@keyframes focus-in {
+  from { outline-offset: 6px; outline-color: transparent; }
+  to   { outline-offset: 3px; }
+}
+
+/* -- Selection (slightly deeper teal wash) --------------------------------- */
+::selection { background: rgba(45, 212, 191, .35); }
+
+/* -- Reduced motion: full coverage, static end-states ----------------------
+   The global shorten-everything rule plus explicit end-states for each
+   one-shot and loop, so nothing is left half-drawn or invisible. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  .reveal,
+  .hero .eyebrow, .hero h1, .hero .lede, .hero .cta-row,
+  .hero .phone-card, .hero .stats, .hero .principles,
+  .hero .hero-pills .pill {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .eyebrow::after { animation: none !important; }
+  .flow-line { stroke-dashoffset: 0 !important; }
+  .term .type { width: auto !important; border-color: var(--teal) !important; }
+  .tracer-phone { offset-distance: 100% !important; opacity: .9 !important; }
+  .brief {
+    position: static !important;
+    opacity: 1 !important;
+    transform: none !important;
+    margin-bottom: .75rem;
+  }
+  .briefs { min-height: 0 !important; }
+  .ticker-track { transform: none !important; }
+  .tracer-phone { animation: none !important; opacity: .9 !important; transform: none; offset-distance: 100% !important; }
+  .hero .cgm-tracer { animation: none !important; opacity: .9 !important; offset-distance: 100% !important; }
+  .card:hover, .tool:hover, .phase:hover,
+  .photo-slot:hover, .to-top:hover, .pilot-cta:hover { transform: none !important; }
+}
+
+/* -- Print: no hidden content, no motion artefacts -------------------------- */
+@media print {
+  .reveal,
+  .hero .eyebrow, .hero h1, .hero .lede, .hero .cta-row,
+  .hero .phone-card, .hero .stats, .hero .principles,
+  .hero .hero-pills .pill {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  .eyebrow::after { animation: none !important; }
+  .flow-line { stroke-dashoffset: 0 !important; animation: none !important; }
+  .term .type { width: auto !important; animation: none !important; border-color: var(--teal) !important; }
+  .tracer-phone { animation: none !important; offset-distance: 100% !important; opacity: .9 !important; }
+  .hero .cgm-tracer { animation: none !important; offset-distance: 100% !important; opacity: .9 !important; }
+  .brief {
+    position: static !important;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  .briefs { min-height: 0 !important; }
+  .ticker-track, .tracer-phone, .eyebrow::after,
+  .lightbox, details.faq[open] > summary ~ * {
+    animation: none !important;
+  }
+  .card:hover, .tool:hover, .phase:hover, .photo-slot:hover { transform: none !important; }
+}
