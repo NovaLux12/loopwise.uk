@@ -124,9 +124,19 @@
     </div>
     <!-- PHOTO SLOT 01: swap assets/placeholder.svg for 1200x900 JPG when pilot photography lands. Same filename pattern: assets/pilots-01.jpg -->
     <figure class="photo-slot">
-      <img src="/assets/placeholder.svg" width="1200" height="900" alt="Standby slate marking where pilot photography will appear" loading="lazy">
-      <figcaption>Pilot photography lands here</figcaption>
+      <a href="#photo-pilots" class="photo-trigger" aria-describedby="photo-cap">
+        <img src="/assets/placeholder.svg" width="1200" height="900" alt="Standby slate marking where pilot photography will appear" loading="lazy">
+      </a>
+      <figcaption id="photo-cap"><a class="photo-enlarge" href="#photo-pilots">View larger</a> · Pilot photography lands here</figcaption>
     </figure>
+    <div id="photo-pilots" class="lightbox" role="dialog" aria-modal="true" aria-label="Pilot photography placeholder">
+      <a href="#pilots" class="lightbox-backdrop" tabindex="-1" aria-hidden="true"></a>
+      <figure class="lightbox-frame">
+        <a href="#pilots" class="lightbox-close" aria-label="Close (return to pilots section)">×</a>
+        <img src="/assets/placeholder.svg" width="1200" height="900" alt="Standby slate marking where pilot photography will appear (full size)">
+        <figcaption>Pilot photography lands here · <a href="#pilots">close</a></figcaption>
+      </figure>
+    </div>
   </section>
 
   <div class="ticker" aria-label="Diabetes metrics Loopwise works with">
@@ -136,7 +146,7 @@
     </div>
   </div>
 
-  <section id="open">
+  <section id="open" class="reveal">
     <div class="kicker">Built in the open</div>
     <h2>You can verify everything we claim.</h2>
     <p class="section-sub">No badges, no invented uptime stats. The pipeline is public, the licence is permissive, and the docs are the same ones we use ourselves.</p>
@@ -154,10 +164,10 @@
         <p>USER-GUIDE, ARCHITECTURE, SECURITY, CONTRIBUTING, ROADMAP, CHANGELOG, plus a <code>docs/adr/</code> folder. README-and-hope isn't the bar.</p>
       </div>
     </div>
-    <div class="docs-strip">Recently shipped: <code>v0.2.0</code> BLE fix for 780G, Guardian 4 and Simplera · mmol/L converted at the source · <code>npm run doctor</code> one-command diagnostics — 8 releases, v0.1.0 to v0.2.0.</div>
+    <div class="docs-strip">Recently shipped: <span class="cmd-unit" tabindex="0" aria-label="Recent release summary"> <code>v0.2.0</code> BLE fix for 780G, Guardian 4 and Simplera · mmol/L converted at the source · <code>npm run doctor</code> one-command diagnostics</span> — 8 releases, v0.1.0 to v0.2.0.</div>
   </section>
 
-  <section id="bridge">
+  <section id="bridge" class="reveal">
     <div class="kicker">Repository 01 · MIT · Community fork</div>
     <div class="repo-head"><h2>carelink-bridge</h2><code>github.com/NovaLux12/carelink-bridge</code></div>
     <p class="section-sub">Pulls Medtronic pump and CGM data into Nightscout automatically by signing into CareLink the way the official app does. A community fork kept alive while upstream is quiet — including the BLE fix for <b>780G, Guardian 4 and Simplera</b> that un-breaks empty-data nights.</p>
@@ -175,7 +185,7 @@
     <div class="docs-strip">Full docs suite, not a README-and-hope: <code>USER-GUIDE.md</code> <code>ARCHITECTURE.md</code> <code>SECURITY.md</code> <code>CONTRIBUTING.md</code> <code>ROADMAP.md</code> <code>CHANGELOG.md</code> <code>docs/adr/</code></div>
   </section>
 
-  <section id="what-you-get">
+  <section id="what-you-get" class="reveal">
     <div class="kicker">What you get</div>
     <h2>Three things, every week.</h2>
     <p class="section-sub">No dashboard to learn. No SaaS login. You get a brief, a PDF, and a paper trail — and you stay in charge of every decision.</p>
@@ -186,7 +196,7 @@
     </div>
   </section>
 
-  <section id="mcp">
+  <section id="mcp" class="reveal">
     <div class="kicker">Repository 02 · MIT · Single-operator fork · Private preview</div>
     <div class="repo-head"><h2>nightscout-mcp</h2><code>Model Context Protocol server for Nightscout</code></div>
     <p class="section-sub">Lets Claude query personal Nightscout data — CGM history, treatments, ISF/CR derivations, AGP/GRI metrics, loop status — and, only with explicit opt-in, log treatments back. Every write is gated, audited, and reversible in feeling if not in fact.</p>
@@ -200,35 +210,43 @@
     </div>
   </section>
 
-  <section id="toolkit">
+  <section id="toolkit" class="reveal">
     <div class="kicker">Repositories 03 + 04 · MIT · Zero dependencies</div>
     <div class="repo-head"><h2>The reporting toolkit.</h2><code>ns-reports · ns-cgm-graph</code></div>
     <p class="section-sub">Two small, sharp Python tools — <b>stdlib only, tested on 3.11–3.13, CI on every push</b> — that turn Nightscout history into numbers and pictures. They are the working seed of the clinic-reports bet: the metrics and visuals our Claude layer will compose into shareable reports.</p>
-    <div class="duo">
-      <div class="tool">
-        <h3><code>ns-reports</code></h3>
-        <div class="meta">weekly generator · text + JSON · pipx / pip / clone-and-run</div>
-        <p>Fetches 7 days of entries and treatments, prints the week that was: averages, variability, time in range, lows and highs, basal/bolus split — plus per-day breakdowns. <b>--json</b> emits one object agents can consume directly.</p>
-        <div class="term"><span class="c type t1">$ ns-reports --days 7</span>
+    <div class="showdown" aria-label="Reporting toolkit — pick a demo">
+      <input type="radio" name="tool-demo" id="tool-reports" class="tool-tab" checked>
+      <input type="radio" name="tool-demo" id="tool-graph" class="tool-tab">
+      <div class="tool-tabs" role="presentation">
+        <label for="tool-reports"><code>ns-reports</code></label>
+        <label for="tool-graph"><code>ns-cgm-graph</code></label>
+      </div>
+      <div class="tool-panels">
+        <div class="tool-panel" id="panel-reports">
+          <h3><code>ns-reports</code></h3>
+          <div class="meta">weekly generator · text + JSON · pipx / pip / clone-and-run</div>
+          <p>Fetches 7 days of entries and treatments, prints the week that was: averages, variability, time in range, lows and highs, basal/bolus split — plus per-day breakdowns. <b>--json</b> emits one object agents can consume directly.</p>
+          <div class="term"><span class="c type t1">$ ns-reports --days 7</span>
 7-day · <span class="g">2009 readings</span>
 avg 8.7 mmol/L · sd 3.2 · GMI 7.2% · CV 36%
 time in range <span class="g">65%</span> · <span class="a">96 lows</span> · 610 highs
 basal 50.0 U · bolus 120.5 U
 <span class="c"># illustrative figures from the project README</span></div>
-      </div>
-      <div class="tool">
-        <h3><code>ns-cgm-graph</code></h3>
-        <div class="meta">SVG charts · any window · pipx / pip / clone-and-run</div>
-        <p>Renders recent CGM data as a clean SVG — hours or days at a flag — ready to embed in a report, a dashboard, or a morning brief. No matplotlib, no browser, no dependencies at all.</p>
-        <div class="term"><span class="c type t2">$ ns-cgm-graph --hours 72 --out cgm-72h.svg</span>
+        </div>
+        <div class="tool-panel" id="panel-graph">
+          <h3><code>ns-cgm-graph</code></h3>
+          <div class="meta">SVG charts · any window · pipx / pip / clone-and-run</div>
+          <p>Renders recent CGM data as a clean SVG — hours or days at a flag — ready to embed in a report, a dashboard, or a morning brief. No matplotlib, no browser, no dependencies at all.</p>
+          <div class="term"><span class="c type t2">$ ns-cgm-graph --hours 72 --out cgm-72h.svg</span>
 fetched <span class="g">864 readings</span> from Nightscout
 wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</span>
 <span class="c"># the hero trace above is drawn the same way</span></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="compare">
+  <section id="compare" class="reveal">
     <div class="kicker">Not your average checkup</div>
     <h2>Manual grind versus Loopwise.</h2>
     <p class="section-sub">The old way works — it just costs evenings. Loopwise keeps the same data, removes the graft.</p>
@@ -247,7 +265,7 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
     </div>
   </section>
 
-  <section id="pipeline">
+  <section id="pipeline" class="reveal">
     <div class="kicker">How it fits together</div>
     <h2>From sensor to sentence.</h2>
     <p class="section-sub">Four maintained repos form the pipe; the Claude layer turns the flow into something a human — and their clinic — can act on. The toolkit already produces the metrics and visuals; Claude composes them into the story.</p>
@@ -266,7 +284,7 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
     </div>
   </section>
 
-  <section id="sample-brief">
+  <section id="sample-brief" class="reveal">
     <div class="kicker">A sample morning</div>
     <h2>This is what lands in your inbox.</h2>
     <p class="section-sub">One paragraph, three flags, zero instructions. Every number traceable to its Nightscout source.</p>
@@ -287,7 +305,7 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
     <a class="btn primary" href="mailto:founder@loopwise.uk">Email the maintainer</a>
   </div>
 
-  <section id="roadmap">
+  <section id="roadmap" class="reveal">
     <div class="kicker">Future plans</div>
     <h2>What's next.</h2>
     <p class="section-sub">The bridge follows a phased, opt-in roadmap — nothing ships until the phase before it is solid. The Claude layer is where the startup bet goes, and the toolkit is its foundation.</p>
@@ -311,7 +329,7 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
     <div class="scope-note"><b>Explicitly out of scope:</b> closed-loop insulin dosing, new alarm sources, anything replacing official CareLink safety notifications. A data bridge that starts making treatment decisions stops being a data bridge.</div>
   </section>
 
-  <section id="faq">
+  <section id="faq" class="reveal">
     <div class="kicker">Frequently asked</div>
     <h2>Honest answers to the questions we keep getting.</h2>
     <p class="section-sub">If yours isn't here, <a href="mailto:founder@loopwise.uk">mail the maintainer</a> — the inbox is read by a person.</p>
@@ -351,7 +369,7 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
     </div>
   </section>
 
-  <section id="contact">
+  <section id="contact" class="reveal">
     <div class="kicker">Get started</div>
     <h2>Email the maintainer.</h2>
     <p class="section-sub">That's the entire onboarding. No form, no funnel, no signup. One email to a person in the UK who reads the inbox themselves — pilot slots, clinic partnerships, bug reports, plain feedback.</p>
@@ -369,6 +387,7 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
   <div class="safety">Research and educational tooling only. Not FDA approved, not a medical device, does not recommend insulin doses. Not affiliated with or endorsed by Medtronic. Every treatment decision stays with the human operator and their diabetes team. Contact: <a href="mailto:founder@loopwise.uk"><code>founder@loopwise.uk</code></a></div>
 
   <footer class="site">
+    <a class="to-top" href="#top" aria-label="Back to top of page">↑ Back to top</a>
     <div class="sitemap">
       <div class="col">
         <span class="kicker">Loopwise Health</span>
