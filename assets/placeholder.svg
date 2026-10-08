@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="phTitle phDesc">
+  <title id="phTitle">Photography placeholder</title>
+  <desc id="phDesc">Branded standby slate marking where pilot photography will go.</desc>
+  <rect x="0" y="0" width="1200" height="900" fill="#101724"/>
+  <rect x="40" y="40" width="1120" height="820" rx="24" fill="none" stroke="#2dd4bf" stroke-width="3" stroke-dasharray="28 20" opacity="0.55"/>
+  <circle cx="600" cy="360" r="72" fill="none" stroke="#2dd4bf" stroke-width="4"/>
+  <path d="M560 360 l28 28 56-60" fill="none" stroke="#2dd4bf" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="600" y="520" text-anchor="middle" fill="#e8edf4" font-family="monospace" font-size="44" font-weight="bold" letter-spacing="6">PHOTOGRAPHY</text>
+  <text x="600" y="580" text-anchor="middle" fill="#93a0b4" font-family="monospace" font-size="28" letter-spacing="3">SLOT 01 · 1200 × 900 JPG</text>
+  <text x="600" y="630" text-anchor="middle" fill="#5d6b82" font-family="monospace" font-size="24" letter-spacing="2">PILOT STORIES LAND HERE</text>
+</svg>
