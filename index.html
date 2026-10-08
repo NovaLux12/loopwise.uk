@@ -47,7 +47,7 @@ nav .links a:hover{color:var(--text);text-decoration:none}
 .btn:hover{text-decoration:none;border-color:var(--teal)}
 .btn.primary{background:var(--teal);border-color:var(--teal);color:#052e2a}
 .btn.primary:hover{filter:brightness(1.08)}
-@media(max-width:700px){nav .links{display:none}}
+@media(max-width:820px){nav .links{display:none}}
 /* hero */
 .hero{padding:4.5rem 0 3rem}
 .eyebrow{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(45,212,191,.35);border-radius:999px;padding:.3rem .9rem;margin-bottom:1.25rem}
@@ -87,6 +87,7 @@ h2{font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:-.02em;margin:0 0 .5rem;fon
 .card p{margin:0;font-size:.9rem;color:var(--muted)}
 .card .tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);border:1px solid rgba(245,165,36,.4);border-radius:6px;padding:.1rem .45rem;margin-bottom:.6rem}
 .card .tag.safe{color:var(--teal);border-color:rgba(45,212,191,.4)}
+.card .tag.neutral{color:var(--muted);border-color:rgba(93,107,130,.4)}
 .card code{font-family:"JetBrains Mono",monospace;font-size:.82rem;color:var(--text)}
 .repo-head{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:.25rem}
 .repo-head code{font-family:"JetBrains Mono",monospace;font-size:.8rem;color:var(--muted)}
@@ -131,6 +132,27 @@ h2{font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:-.02em;margin:0 0 .5rem;fon
 .phase li b{color:var(--text);font-weight:600}
 .scope-note{margin-top:1.25rem;border:1px solid rgba(251,94,122,.4);border-radius:var(--radius);padding:1rem 1.25rem;font-size:.88rem;color:var(--muted)}
 .scope-note b{color:var(--red)}
+/* built in the open strip */
+.open-strip{margin-top:1.5rem;background:var(--surface2);border:1px solid var(--line);border-radius:var(--radius);padding:1.3rem 1.4rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+@media(max-width:800px){.open-strip{grid-template-columns:1fr;gap:1rem}}
+.open-strip>div{min-width:0}
+.open-strip b{display:block;margin-bottom:.3rem;color:var(--text);font-size:.95rem}
+.open-strip p{margin:0;font-size:.86rem;color:var(--muted);line-height:1.55}
+.open-strip code{font-family:"JetBrains Mono",monospace;font-size:.78rem;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:.05rem .4rem}
+/* FAQ accordion */
+.faq-list{margin-top:1rem;display:flex;flex-direction:column;gap:.5rem}
+details.faq{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:0 1.25rem;transition:border-color .15s,background .15s}
+details.faq[open]{background:var(--surface2);border-color:rgba(45,212,191,.35)}
+details.faq>summary{cursor:pointer;padding:1rem 0;font-weight:600;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:1rem;color:var(--text)}
+details.faq>summary::-webkit-details-marker{display:none}
+details.faq>summary::after{content:"+";color:var(--teal);font-family:"JetBrains Mono",monospace;font-size:1.15rem;line-height:1;flex:none;font-weight:400}
+details.faq[open]>summary::after{content:"−"}
+details.faq>summary~*{padding:0 0 1.1rem;color:var(--muted);font-size:.92rem;line-height:1.65;margin:0}
+details.faq>summary~p+p{margin-top:.6rem}
+details.faq a{color:var(--teal)}
+/* contact */
+.contact-cta{margin:0 0 2rem;display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}
+.contact-cta .hint{color:var(--muted);font-size:.85rem}
 /* visual upgrade v3: depth + motion polish */
 .skip{position:absolute;left:-999px;top:0;background:var(--teal);color:#052e2a;padding:.6rem 1rem;border-radius:0 0 10px 0;font-weight:700;z-index:100}
 .skip:focus{left:0}
@@ -142,9 +164,66 @@ h2{font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:-.02em;margin:0 0 .5rem;fon
 footer .contact a{color:var(--muted)}
 footer .contact a:hover{color:var(--teal)}
 .safety{margin-top:3.5rem;background:var(--surface2);border:1px solid var(--line);border-radius:var(--radius);padding:1.25rem 1.4rem;font-size:.85rem;color:var(--muted)}
-footer{margin:3rem 0 2.5rem;padding-top:1.5rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.82rem;color:var(--faint)}
-footer code{font-family:"JetBrains Mono",monospace}
-footer .repo-links{display:flex;gap:1rem;flex-wrap:wrap}
+/* footer sitemap */
+footer.site{margin:3rem 0 2.5rem;padding-top:1.5rem;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+footer.site .sitemap{display:grid;grid-template-columns:repeat(4,1fr);gap:1.75rem;margin-bottom:1.5rem}
+@media(max-width:820px){footer.site .sitemap{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){footer.site .sitemap{grid-template-columns:1fr}}
+footer.site .col .kicker{color:var(--teal);display:block;margin-bottom:.6rem}
+footer.site .col p{margin:0 0 .4rem;line-height:1.55}
+footer.site .col ul{list-style:none;margin:0;padding:0}
+footer.site .col li{margin:0 0 .3rem}
+footer.site .col .hint{color:var(--faint);font-size:.78rem;margin-top:.4rem}
+footer.site .legal{border-top:1px solid var(--line);padding-top:1rem;font-size:.78rem;color:var(--faint)}
+/* print stylesheet — clean output for clinics and the maintainer */
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface2:#fafafa;--line:#bbb;--text:#000;--muted:#333;--faint:#666;--teal:#0a7e72;--amber:#8a5a00;--red:#a01030;--blue:#0b4a8a}
+  body{background:#fff;color:#000;font-size:11pt;line-height:1.4}
+  nav,.hero::before,.pulse,.cta-row,.contact-cta{display:none!important}
+  .hero{padding:0}
+  .hero>svg{display:none}
+  .hero>div.principles{margin-top:1rem;grid-template-columns:repeat(3,1fr);break-inside:avoid}
+  section{padding:.5rem 0}
+  h1{font-size:20pt;margin:0 0 .5rem}
+  h2{font-size:14pt;margin:0 0 .4rem;page-break-after:avoid}
+  .kicker{color:#0a7e72!important}
+  .card,.tool,.node,.phase,.stat,.principle,.open-strip{break-inside:avoid;background:#fff!important;color:#000!important;border-color:#999!important;box-shadow:none}
+  .card:hover,.tool:hover{transform:none}
+  .stats{grid-template-columns:repeat(2,1fr);break-inside:avoid;background:#999}
+  .stat{background:#fff;color:#000}
+  .stat b,.stat b em{color:#000}
+  .grid,.phases,.duo{grid-template-columns:repeat(2,1fr)}
+  .principles{grid-template-columns:repeat(3,1fr)}
+  .pipe{flex-wrap:wrap}
+  .node{flex:1 0 30%;border:1px solid #999;background:#fff;color:#000;margin-bottom:.3rem}
+  .node span,.phase li,.phase .when{color:#333}
+  .flow-line{stroke-dashoffset:0!important;animation:none!important}
+  .term{background:#f5f5f5;color:#000;border-color:#999;white-space:pre-wrap;word-break:break-word}
+  .term .c{color:#666}
+  .term .g{color:#0a7e72}
+  .term .a{color:#8a5a00}
+  a{color:#000;text-decoration:underline}
+  a[href^="http"]::after,a[href^="mailto:"]::after{content:" (" attr(href) ")";font-size:.7em;color:#555;word-break:break-all}
+  details.faq>summary{list-style:none;display:block;cursor:default;font-weight:700;padding:.6rem 0}
+  details.faq>summary::-webkit-details-marker{display:none}
+  details.faq>summary::after{content:""}
+  details.faq>summary~*{display:block!important;padding:0 0 .6rem;color:#222}
+  details.faq{border-color:#999;background:#fff!important;break-inside:avoid}
+  details.faq[open]{background:#fafafa!important}
+  .scope-note{border-color:#999;color:#333;background:#fff}
+  .scope-note b{color:#a01030}
+  .open-strip{background:#fafafa!important;border-color:#999}
+  .open-strip p,.open-strip b{color:#000}
+  .open-strip code{background:#fff;border-color:#999;color:#000}
+  .safety{background:#fafafa!important;border-color:#999;color:#222;break-inside:avoid}
+  .safety a{color:#000}
+  footer.site{border-top-color:#999;color:#000;page-break-before:auto}
+  footer.site .sitemap{grid-template-columns:repeat(2,1fr);break-inside:avoid}
+  footer.site .col .kicker{color:#0a7e72!important}
+  footer.site .col p,footer.site .col li{color:#000}
+  footer.site .col .hint{color:#555}
+  footer.site .legal{border-top-color:#999;color:#333}
+}
 </style>
 </head>
 <body>
@@ -154,7 +233,7 @@ footer .repo-links{display:flex;gap:1rem;flex-wrap:wrap}
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#2dd4bf" stroke-width="2"/><path d="M7 12.5l3 3 7-7.5" stroke="#2dd4bf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     Loopwise Health</a>
   <div class="links">
-    <a href="#bridge">Bridge</a><a href="#mcp">MCP server</a><a href="#toolkit">Toolkit</a><a href="#pipeline">Pipeline</a><a href="#roadmap">Roadmap</a>
+    <a href="#bridge">Bridge</a><a href="#mcp">MCP server</a><a href="#toolkit">Toolkit</a><a href="#pipeline">Pipeline</a><a href="#roadmap">Roadmap</a><a href="#faq">FAQ</a>
     <a href="https://github.com/NovaLux12/carelink-bridge">GitHub</a>
   </div>
 </div></nav>
@@ -167,6 +246,7 @@ footer .repo-links{display:flex;gap:1rem;flex-wrap:wrap}
     <div class="cta-row">
       <a class="btn primary" href="https://github.com/NovaLux12/carelink-bridge">Read the bridge docs</a>
       <a class="btn" href="#roadmap">See what's next</a>
+      <a class="btn" href="#contact">Contact the maintainer</a>
     </div>
     <div class="trace-card">
       <div class="cap"><span>CGM · last 6h · mmol/L normalised to mg/dL</span><span class="live"><span class="pulse"></span>illustrative data</span></div>
@@ -194,6 +274,26 @@ footer .repo-links{display:flex;gap:1rem;flex-wrap:wrap}
     </div>
   </header>
 
+  <section id="open">
+    <div class="kicker">Built in the open</div>
+    <h2>You can verify everything we claim.</h2>
+    <p class="section-sub">No badges, no invented uptime stats. The pipeline is public, the licence is permissive, and the docs are the same ones we use ourselves.</p>
+    <div class="open-strip">
+      <div>
+        <b>CI on every push</b>
+        <p>Tests, linters and <code>npm run doctor</code> run on every commit. Run history is public: <a href="https://github.com/NovaLux12/carelink-bridge/actions">carelink-bridge Actions</a>.</p>
+      </div>
+      <div>
+        <b>MIT across all four repos</b>
+        <p>Fork, patch, self-host, embed. The only ask is the <code>LICENSE</code> file travels with the code.</p>
+      </div>
+      <div>
+        <b>Full docs suite per repo</b>
+        <p>USER-GUIDE, ARCHITECTURE, SECURITY, CONTRIBUTING, ROADMAP, CHANGELOG, plus a <code>docs/adr/</code> folder. README-and-hope isn't the bar.</p>
+      </div>
+    </div>
+  </section>
+
   <section id="bridge">
     <div class="kicker">Repository 01 · MIT · Community fork</div>
     <div class="repo-head"><h2>carelink-bridge</h2><code>github.com/NovaLux12/carelink-bridge</code></div>
@@ -213,7 +313,7 @@ footer .repo-links{display:flex;gap:1rem;flex-wrap:wrap}
   </section>
 
   <section id="mcp">
-    <div class="kicker">Repository 02 · MIT · Single-operator fork</div>
+    <div class="kicker">Repository 02 · MIT · Single-operator fork · Private preview</div>
     <div class="repo-head"><h2>nightscout-mcp</h2><code>Model Context Protocol server for Nightscout</code></div>
     <p class="section-sub">Lets Claude query personal Nightscout data — CGM history, treatments, ISF/CR derivations, AGP/GRI metrics, loop status — and, only with explicit opt-in, log treatments back. Every write is gated, audited, and reversible in feeling if not in fact.</p>
     <div class="grid">
@@ -292,11 +392,91 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
     <div class="scope-note"><b>Explicitly out of scope:</b> closed-loop insulin dosing, new alarm sources, anything replacing official CareLink safety notifications. A data bridge that starts making treatment decisions stops being a data bridge.</div>
   </section>
 
+  <section id="faq">
+    <div class="kicker">Frequently asked</div>
+    <h2>Honest answers to the questions we keep getting.</h2>
+    <p class="section-sub">If yours isn't here, <a href="mailto:founder@loopwise.uk">mail the maintainer</a> — the inbox is read by a person.</p>
+    <div class="faq-list">
+      <details class="faq">
+        <summary>What exactly is Loopwise Health?</summary>
+        <p>A small, maintainer-run project that keeps the open diabetes plumbing alive — a Medtronic CareLink-to-Nightscout bridge, a Nightscout MCP server, and a zero-dependency reporting toolkit — and layers a Claude-powered brief, report and triage workflow on top. See the <a href="#pipeline">pipeline section</a> above for the full picture, and the <a href="#open">built in the open</a> strip for what's actually verifiable.</p>
+      </details>
+      <details class="faq">
+        <summary>Is it safe? Does it dose insulin for me?</summary>
+        <p>No. No dosing decisions are ever delegated to software — the bridge, the MCP server and the Claude layer all work on data, not control. The stack is research and educational tooling only: not a medical device, not FDA approved, and explicitly out of scope for any closed-loop behaviour (see the <a href="#roadmap">roadmap's scope note</a>). Every treatment decision stays with the human operator and their diabetes team.</p>
+      </details>
+      <details class="faq">
+        <summary>Which pumps and CGMs does the bridge support?</summary>
+        <p>Medtronic 780G pumps paired with Guardian 4 or Simplera sensors, fetched via CareLink the way the official app does. The community BLE fix for those three devices is the active testing surface. Other CareLink-compatible models should work but aren't in the regression suite. Closed-loop control of any kind is out of scope.</p>
+      </details>
+      <details class="faq">
+        <summary>How much does it cost?</summary>
+        <p>Free. All four repos — carelink-bridge, nightscout-mcp, ns-reports and ns-cgm-graph — are MIT-licensed. You only pay for the hardware you already own (pump, CGM) and the small VPS you choose to host the bridge on. There's no paid tier, no subscription, and no telemetry sent back to us.</p>
+      </details>
+      <details class="faq">
+        <summary>How do I get started?</summary>
+        <p>Read the <a href="https://github.com/NovaLux12/carelink-bridge">bridge docs</a> on GitHub — the USER-GUIDE walks you from a fresh VPS to a working Nightscout + bridge + Cloudflare tunnel stack in about an hour. Run <code>npm run doctor</code> at any time to check the pipe is healthy. If you hit something the docs don't cover, <a href="#contact">mail the maintainer</a>.</p>
+      </details>
+      <details class="faq">
+        <summary>Can my clinic use the reports?</summary>
+        <p>Yes — that's the whole point of the clinic-reports bet on the <a href="#roadmap">roadmap's "next" phase</a>. The toolkit already emits machine-readable JSON plus per-day breakdowns, so a clinic can audit every number behind the visual. The polished, shareable PDF wrapper is the deliverable we're building next, not something shipping today.</p>
+      </details>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="kicker">Talk to a human</div>
+    <h2>Contact the maintainer.</h2>
+    <p class="section-sub">Solo bootstrapped project, run from the UK. The mailbox is read by a person, not a ticketing system — and there's no SLA behind it.</p>
+    <div class="contact-cta">
+      <a class="btn primary" href="mailto:founder@loopwise.uk">Email founder@loopwise.uk</a>
+      <span class="hint">For everything from bug reports to clinic partnerships to plain feedback.</span>
+    </div>
+    <div class="grid">
+      <div class="card"><span class="tag neutral">Response time</span><h3>Maintainer-run, UK evenings</h3><p>Replies typically within 1–2 working days. There is no on-call rota and no SLA — if your question is about a pump or CGM <i>right now</i>, contact your diabetes team or device vendor first.</p></div>
+      <div class="card"><span class="tag neutral">Help me help you</span><h3>What to include in a message</h3><p>For bugs: which repo, the exact command you ran, what you expected, what happened, and a copy of the relevant log line (redact tokens first). For clinic or partnership enquiries: a couple of lines on your team and what you'd want to see in a report.</p></div>
+      <div class="card"><span class="tag neutral">Where else</span><h3>Open a GitHub issue</h3><p>For bugs and feature requests, opening an issue on the relevant repo is usually faster and gives the next maintainer the context they need. Email is best for things that shouldn't be public — medical details, partnership talks, or security disclosures.</p></div>
+    </div>
+  </section>
+
   <div class="safety">Research and educational tooling only. Not FDA approved, not a medical device, does not recommend insulin doses. Not affiliated with or endorsed by Medtronic. Every treatment decision stays with the human operator and their diabetes team. Contact: <a href="mailto:founder@loopwise.uk"><code>founder@loopwise.uk</code></a></div>
 
-  <footer>
-    <span>© 2026 Loopwise Health · Open diabetes infrastructure + Claude. · <span class="contact"><a href="mailto:founder@loopwise.uk">founder@loopwise.uk</a> · loopwise.uk</span></span>
-    <span class="repo-links"><a href="https://github.com/NovaLux12/carelink-bridge">carelink-bridge</a><a href="https://github.com/NovaLux12/nightscout-mcp">nightscout-mcp</a><a href="https://github.com/NovaLux12/ns-reports">ns-reports</a><a href="https://github.com/NovaLux12/ns-cgm-graph">ns-cgm-graph</a></span>
+  <footer class="site">
+    <div class="sitemap">
+      <div class="col">
+        <span class="kicker">Loopwise Health</span>
+        <p>Open diabetes infrastructure + a Claude-powered layer on top.</p>
+        <p><a href="https://loopwise.uk">loopwise.uk</a></p>
+      </div>
+      <div class="col">
+        <span class="kicker">On this page</span>
+        <ul>
+          <li><a href="#open">Built in the open</a></li>
+          <li><a href="#bridge">Bridge</a></li>
+          <li><a href="#mcp">MCP server</a></li>
+          <li><a href="#toolkit">Reporting toolkit</a></li>
+          <li><a href="#pipeline">Pipeline</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <span class="kicker">Repositories</span>
+        <ul>
+          <li><a href="https://github.com/NovaLux12/carelink-bridge">carelink-bridge</a></li>
+          <li><span>nightscout-mcp (private preview)</span></li>
+          <li><a href="https://github.com/NovaLux12/ns-reports">ns-reports</a></li>
+          <li><a href="https://github.com/NovaLux12/ns-cgm-graph">ns-cgm-graph</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <span class="kicker">Contact</span>
+        <p><a href="mailto:founder@loopwise.uk">founder@loopwise.uk</a></p>
+        <p class="hint">Maintainer-run · UK evenings · 1–2 working days</p>
+      </div>
+    </div>
+    <div class="legal">© 2026 Loopwise Health · Research and educational tooling only · Not a medical device, not FDA approved · Not affiliated with or endorsed by Medtronic</div>
   </footer>
 </div>
 </body>

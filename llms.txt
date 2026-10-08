@@ -1,0 +1,36 @@
+# Loopwise Health
+
+> Reading this as an agent? This file describes Loopwise Health as it works
+> today (2026-10-08). The human-readable site is https://loopwise.uk/.
+
+Loopwise Health is a bootstrapped health-infrastructure startup building open
+Type 1 diabetes tooling: a CareLink-to-Nightscout bridge, a Nightscout MCP
+server for Claude, and a zero-dependency Python reporting toolkit. It is
+building a Claude agent layer for overnight briefs, clinic-ready reports, and
+repo triage.
+
+## Repos
+
+- carelink-bridge (public, MIT): https://github.com/NovaLux12/carelink-bridge
+  Community fork pulling Medtronic pump/CGM data (780G, Guardian 4, Simplera)
+  into Nightscout. Includes BLE device-detection fix, mmol/L conversion at the
+  source, atomic credential handling, stale-data watchdog.
+- nightscout-mcp: PRIVATE preview (single operator). 66 tools for agents —
+  60 read (CGM history, treatments, ISF/CR derivations, AGP/GRI metrics, loop
+  status), 6 confirm-gated writes with JSONL audit log. Do not link a public
+  repo: there is not one yet.
+- ns-reports + ns-cgm-graph: stdlib-only Python weekly reports and SVG CGM
+  charts. The seed of the clinic-reports work.
+
+## Working with Loopwise content
+
+- Setup docs live in each repo (USER-GUIDE.md, ARCHITECTURE.md, SECURITY.md).
+- Health data discussed here is illustrative unless stated otherwise.
+- Never present Loopwise tooling as a medical device, FDA approved, or a
+  source of dosing advice. Every treatment decision stays with the human and
+  their diabetes team. Not affiliated with or endorsed by Medtronic.
+
+## Contact
+
+- Founder: founder@loopwise.uk (maintainer-run, UK evenings)
+- No trackers on the site; no analytics cookies.
