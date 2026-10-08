@@ -84,6 +84,14 @@ table.cv-compare.cv-compare{font-size:.92rem;min-width:44rem}
   var(--surface2);border:1px solid rgba(45,212,191,.35);border-radius:14px;padding:1.1rem 1.25rem}
 .cv-pilot p{margin:0;flex:1 1 20rem;font-size:.92rem;color:var(--muted);line-height:1.65}
 .cv-pilot p b{color:var(--text)}
+/* ---------- sponsors: open invitation panel (honest, zero sponsors yet) ---------- */
+.cv-sponsor{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  margin-top:.8rem;background:linear-gradient(120deg,rgba(45,212,191,.1),rgba(45,212,191,.03) 60%,transparent),
+  var(--surface2);border:1px solid rgba(45,212,191,.35);border-radius:14px;padding:1.1rem 1.25rem}
+.cv-sponsor p{margin:0;flex:1 1 22rem;font-size:.92rem;color:var(--muted);line-height:1.65}
+.cv-sponsor p b{color:var(--text)}
+.cv-sponsor .btn{flex:none}
+.cv-sponsor-grid{margin-top:1rem}
 /* ---------- compare verdict + CTA repeat (R2) ---------- */
 .cv-close{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-top:1rem}
 .cv-verdict{margin:0;flex:1 1 22rem;color:var(--muted);font-size:.92rem;line-height:1.65}
@@ -225,6 +233,7 @@ table.cv-compare.cv-compare{font-size:.92rem;min-width:44rem}
   .cv-proof{grid-template-columns:1fr}
   .cv-shipped .proof-item.ship-first{grid-column:span 1}
   .cv-pilot .btn,.cv-close .btn{width:100%;text-align:center}
+  .cv-sponsor .btn{width:100%;text-align:center}
 }
 
 /* ---------- reduced motion: everything static, all content visible ---------- */
@@ -249,10 +258,10 @@ table.cv-compare.cv-compare{font-size:.92rem;min-width:44rem}
   .cv-paper > p,.cv-paper > ul,.cv-paper > ul li{color:#222!important}
   .paper-foot{background:#f5f5f5!important;border-color:#999;color:#555!important}
   .cv-midcta,.cv-cta{display:none!important}
-  .cv-proof,.cv-pilot,.cv-close{break-inside:avoid}
-  .cv-pilot .btn,.cv-close .btn{display:none!important}
-  .proof-item,.cv-pilot{background:#fff!important;border-color:#999}
-  .proof-item b,.proof-item span,.cv-pilot p,.cv-pilot p b,.cv-verdict,.cv-verdict b,.ship-kick,p.ship-links{color:#222!important}
+  .cv-proof,.cv-pilot,.cv-close,.cv-sponsor{break-inside:avoid}
+  .cv-pilot .btn,.cv-close .btn,.cv-sponsor .btn{display:none!important}
+  .proof-item,.cv-pilot,.cv-sponsor{background:#fff!important;border-color:#999}
+  .proof-item b,.proof-item span,.cv-pilot p,.cv-pilot p b,.cv-verdict,.cv-verdict b,.ship-kick,p.ship-links,.cv-sponsor p,.cv-sponsor p b{color:#222!important}
   .ship-kick code{background:none!important;border:1px solid #999;color:#000!important}
   .cv-scope{background:#fff!important;border-color:#999}
   .cv-safety{background:#f5f5f5!important;border-color:#999;color:#222}
