@@ -91,6 +91,11 @@ h1 .trace{color:var(--teal)}
 .phone-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;display:flex;justify-content:center}
 .phone-card svg{width:100%;max-width:340px;height:auto;display:block}
 .tracer-phone{offset-path:path('M32,274 C70,268 90,264 110,268 S150,256 170,262 S210,276 230,270 S270,264 288,270');offset-distance:0%;animation:trip 7s linear 5.2s infinite}
+/* metrics ticker — signature motion divider, CSS only */
+.ticker{margin-top:1.5rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:.6rem 0;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 2rem,#000 calc(100% - 2rem),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 2rem,#000 calc(100% - 2rem),transparent 100%)}
+.ticker-track{display:inline-flex;gap:2.5rem;width:max-content;white-space:nowrap;animation:tick 45s linear infinite;font-family:"JetBrains Mono",monospace;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.ticker-track span b{color:var(--teal);font-weight:600}
+@keyframes tick{to{transform:translateX(-50%)}}
 /* hero: serif H1 + teal underline accent (Fraunces) */
 h1{font-family:"Fraunces",Georgia,serif;font-weight:700;font-variation-settings:"opsz" 96}
 h1 .u-accent{text-decoration:underline;text-decoration-color:var(--teal);text-decoration-thickness:.12em;text-underline-offset:.18em;text-decoration-skip-ink:none}
@@ -129,7 +134,7 @@ h1 .u-accent{text-decoration:underline;text-decoration-color:var(--teal);text-de
 .brief .when{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:.4rem}
 .brief b{display:block;font-size:1rem;margin-bottom:.25rem}
 .brief span{font-size:.87rem;color:var(--muted)}
-@media(prefers-reduced-motion:reduce){.flow-line{animation:none;stroke-dashoffset:0}.pulse{animation:none}.tracer,.tracer-phone,.pipe div:nth-of-type(even),.term .type,.brief,.eyebrow::after{animation:none!important}.term .type{width:auto!important;border:none}.brief{position:static;opacity:1!important;margin-bottom:.75rem}.briefs{min-height:0}}
+@media(prefers-reduced-motion:reduce){.flow-line{animation:none;stroke-dashoffset:0}.pulse{animation:none}.tracer,.tracer-phone,.ticker-track,.pipe div:nth-of-type(even),.term .type,.brief,.eyebrow::after{animation:none!important}.term .type{width:auto!important;border:none}.brief{position:static;opacity:1!important;margin-bottom:.75rem}.briefs{min-height:0}}
 /* stats */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:3rem 0 0}
 .stat{background:var(--surface);padding:1.4rem 1.25rem}
@@ -256,6 +261,15 @@ nav .links a.nav-pill:hover{filter:brightness(1.08);text-decoration:none;color:#
 .mid-cta{margin:2rem 0 0;background:var(--surface2);border:1px solid rgba(45,212,191,.3);border-radius:var(--radius);padding:1.4rem 1.5rem;display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap}
 .mid-cta p{margin:0;color:var(--muted);font-size:.95rem;flex:1 1 16rem}
 .mid-cta p b{color:var(--text)}
+/* sample brief — a full dated example, static, clearly labelled */
+.sample{margin-top:1.5rem;background:var(--surface);border:1px solid rgba(45,212,191,.3);border-radius:var(--radius);padding:1.4rem 1.5rem}
+.sample .when{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:.4rem}
+.sample h3{margin:0 0 .3rem;font-size:1.15rem}
+.sample h3 em{font-style:normal;color:var(--teal)}
+.sample p{margin:0 0 .6rem;font-size:.9rem;color:var(--muted)}
+.sample ul{margin:.6rem 0 0;padding-left:1.1rem;font-size:.88rem;color:var(--muted)}
+.sample li{margin-bottom:.3rem}
+.sample li b{color:var(--text);font-weight:600}
 .compare-wrap{margin-top:1.5rem;overflow-x:auto}
 .compare{width:100%;border-collapse:collapse;font-size:.88rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
 .compare th,.compare td{text-align:left;padding:.6rem .9rem;border-bottom:1px solid var(--line)}
@@ -266,7 +280,7 @@ nav .links a.nav-pill:hover{filter:brightness(1.08);text-decoration:none;color:#
 @media print{
   :root{--bg:#fff;--surface:#fff;--surface2:#fafafa;--line:#bbb;--text:#000;--muted:#333;--faint:#666;--teal:#0a7e72;--amber:#8a5a00;--red:#a01030;--blue:#0b4a8a}
   body{background:#fff;color:#000;font-size:11pt;line-height:1.4}
-  nav,.hero::before,.pulse,.cta-row,.contact-cta,.announce,.phone-card,.hero-pills,.mid-cta,.nav-pill{display:none!important}
+  nav,.hero::before,.pulse,.cta-row,.contact-cta,.announce,.phone-card,.hero-pills,.mid-cta,.nav-pill,.ticker{display:none!important}
   .hero{padding:0}
   .hero>svg{display:none}
   .hero>div.principles{margin-top:1rem;grid-template-columns:repeat(3,1fr);break-inside:avoid}
@@ -414,6 +428,13 @@ nav .links a.nav-pill:hover{filter:brightness(1.08);text-decoration:none;color:#
     </div>
   </section>
 
+  <div class="ticker" aria-label="Diabetes metrics Loopwise works with">
+    <div class="ticker-track">
+      <span><b>Time in Range</b> · GMI · Coefficient of Variation · AGP · GRI · ISF · Carb Ratio · Basal–Bolus Split · Time Below Range · Dawn Phenomenon · Sensor Gaps · Overnight Variability ·&nbsp;</span>
+      <span aria-hidden="true"><b>Time in Range</b> · GMI · Coefficient of Variation · AGP · GRI · ISF · Carb Ratio · Basal–Bolus Split · Time Below Range · Dawn Phenomenon · Sensor Gaps · Overnight Variability ·&nbsp;</span>
+    </div>
+  </div>
+
   <section id="open">
     <div class="kicker">Built in the open</div>
     <h2>You can verify everything we claim.</h2>
@@ -432,6 +453,7 @@ nav .links a.nav-pill:hover{filter:brightness(1.08);text-decoration:none;color:#
         <p>USER-GUIDE, ARCHITECTURE, SECURITY, CONTRIBUTING, ROADMAP, CHANGELOG, plus a <code>docs/adr/</code> folder. README-and-hope isn't the bar.</p>
       </div>
     </div>
+    <div class="docs-strip">Recently shipped: <code>v0.2.0</code> BLE fix for 780G, Guardian 4 and Simplera · mmol/L converted at the source · <code>npm run doctor</code> one-command diagnostics — 8 releases, v0.1.0 to v0.2.0.</div>
   </section>
 
   <section id="bridge">
@@ -543,6 +565,22 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
     </div>
   </section>
 
+  <section id="sample-brief">
+    <div class="kicker">A sample morning</div>
+    <h2>This is what lands in your inbox.</h2>
+    <p class="section-sub">One paragraph, three flags, zero instructions. Every number traceable to its Nightscout source.</p>
+    <div class="sample">
+      <span class="when">Wednesday 8 Oct · illustrative figures</span>
+      <h3>Steady night, <em>82% in range</em>, one dip at 05:40.</h3>
+      <p>Overnight trace ran 82% in range (3.9–10.0 mmol/L). One dip to 3.4 mmol/L at 05:40, recovered by 06:05 without intervention logged. Sensor gap 02:10–02:40 — the bridge watchdog logged it and resumed on its own. No data was invented to fill it.</p>
+      <ul>
+        <li><b>Worth a look:</b> the 05:40 dip follows two evenings of wider-than-baseline swings after 22:00.</li>
+        <li><b>For your clinic:</b> weekly PDF attached with per-day breakdowns and raw JSON alongside.</li>
+        <li><b>Decisions stay with you</b> and your diabetes team — flags only, never advice.</li>
+      </ul>
+    </div>
+  </section>
+
   <div class="mid-cta">
     <p>Want a brief like that in your inbox each morning? <b>Two pilot slots are open</b> while the Claude layer is in private preview.</p>
     <a class="btn primary" href="mailto:founder@loopwise.uk">Email the maintainer</a>
@@ -600,6 +638,14 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
       <details class="faq">
         <summary>Can my clinic use the reports?</summary>
         <p>Yes — that's the whole point of the clinic-reports bet on the <a href="#roadmap">roadmap's "next" phase</a>. The toolkit already emits machine-readable JSON plus per-day breakdowns, so a clinic can audit every number behind the visual. The polished, shareable PDF wrapper is the deliverable we're building next, not something shipping today.</p>
+      </details>
+      <details class="faq">
+        <summary>Where does my data live?</summary>
+        <p>On your Nightscout instance, which you host — the bridge posts there and nowhere else. There is no telemetry back to us, no analytics on this site, and the MCP server reads your instance on your machine. Confirmed writes are logged to a 0600 JSONL file on your own disk.</p>
+      </details>
+      <details class="faq">
+        <summary>Are you affiliated with Medtronic?</summary>
+        <p>No. The bridge is an MIT-licensed community fork, kept alive while upstream is quiet. Not affiliated with, endorsed by, or sponsored by Medtronic — their trademarks belong to them. If upstream wakes up, we fold our fixes back.</p>
       </details>
     </div>
   </section>
