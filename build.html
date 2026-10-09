@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How it&rsquo;s built — Loopwise Health</title>
-<meta name="description" content="The engineering behind Loopwise Health: the carelink-bridge repository, the 66-tool Nightscout MCP server, the zero-dependency Python reporting toolkit, the architecture decisions, and the live release history.">
+<meta name="description" content="The engineering surface of Loopwise Health: a CareLink-to-Nightscout bridge in TypeScript, an MCP server for Nightscout, and two stdlib-only Python tools. Quick start, architecture, per-repository detail, security model and release history.">
 <meta name="author" content="Loopwise Health">
 <meta name="color-scheme" content="dark">
 <meta property="og:title" content="How it’s built — Loopwise Health">
-<meta property="og:description" content="Four open-source repositories, the architecture decisions behind them, and the live release history. Everything on this page links to code you can read.">
+<meta property="og:description" content="Quick start, architecture, per-repository detail, security model and release history for four open-source Type 1 diabetes tools.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://loopwise.uk/build/">
 <meta property="og:site_name" content="Loopwise Health">
@@ -24,10 +24,10 @@
 <meta property="og:image:alt" content="Loopwise Health — Type 1 data, in plain English.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://loopwise.uk/assets/og-card.png">
-<meta name="twitter:image:alt" content="Loopwise Health — how it is built.">
+<meta name="twitter:image:alt" content="Loopwise Health — Type 1 data, in plain English.">
 <meta name="twitter:title" content="How it’s built — Loopwise Health">
-<meta name="twitter:description" content="Four open-source repositories, the architecture decisions behind them, and the live release history. Everything on this page links to code you can read.">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Loopwise Health","url":"https://loopwise.uk/","logo":"https://loopwise.uk/assets/favicon.svg","description":"Open Type 1 diabetes infrastructure: CareLink-to-Nightscout bridge, Nightscout MCP server, reporting toolkit, Claude-powered briefs.","email":"founder@loopwise.uk","foundingDate":"2026","areaServed":"GB","knowsAbout":["Type 1 diabetes","Continuous glucose monitoring","Nightscout","Model Context Protocol","Medtronic CareLink"],"sameAs":["https://github.com/NovaLux12"]}</script>
+<meta name="twitter:description" content="Quick start, architecture, per-repository detail, security model and release history for four open-source Type 1 diabetes tools.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Loopwise Health","url":"https://loopwise.uk/","logo":"https://loopwise.uk/assets/favicon.svg","description":"Developer surface for Loopwise Health: a CareLink-to-Nightscout bridge in TypeScript, an MCP server for Nightscout, and two stdlib-only Python reporting tools.","email":"founder@loopwise.uk","foundingDate":"2026","areaServed":"GB","knowsAbout":["Type 1 diabetes","Continuous glucose monitoring","Nightscout","Model Context Protocol","Medtronic CareLink"],"sameAs":["https://github.com/NovaLux12"]}</script>
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,6 +46,7 @@
 <link rel="stylesheet" href="/css/pop-scroll.css">
 <link rel="stylesheet" href="/css/pop-format.css">
 <link rel="stylesheet" href="/css/act.css">
+<link rel="stylesheet" href="/css/dev.css">
 </head>
 
 <body>
@@ -58,21 +59,21 @@
     <svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="#2dd4bf" stroke-width="5" opacity=".28"/><circle cx="32" cy="32" r="23" fill="none" stroke="#2dd4bf" stroke-width="5.5"/><path d="M21 33.5l7.5 7.5L44 23" fill="none" stroke="#2dd4bf" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <span class="wordmark">Loopwise <span>Health</span></span></a>
   <div class="links">
-    <a href="#open">Open source</a><a href="#bridge">Bridge</a><a href="#mcp">MCP server</a><a href="#toolkit">Toolkit</a><a href="#faq">Reference</a>
+    <a href="#quickstart">Quick start</a><a href="#repos">Repositories</a><a href="#security">Security</a><a href="#reference">Reference</a>
   </div>
-  <a class="nav-pill" href="mailto:founder@loopwise.uk">Email the maintainer</a>
+  <a class="nav-pill" href="https://github.com/NovaLux12">GitHub</a>
 <span class="scroll-progress" aria-hidden="true"></span></div></nav>
 
 <div class="wrap" id="top">
   <header class="hero">
     <div class="hero-main">
       <div class="hero-copy">
-        <span class="eyebrow">The engineering behind Loopwise</span>
-        <h1>Every line, <span class="u-accent">public</span>.</h1>
-        <p class="lede">Four open-source repositories, the decisions behind them, and the release history — every claim on this page links to code you can read.</p>
+        <span class="eyebrow">Developer surface · not the patient-facing page</span>
+        <h1>Four repositories, <span class="u-accent">one</span> data path.</h1>
+        <p class="lede">A CareLink-to-Nightscout bridge in TypeScript, an MCP server that lets an agent read your Nightscout, and two stdlib-only Python tools. Start below, or read how the pieces fit.</p>
         <div class="cta-row">
-          <a class="btn primary" href="mailto:founder@loopwise.uk">Email the maintainer</a>
-          <a class="btn" href="#open">See what's verifiable</a>
+          <a class="btn primary" href="#quickstart">Quick start</a>
+          <a class="btn" href="#repos">Browse the repositories</a>
         </div>
       </div>
       <div class="hero-visual">
@@ -130,268 +131,215 @@
         <rect x="130" y="408" width="60" height="4" rx="2" fill="#77879f"/>
       </svg>
     </div>
-    <p class="hero-visual-cap">The output the stack below produces · illustrative</p>
+    <p class="hero-visual-cap">The agent layer’s output · illustrative</p>
       </div>
     </div>
     <div class="hero-pills">
-      <a class="pill" href="#mcp"><b>66</b><span>MCP tools, 6 gated writes</span></a>
-      <a class="pill" href="#bridge"><b>15 min</b><span>to set up</span></a>
-      <a class="pill" href="#faq"><b>0</b><span>dosing decisions on the bridge</span></a>
+      <a class="pill" href="#quickstart"><b>15 min</b><span>bridge setup, per the guide</span></a>
+      <a class="pill" href="#repos"><b>3</b><span>public repos, 1 private preview</span></a>
+      <a class="pill" href="#security"><b>0</b><span>telemetry, ever</span></a>
     </div>
     <div class="stats">
-      <div class="stat" tabindex="0"><b><em>66</em></b><span>MCP tools: 60 read, 6 confirm-gated writes</span><span class="so-what">Every write gated and audited — see #mcp</span></div>
-      <div class="stat" tabindex="0"><b><em>8</em></b><span>bridge releases shipped, v0.1.0 to v0.2.0</span><span class="so-what">BLE detection carried from upstream PR #2 — see #bridge</span></div>
-      <div class="stat" tabindex="0"><b><em>4</em></b><span>repos maintained: bridge, MCP, reports, graphs</span><span class="so-what">ns-reports + ns-cgm-graph, stdlib only — see #toolkit</span></div>
-      <div class="stat" tabindex="0"><b><em>0</em></b><span>dosing decisions delegated to software — ever</span><span class="so-what">Research and educational tooling only — see #faq</span></div>
+      <div class="stat" tabindex="0"><b><em>4</em></b><span>repositories · three public and MIT</span><span class="so-what">The fourth is in private preview — see the repository index</span></div>
+      <div class="stat" tabindex="0"><b><em>9</em></b><span>releases shipped across the public repos</span><span class="so-what">v0.1.0 through v0.2.0 on the bridge — see releases</span></div>
+      <div class="stat" tabindex="0"><b><em>2</em></b><span>languages: TypeScript and Python</span><span class="so-what">The Python tools are standard library only — zero dependencies</span></div>
+      <div class="stat" tabindex="0"><b><em>0</em></b><span>runtime dependencies in the Python tools</span><span class="so-what">npm run doctor checks the bridge — see quick start</span></div>
     </div>
     <div class="principles">
-      <div class="principle"><b>Safety first, then clever</b><span>The mmol/L conversion shipped before any feature work. Correctness outranks novelty on every roadmap.</span></div>
-      <div class="principle"><b>Docs or it didn't happen</b><span>User guides, architecture records, security models, changelogs — the bridge ships the full set, and no repo is left at README-and-hope.</span></div>
-      <div class="principle"><b>No silent forks</b><span>Every carried fix is traceable to upstream. If upstream wakes up, we fold back — we're keeping it alive, not replacing it.</span></div>
+      <div class="principle"><b>Correctness before cleverness</b><span>The mmol/L conversion shipped before any feature work. A bridge that misreports units is worse than no bridge at all.</span></div>
+      <div class="principle"><b>Write it down</b><span>Architecture records, security models, changelogs. The bridge carries eight ADRs — the paper trail behind the decisions, including the ones we would reverse.</span></div>
+      <div class="principle"><b>No silent forks</b><span>Every carried fix is traceable upstream. If upstream wakes up, the fixes fold back. This project is keeping it alive, not replacing it.</span></div>
     </div>
   </header>
+
   <main id="main">
-  <section id="open" class="reveal">
-    <div class="kicker">Built in the open · 4 repos · MIT</div>
-    <h2>You can verify everything we claim.</h2>
-    <p class="section-sub">No badges, no invented stats: public pipeline, permissive licence, the same docs we use.</p>
-    <div class="open-strip">
-      <div class="proof">
-        <span class="proof-no">Proof 01</span>
-        <span class="verdict">Check the runs</span>
-        <b>CI on every push</b>
-        <p>Type-check and tests on every push to <code>main</code> and every pull request — <code>tsc --noEmit</code> plus the vitest suite, on Node 20 and 22. Run history is public: <a href="https://github.com/NovaLux12/carelink-bridge/actions">carelink-bridge Actions</a>.</p>
+  <section id="quickstart" class="reveal cv-section">
+    <div class="kicker">Quick start · carelink-bridge</div>
+    <h2>Get the bridge running.</h2>
+    <p class="section-sub">The bridge signs into Medtronic&rsquo;s CareLink service the way the official app does and copies pump and sensor readings into a Nightscout site you run. The user guide budgets about fifteen minutes for the setup itself.</p>
+    <div class="grid">
+      <div class="card"><span class="tag neutral">Requirement</span><h3>Node.js 20 or newer</h3><p>The package declares <code>engines.node &gt;=20.0.0</code>. CI runs on Node 20 and 22, so anything outside that range is untested.</p></div>
+      <div class="card"><span class="tag neutral">Requirement</span><h3>A Medtronic pump on CareLink</h3><p>Anything that uploads to CareLink. The 780G with a Guardian 4 or Simplera sensor is the combination actually exercised by the maintainer&rsquo;s own setup.</p></div>
+      <div class="card"><span class="tag neutral">Requirement</span><h3>Somewhere always on</h3><p>A VPS or a machine that stays awake. The installer is idempotent and there is a hardened systemd unit in the repository.</p></div>
+    </div>
+    <div class="term-win"><div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span class="term-title">carelink-bridge</span><span class="copy-chip">select to copy</span></div><div class="term"><span class="c"># verbatim from the README of NovaLux12/carelink-bridge</span>
+git clone https://github.com/NovaLux12/carelink-bridge.git
+cd carelink-bridge
+npm install &amp;&amp; npm run build
+<span class="g">cp .env.example .env       # then fill in CARELINK_USERNAME, CARELINK_PASSWORD, API_SECRET, NS</span>
+<span class="g">npm run doctor             # pre-flight check</span>
+<span class="g">npm run login              # one-time OAuth login</span>
+<span class="a">npm start                  # fetch loop</span></div></div>
+    <div class="docs-strip">Then read <code>USER-GUIDE.md</code> for the full stack — Nightscout, the bridge, and the tunnel. The repository also ships <code>ARCHITECTURE.md</code> <code>SECURITY.md</code> <code>CONTRIBUTING.md</code> <code>ROADMAP.md</code> <code>CHANGELOG.md</code> and eight architecture decision records under <code>docs/adr/</code>.</div>
+    <div class="grid dev-row">
+      <div class="card"><span class="tag">Already have Nightscout data?</span><h3>Two stdlib-only Python tools</h3><p>Neither talks to Medtronic. They read an existing Nightscout instance and turn history into a weekly report or an SVG chart. Python 3.9 and up; CI currently exercises 3.11 to 3.13.</p></div>
+      <div class="card"><span class="tag">ns-reports</span><h3>Weekly numbers</h3><p>Averages, time in range, lows and highs, basal/bolus split, per-day breakdowns. Text or JSON.</p></div>
+      <div class="card"><span class="tag">ns-cgm-graph</span><h3>SVG charts</h3><p>Recent CGM history as clean SVG, for reports or dashboards. No matplotlib, no browser, no dependencies.</p></div>
+    </div>
+    <div class="term-win"><div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span class="term-title">ns-reports</span><span class="copy-chip">select to copy</span></div><div class="term"><span class="c"># verbatim from the README of NovaLux12/ns-reports</span>
+<span class="c"># clone and run directly (no install)</span>
+git clone https://github.com/NovaLux12/ns-reports.git
+cd ns-reports
+<span class="g">python3 ns-reports.py --help</span>
+
+<span class="c"># isolated CLI via pipx</span>
+<span class="g">pipx install git+https://github.com/NovaLux12/ns-reports.git</span>
+<span class="g">ns-reports --help</span>
+
+<span class="c"># pip in a venv</span>
+<span class="a">pip install .</span></div></div>
+    <div class="term-win"><div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span class="term-title">ns-cgm-graph</span><span class="copy-chip">select to copy</span></div><div class="term"><span class="c"># verbatim from the README of NovaLux12/ns-cgm-graph</span>
+<span class="c"># clone and run directly (no install)</span>
+git clone https://github.com/NovaLux12/ns-cgm-graph.git
+cd ns-cgm-graph
+<span class="g">python3 ns-cgm-graph.py --help</span>
+
+<span class="c"># isolated CLI via pipx</span>
+<span class="g">pipx install git+https://github.com/NovaLux12/ns-cgm-graph.git</span>
+<span class="g">ns-cgm-graph --help</span>
+
+<span class="c"># pip in a venv</span>
+<span class="a">pip install .</span></div></div>
+  </section>
+  <section id="architecture" class="reveal cv-section">
+    <div class="kicker">Architecture · sensor to sentence</div>
+    <h2>How the pieces fit.</h2>
+    <p class="section-sub">Four repositories, one direction of data flow. Everything reads or writes Nightscout, which is the source of truth; nothing writes back to CareLink and nothing touches dosing.</p>
+    <ol class="pipe cv-pipe pipe-list" aria-label="Data flow: pump and sensor upload to CareLink; carelink-bridge copies that into Nightscout; nightscout-mcp lets an agent read it; the Python tools turn history into reports and charts; the Claude layer composes those into briefs and clinic documents.">
+      <li class="node" role="listitem"><span class="node-step" aria-hidden="true">1</span><b>Pump + sensor</b><span>780G · Guardian 4 · Simplera</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
+      <li class="node" role="listitem"><span class="node-step" aria-hidden="true">2</span><b>CareLink</b><span>Medtronic&rsquo;s cloud</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
+      <li class="node" role="listitem"><span class="node-step" aria-hidden="true">3</span><b>carelink-bridge</b><span>fetch · normalise · upload</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
+      <li class="node" role="listitem"><span class="node-step" aria-hidden="true">4</span><b>Nightscout</b><span>source of truth, yours</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
+      <li class="node" role="listitem"><span class="node-step" aria-hidden="true">5</span><b>tools</b><span>MCP server · reports · graphs</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
+      <li class="node agent glow" role="listitem"><span class="node-step" aria-hidden="true">6</span><b>Claude layer</b><span>briefs · reports · triage</span></li>
+    </ol>
+    <div class="grid dev-row">
+      <div class="card"><span class="tag safe">Your machine</span><h3>Everything from step 1 to 5</h3><p>The bridge, the MCP server and both Python tools run on hardware you control, pointed at a Nightscout instance you host. None of them phone home.</p></div>
+      <div class="card"><span class="tag safe">Maintainer-run</span><h3>Step 6 only, and only during the pilot</h3><p>The overnight brief and the clinic-ready PDF are composed by the maintainer, optionally, during the pilot. That is the one piece you do not run yourself.</p></div>
+      <div class="card"><span class="tag">Explicitly not here</span><h3>Anything that doses</h3><p>No closed-loop control, no new alarm sources, and nothing that replaces the official CareLink safety notifications. A data bridge that starts making treatment decisions stops being a data bridge.</p></div>
+    </div>
+  </section>
+  <section id="repos" class="reveal cv-section">
+    <div class="kicker">Repositories · four, three public and MIT</div>
+    <h2>The repository index.</h2>
+    <p class="section-sub">Three are public and readable today. The fourth is in private preview and will be opened when it is ready. Figures below are from the GitHub API on 9 October 2026.</p>
+    <div class="duo">
+      <div class="card">
+        <span class="tag safe">Public · MIT</span>
+        <h3><code>carelink-bridge</code></h3>
+        <p>TypeScript. Copies Medtronic pump and CGM data into Nightscout by signing into CareLink the way the official app does.</p>
+        <p><b>Community fork</b> of <code>domien-f/carelink-bridge</code>. Eight releases, v0.1.0 through <code>v0.2.0</code> (22 July 2026). CI on Node 20 and 22. Eight architecture decision records. 8 open issues.</p>
+        <p><a href="https://github.com/NovaLux12/carelink-bridge">github.com/NovaLux12/carelink-bridge</a></p>
       </div>
-      <div class="proof">
-        <span class="proof-no">Proof 02</span>
-        <span class="verdict">Read the licence</span>
-        <b>MIT across all four repos</b>
-        <p>Fork, patch, self-host, embed. The only ask is the <code>LICENSE</code> file travels with the code.</p>
-      </div>
-      <div class="proof">
-        <span class="proof-no">Proof 03</span>
-        <span class="verdict">Read the docs</span>
-        <b>Docs per repo, not README-and-hope</b>
-        <p>The bridge ships USER-GUIDE, ARCHITECTURE, SECURITY, CONTRIBUTING, ROADMAP, CHANGELOG and eight ADRs. The MCP server ships ARCHITECTURE, CHANGELOG and a 13-file docs set. The Python tools ship README, USER-GUIDE and SECURITY. README-and-hope isn't the bar.</p>
+      <div class="card">
+        <span class="tag">Private preview</span>
+        <h3><code>nightscout-mcp</code></h3>
+        <p>A Model Context Protocol server over Nightscout, so an assistant can read history, treatments, ISF/carb-ratio derivations and AGP/GRI metrics.</p>
+        <p><b>60 read tools, 6 write tools.</b> Writes dry-run unless a literal confirm flag is passed on the same call. Single-operator fork, no public repository yet — ask if you need access.</p>
       </div>
     </div>
-    <div class="docs-strip">Latest tag <span class="cmd-unit"> <code>v0.2.0</code>, 22 July 2026 · 31 commits on <code>main</code> since (as of 8 Oct) · BLE detection carried from upstream PR #2 · mmol/L converted at the source · <code>npm run doctor</code> one-command diagnostics</span></div>
+    <div class="duo">
+      <div class="card">
+        <span class="tag safe">Public · MIT</span>
+        <h3><code>ns-reports</code></h3>
+        <p>Python, standard library only. Turns Nightscout history into weekly numbers: averages, variability, time in range, lows and highs, basal/bolus split, per-day.</p>
+        <p><b>Version <code>v0.2.0</code></b>, published by tag. No GitHub release object exists for it yet. CI on Python 3.11 to 3.13.</p>
+        <p><a href="https://github.com/NovaLux12/ns-reports">github.com/NovaLux12/ns-reports</a></p>
+      </div>
+      <div class="card">
+        <span class="tag safe">Public · MIT</span>
+        <h3><code>ns-cgm-graph</code></h3>
+        <p>Python, standard library only. Renders recent CGM data as SVG over any window — hours or days — for reports, dashboards and briefs.</p>
+        <p><b>One release, <code>v0.1.0</code></b> (20 August 2026). CI on Python 3.11 to 3.13. No matplotlib, no browser, no dependencies.</p>
+        <p><a href="https://github.com/NovaLux12/ns-cgm-graph">github.com/NovaLux12/ns-cgm-graph</a></p>
+      </div>
+    </div>
   </section>
-
-  <section id="bridge" class="reveal repo-pipe" aria-label="carelink-bridge repository">
-    <div class="kicker">Repository 01 · MIT · Community fork</div>
-    <div class="repo-bar"><span class="repo-mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 12h4l2.5-6 3 12 2.5-6H20" stroke="#2dd4bf" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>carelink-bridge</h2><a class="repo-slug" href="https://github.com/NovaLux12/carelink-bridge"><code>github.com/NovaLux12/carelink-bridge</code></a><span class="repo-meta">fetch · normalise · upload · <code>v0.2.0</code></span></div>
-    <p class="section-sub">Signs into CareLink the way the official app does, piping Medtronic pump and CGM data into Nightscout automatically. A community fork kept alive while upstream is quiet — carrying the BLE detection fix from upstream PR #2 by @terminalcommand, with the wire-vocabulary correction now in flight.</p>
+  <section id="mcp" class="reveal repo-agent" aria-label="nightscout-mcp agent server">
+    <div class="kicker">Agent layer · nightscout-mcp · private preview</div>
+    <div class="repo-bar"><span class="repo-mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="7" y="7" width="10" height="10" rx="2.5" stroke="#2dd4bf" stroke-width="1.8"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3" stroke="#2dd4bf" stroke-width="1.8" stroke-linecap="round"/></svg></span><h2>The tool surface, and why it is shaped that way</h2><span class="repo-slug"><code>Model Context Protocol server for Nightscout</code></span><span class="repo-meta">60 read · 6 gated writes</span></div>
+    <p class="section-sub">An agent asking questions about your glucose data should be boring and read-only. Everything interesting about this server is in what it refuses to do by default.</p>
     <div class="grid repo-grid">
-      <div class="card"><span class="tag safe">Safety</span><h3>mmol/L converted at the source</h3><p>mg/dL values converted at the SGV site — without it, looping clients would over-deliver insulin.</p></div>
-      <div class="card"><span class="tag safe">Safety</span><h3>Atomic, locked-down credentials</h3><p>Tokens written atomically with 0600 permissions — wiped only on permanent auth failure, never a blip.</p></div>
-      <div class="card"><h3>BLE detection, carried upstream</h3><p>Upstream PR #2 by @terminalcommand, cherry-picked with a regression test. Issues #81 and #73 are open on the wire vocabulary — no 780G data has flowed through it yet.</p></div>
-      <div class="card"><h3><code>npm run doctor</code></h3><p>One command checks env, CareLink and Nightscout reachability, and token validity. It exits non-zero on failure; nothing calls it automatically yet.</p></div>
-      <div class="card"><h3>Stale-data watchdog</h3><p>Warns after 15 quiet minutes without a fetch; optionally POSTs a webhook.</p></div>
-      <div class="card"><h3>Status-aware retries</h3><p>Capped backoff with jitter that honours Retry-After; rationale published in eight ADRs.</p></div>
-      <div class="card"><h3>15-minute deploy</h3><p>Hardened systemd unit, idempotent installer, compose stack — the user guide budgets about 15 minutes for first-time setup.</p></div>
-      <div class="card"><h3>Three login strategies</h3><p>An automated Auth0 POST with PKCE, a visible browser window when CAPTCHA or MFA gets in the way, and a terminal paste as the last resort — nights do not wait.</p></div>
-      <div class="card"><h3>Alarms surfaced, not sent</h3><p>CareLink alarms surface as Nightscout devicestatus, priority-1 always logged — never relayed as treatments.</p></div>
-    </div>
-    <div class="docs-strip">Full docs suite, not a README-and-hope: <code>USER-GUIDE.md</code> <code>ARCHITECTURE.md</code> <code>SECURITY.md</code> <code>CONTRIBUTING.md</code> <code>ROADMAP.md</code> <code>CHANGELOG.md</code> <code>docs/adr/</code></div>
-  </section>
-
-  <section id="mcp" class="reveal repo-agent" aria-label="nightscout-mcp repository">
-    <div class="kicker">Repository 02 · MIT · Single-operator fork · Private preview</div>
-    <div class="repo-bar"><span class="repo-mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="7" y="7" width="10" height="10" rx="2.5" stroke="#2dd4bf" stroke-width="1.8"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3" stroke="#2dd4bf" stroke-width="1.8" stroke-linecap="round"/></svg></span><h2>nightscout-mcp</h2><span class="repo-slug"><code>Model Context Protocol server for Nightscout</code></span><span class="repo-meta">60 read · 6 gated writes</span></div>
-    <p class="section-sub">Claude queries Nightscout data — CGM history, treatments, ISF/CR, AGP/GRI, loop status — and, only with explicit opt-in, logs treatments back. Every write gated and audited.</p>
-    <div class="grid repo-grid">
-      <div class="card"><span class="tag safe">Safety</span><h3>Confirm-gated writes</h3><p>6 write tools dry-run by default; only a literal confirm flag on the same call posts — every write lands in a 0600 JSONL audit log.</p></div>
-      <div class="card"><span class="tag safe">Safety</span><h3>Two-token access control</h3><p>Read token unlocks the 60 read tools; a separate write token plus master switch unlock the 6 writes. Full-admin refused.</p></div>
-      <div class="card"><h3>60 read tools</h3><p>v1, v2 and modern v3 search/history APIs — plus analytics, pattern detection, AGP/GRI and AAPS/loop status.</p></div>
-      <div class="card"><h3>Token-leak-proof logging</h3><p>Error paths log exception types, never messages — validators embed rejected input. A canary test enforces it.</p></div>
-      <div class="card"><h3>Speaks HTTP too</h3><p>Stdio for Claude Desktop, streamable HTTP for agent clients — non-loopback binds refused unless opted in.</p></div>
-      <div class="card"><h3>Warns before you do</h3><p>Startup banner surfaces the two reasons writes would fail: careportal disabled, runtime still loading.</p></div>
+      <div class="card"><span class="tag safe">Default posture</span><h3>Writes dry-run</h3><p>All six write tools simulate unless a literal confirm flag is present on the same call. There is no ambient authorisation and no session that stays open.</p></div>
+      <div class="card"><span class="tag safe">Default posture</span><h3>Two-token access control</h3><p>A read token unlocks the sixty read tools. A separate write token, plus a master switch, unlocks the six writes. Full-admin is refused outright.</p></div>
+      <div class="card"><span class="tag safe">Default posture</span><h3>Every write is on disk</h3><p>Confirmed writes land in a 0600 JSONL audit log on your own filesystem. Grep it, ship it to a clinician, delete it — it is your file.</p></div>
+      <div class="card"><h3>Two transports</h3><p>stdio for a desktop assistant, streamable HTTP for agent clients. Binds other than loopback are refused unless you opt in explicitly.</p></div>
+      <div class="card"><h3>Validator-safe logging</h3><p>Error paths log exception types, never messages, so a rejected token cannot leak into the log. A canary test enforces it.</p></div>
+      <div class="card"><h3>Fails at startup, loudly</h3><p>The launch banner names the two reasons writes would fail — careportal disabled, or runtime still loading — before an agent tries and fails silently.</p></div>
     </div>
   </section>
-
-  <section id="toolkit" class="reveal">
-    <div class="kicker">Repositories 03 + 04 · MIT · Zero dependencies</div>
-    <div class="repo-bar"><span class="repo-mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 8l4 4-4 4M12 16h7" stroke="#2dd4bf" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>The reporting toolkit.</h2><span class="repo-slug"><code>ns-reports · ns-cgm-graph</code></span><span class="repo-meta">stdlib only · <code>3.9+</code> · CI <code>3.11–3.13</code></span></div>
-    <p class="section-sub">Two stdlib-only Python tools (<b>3.9 and up, CI on 3.11–3.13</b>) turning Nightscout history into numbers and pictures — the seed of the clinic-reports bet.</p>
-    <div class="showdown" aria-label="Reporting toolkit — pick a demo">
-      <input type="radio" name="tool-demo" id="tool-reports" class="tool-tab" checked>
-      <input type="radio" name="tool-demo" id="tool-graph" class="tool-tab">
-      <div class="tool-tabs" role="presentation">
-        <label for="tool-reports"><code>ns-reports</code></label>
-        <label for="tool-graph"><code>ns-cgm-graph</code></label>
-      </div>
-      <div class="tool-panels">
-        <div class="tool-panel" id="panel-reports">
-          <h3><code>ns-reports</code></h3>
-          <div class="meta">weekly generator · text + JSON · pipx / pip / clone-and-run</div>
-          <p>7 days of entries and treatments — averages, variability, time in range, lows and highs, basal/bolus split, per-day breakdowns. <b>--json</b> emits one object agents can consume directly.</p>
-          <div class="term-win"><div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span class="term-title">ns-reports — weekly generator</span><span class="copy-chip">select to copy</span></div><div class="term"><span class="c type t1">$ ns-reports --days 7</span>
-7-day · <span class="g">2009 readings</span>
-avg 8.7 mmol/L · sd 3.2 · GMI 7.2% · CV 36%
-time in range <span class="g">65%</span> · <span class="a">96 lows</span> · 610 highs
-basal 50.0 U · bolus 120.5 U
-<span class="c"># illustrative figures from the project README</span></div></div>
-        </div>
-        <div class="tool-panel" id="panel-graph">
-          <h3><code>ns-cgm-graph</code></h3>
-          <div class="meta">SVG charts · any window · pipx / pip / clone-and-run</div>
-          <p>Recent CGM data as clean SVG — hours or days at a flag — for reports, dashboards, morning briefs. No matplotlib, no browser, no dependencies.</p>
-          <div class="term-win"><div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span class="term-title">ns-cgm-graph — svg charts</span><span class="copy-chip">select to copy</span></div><div class="term"><span class="c type t2">$ ns-cgm-graph --hours 72 --out cgm-72h.svg</span>
-fetched <span class="g">864 readings</span> from Nightscout
-wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</span>
-<span class="c"># the hero trace above is drawn the same way</span></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="pipeline" class="reveal cv-section">
-    <div class="kicker">Pipeline · sensor to sentence</div>
-    <h2>From sensor to sentence.</h2>
-    <p class="section-sub">Four maintained repos form the pipe; the Claude layer turns the flow into something a human — and their clinic — can act on. The toolkit already produces the metrics and visuals; Claude composes them into the story.</p>
-    <div class="pipe-story">
-    <div class="pipe cv-pipe" role="list" aria-label="Data pipeline from sensor to sentence">
-      <div class="node" role="listitem"><span class="node-step" aria-hidden="true">1</span><b>Pump + CGM</b><span>780G · Guardian 4 · Simplera</span></div><div class="arrow cv-flow" aria-hidden="true">→</div>
-      <div class="node" role="listitem"><span class="node-step" aria-hidden="true">2</span><b>carelink-bridge</b><span>fetch · normalise · upload</span></div><div class="arrow cv-flow" aria-hidden="true">→</div>
-      <div class="node" role="listitem"><span class="node-step" aria-hidden="true">3</span><b>Nightscout</b><span>source of truth</span></div><div class="arrow cv-flow" aria-hidden="true">→</div>
-      <div class="node" role="listitem"><span class="node-step" aria-hidden="true">4</span><b>nightscout-mcp</b><span>66 tools for agents</span></div><div class="arrow cv-flow" aria-hidden="true">→</div>
-      <div class="node" role="listitem"><span class="node-step" aria-hidden="true">5</span><b>reports + graphs</b><span>metrics · visuals</span></div><div class="arrow cv-flow" aria-hidden="true">→</div>
-      <div class="node agent glow" role="listitem"><span class="node-step" aria-hidden="true">6</span><b>Claude layer</b><span>briefs · reports · triage</span></div>
-    </div>
-    <div class="briefs cv-briefs" aria-label="Illustrative morning brief preview">
-      <div class="brief"><span class="when">Morning brief · illustrative</span><b>Steady night, one dip at 05:40.</b><span>Time in range 82% overnight. Pattern flagged for your review — every decision stays with you and your clinic.</span></div>
-      <div class="brief"><span class="when">Morning brief · illustrative</span><b>More variability than usual after 22:00.</b><span>Overnight trace swings wider than your recent baseline. Worth a look with your diabetes team — nothing here tells you what to do.</span></div>
-      <div class="brief"><span class="when">Morning brief · illustrative</span><b>Sensor gap 02:10–02:40, then clean.</b><span>The bridge watchdog logged the gap and resumed on its own. No data was invented to fill it — gaps stay gaps.</span></div>
-    </div>
-    </div>
-  </section>
-
-  <section id="roadmap" class="reveal cv-section">
-    <div class="kicker">Roadmap · now · next · later</div>
-    <h2>What's next.</h2>
-    <p class="section-sub">The bridge follows a phased, opt-in roadmap — nothing ships until the phase before it is solid. The Claude layer is where the startup bet goes, and the toolkit is its foundation.</p>
-    <div class="phases cv-phases">
-      <div class="phase now"><span class="phase-state" aria-hidden="true">Now · building</span><h3>Now</h3><span class="when">In progress · gated on real data</span><ul>
-        <li><b>Proven on real pump data</b> — live 780G account validation when the pump arrives; deferred payload items verified, not assumed.</li>
-        <li><b>Survives outages (v0.3):</b> circuit breaker for CareLink outages, persistent fetch-state, refresh-before-expiry.</li>
-        <li><b>Visible when it breaks (v0.4):</b> structured JSON logs plus a Prometheus /metrics endpoint.</li>
-      </ul></div>
-      <div class="phase next"><span class="phase-state" aria-hidden="true">Next · the bet</span><h3>Next — the Claude layer</h3><span class="when">The startup bet · built on Claude</span><ul>
-        <li><b>A brief worth waking to:</b> overnight-trace agent reviews the night via the MCP tools, drafts a morning brief with pattern flags.</li>
-        <li><b>Reports clinics accept:</b> toolkit metrics + graphs composed into shareable PDFs a diabetes team can read.</li>
-        <li><b>Answers without the wait:</b> repo triage automation for faster, safer answers on community issues across all four repos.</li>
-      </ul></div>
-      <div class="phase later"><span class="phase-state" aria-hidden="true">Later · proposed</span><h3>Later</h3><span class="when">Proposed · low priority until the core is boring</span><ul>
-        <li><b>Installs anywhere:</b> single static binary, Docker image, Home Assistant add-on.</li>
-        <li><b>Households included:</b> multi-account / caregiver mode and a mock CareLink server for testing.</li>
-        <li><b>Clean seams:</b> library split into client + uploader + daemon once the API settles.</li>
-      </ul></div>
-    </div>
-    <div class="scope-note cv-scope"><span class="scope-rail" aria-hidden="true"></span><div><b>Explicitly out of scope:</b> closed-loop insulin dosing, new alarm sources, anything replacing official CareLink safety notifications. A data bridge that starts making treatment decisions stops being a data bridge.</div></div>
-  </section>
-
-  <section id="proof" class="reveal cv-section" aria-label="Why you can trust Loopwise">
-    <div class="kicker">Proof, not promises · releases · runs · licence</div>
-    <h2>Don't take our word for it.</h2>
-    <p class="section-sub">No testimonials yet — the pilot programme is still recruiting. So here is what you can check yourself, right now.</p>
-    <div class="cv-proof cv-shipped">
-      <a class="proof-item ship-first" href="https://github.com/NovaLux12/carelink-bridge/blob/main/CHANGELOG.md"><span class="ship-kick">Latest tag · <code>v0.2.0</code>, 22 July 2026</span><b>Eight releases, v0.1.0 to v0.2.0</b><span>31 commits on <code>main</code> since the tag, as of 8 October · mmol/L converted at the source · <code>npm&nbsp;run&nbsp;doctor</code> one-command diagnostics · BLE detection carried from upstream PR #2. Read it, diff it, run it.</span></a>
-      <a class="proof-item" href="https://github.com/NovaLux12/carelink-bridge/actions"><b>CI on every push</b><span>Types and tests, Node 20 and 22 — public run history.</span></a>
-      <a class="proof-item" href="https://github.com/NovaLux12/carelink-bridge"><b>MIT, all four repos</b><span>Fork it, self-host it, audit it. The licence says so.</span></a>
-      <a class="proof-item" href="/#sample-brief"><b>A sample brief, today</b><span>See exactly what a morning looks like before you commit.</span></a>
-    </div>
+  <section id="status" class="reveal cv-section" aria-label="Repository activity">
+    <div class="kicker">Status · live, from GitHub</div>
+    <h2>What is moving right now.</h2>
+    <p class="section-sub">Assembled at the edge from GitHub&rsquo;s public feeds when this page is served. No JavaScript is involved, and if GitHub is unreachable this block falls back to a designed message rather than vanishing.</p>
     <!--ACT: the Cloudflare Worker splices a live "repo activity" fragment here,
          built from GitHub's public Atom feeds. No JavaScript reaches the browser.
          If the sentinel is missing the replace is a no-op and the page renders
          exactly as it did before, so this is a safe failure. -->
 <!--ACT-->
-    <p class="ship-links">Follow the trail: <a href="https://github.com/NovaLux12/carelink-bridge/blob/main/CHANGELOG.md">CHANGELOG</a> · <a href="https://github.com/NovaLux12/carelink-bridge/releases">releases</a> · <a href="https://github.com/NovaLux12/carelink-bridge/actions">Actions runs</a></p>
-    <div class="cv-pilot">
-      <p><b>Early pilots wanted.</b> Two slots are open: a morning brief in your inbox, a weekly PDF for your clinic, and a direct line to the person building it.</p>
-      <a class="btn primary" href="mailto:founder@loopwise.uk?subject=Pilot%20enquiry">Ask about a pilot slot</a>
+  </section>
+  <section id="security" class="reveal cv-section">
+    <div class="kicker">Security · model and disclosure</div>
+    <h2>What this thing can and cannot do.</h2>
+    <p class="section-sub">This is health data. The threat model is written down per repository, and the disclosure route is RFC 9116 rather than a mailbox someone has to remember to check.</p>
+    <div class="grid">
+      <div class="card"><span class="tag safe">Boundary</span><h3>No telemetry, anywhere</h3><p>Nothing is sent back to the maintainer. The bridge posts to your Nightscout and nowhere else. There is no analytics on this site either — it ships zero JavaScript, so there is nothing to phone home with.</p></div>
+      <div class="card"><span class="tag safe">Boundary</span><h3>Credentials stay local</h3><p>Tokens are written atomically with 0600 permissions and are wiped only on a permanent authentication failure, never on a transient one.</p></div>
+      <div class="card"><span class="tag safe">Boundary</span><h3>Millimoles converted at source</h3><p>CareLink and Nightscout trade in mg/dL; UK practice is mmol/L. The conversion happens at the ingest site, because getting it wrong downstream makes looping clients over-deliver insulin.</p></div>
+      <div class="card"><span class="tag">Out of scope</span><h3>No dosing, ever</h3><p>Research and educational tooling. Not a medical device, not FDA approved, not affiliated with or endorsed by Medtronic. Every treatment decision stays with the human and their diabetes team.</p></div>
+      <div class="card"><span class="tag">Report a flaw</span><h3>security.txt, per RFC 9116</h3><p>Served at <code>/.well-known/security.txt</code> and <code>/security.txt</code>. Prefer GitHub private vulnerability reporting on the repository where the flaw lives.</p></div>
+      <div class="card"><span class="tag">Report a flaw</span><h3>Do not open a public issue</h3><p>A public issue leaks the detail to everyone at once. Private advisory or email first, always.</p></div>
+    </div>
+    <div class="scope-note cv-scope"><span class="scope-rail" aria-hidden="true"></span><div><b>Known gaps, stated plainly:</b> the repository does not ship a code of conduct or CODEOWNERS, and the two Python tools claim Python 3.9 and up while CI only exercises 3.11 to 3.13. <code>ns-reports</code> is versioned by tag and has no GitHub release object. These are being fixed, not hidden — check the repositories rather than take this page&rsquo;s word for it.</div></div>
+  </section>
+  <section id="releases" class="reveal cv-section">
+    <div class="kicker">Releases · what actually shipped</div>
+    <h2>Recent releases.</h2>
+    <p class="section-sub">Per-repository release notes live in the repositories. This is the shape of what has shipped so far, so you can judge whether the cadence is real.</p>
+    <div class="grid">
+      <div class="card"><span class="tag safe">carelink-bridge</span><h3>8 releases</h3><p><code>v0.1.0</code> through <code>v0.2.0</code>, the latest tagged 22 July 2026. Public run history on every push to <code>main</code>, on Node 20 and 22.</p><p><a href="https://github.com/NovaLux12/carelink-bridge/releases">Releases</a> · <a href="https://github.com/NovaLux12/carelink-bridge/blob/main/CHANGELOG.md">Changelog</a></p></div>
+      <div class="card"><span class="tag safe">ns-cgm-graph</span><h3>1 release</h3><p><code>v0.1.0</code>, 20 August 2026. The SVG renderer, stdlib only.</p><p><a href="https://github.com/NovaLux12/ns-cgm-graph/releases">Releases</a></p></div>
+      <div class="card"><span class="tag">ns-reports</span><h3>0 releases, v0.2.0 by tag</h3><p>The release workflow exists but has not produced a release object. Treat the tag as the source of truth until that is fixed.</p><p><a href="https://github.com/NovaLux12/ns-reports/tags">Tags</a></p></div>
     </div>
   </section>
-
-  <section id="faq" class="reveal cv-section">
-    <div class="kicker">Frequently asked · answered by a person</div>
-    <h2>Questions we're asked.</h2>
-    <p class="section-sub">If yours isn't here, <a href="mailto:founder@loopwise.uk">mail the maintainer</a> — the inbox is read by a person.</p>
+  <section id="contributing" class="reveal cv-section">
+    <div class="kicker">Contributing · issues, patches, reviews</div>
+    <h2>How to help.</h2>
+    <p class="section-sub">This is one person&rsquo;s project, so the useful contributions are specific ones: reproduce something, fix a doc, test on hardware nobody else has.</p>
+    <div class="grid">
+      <div class="card"><span class="tag">Most useful</span><h3>Test on your hardware</h3><p>The bridge is exercised on one pump and one sensor combination. Anyone with a different Medtronic setup who can report what does and does not work removes a whole class of blind spot.</p></div>
+      <div class="card"><span class="tag">Most useful</span><h3>Report upstream, not downstream</h3><p>Some defects belong to <code>domien-f/carelink-bridge</code>. A fix traced upstream survives the upstream project waking up; a patch only here gets stranded.</p></div>
+      <div class="card"><span class="tag">Useful</span><h3>Issues before pull requests</h3><p>Public issues for bugs and features — they move faster than email and leave a trail. The bridge ships a <code>CONTRIBUTING.md</code>; read it first.</p></div>
+      <div class="card"><span class="tag">Useful</span><h3>Architecture records</h3><p>Eight ADRs exist for the bridge. New decisions deserve the same treatment: what was decided, and what would reverse it.</p></div>
+      <div class="card"><span class="tag">Honest gap</span><h3>No code of conduct yet</h3><p>There is no <code>CODE_OF_CONDUCT.md</code> in any repository. Until one exists, the maintainer&rsquo;s rule is simple: be decent, and assume good faith.</p></div>
+      <div class="card"><span class="tag">Private by default</span><h3>Do not file a security flaw publicly</h3><p>Use <code>security.txt</code> or GitHub private advisories. A public issue spreads the detail before anyone can patch it.</p></div>
+    </div>
+  </section>
+  <section id="reference" class="reveal cv-section">
+    <div class="kicker">Reference · the vocabulary</div>
+    <h2>Words this project keeps using.</h2>
+    <p class="section-sub">Half of what looks like jargon here is two acronyms and a units question. All of it is defined in the repositories too.</p>
     <div class="faq-list cv-faq">
-      <details class="faq">
-        <summary>What exactly is Loopwise Health?</summary>
-        <p>A small, maintainer-run project that keeps the open diabetes plumbing alive — a CareLink-to-Nightscout bridge, a Nightscout MCP server, and a zero-dependency reporting toolkit — with a Claude-powered brief, report and triage workflow on top. See the <a href="#pipeline">pipeline</a> for the full picture and <a href="#open">built in the open</a> for what's verifiable.</p>
-      </details>
-      <details class="faq">
-        <summary>Is it safe? Does it dose insulin for me?</summary>
-        <p>No — nothing here doses insulin or replaces official CareLink safety notifications. It is research and educational tooling only (not a medical device, not FDA approved), and every treatment decision stays with you and your diabetes team; see the <a href="#roadmap">roadmap scope note</a>.</p>
-      </details>
-      <details class="faq">
-        <summary>Which pumps and CGMs does the bridge support?</summary>
-        <p>Medtronic 780G pumps with Guardian 4 or Simplera sensors, fetched via CareLink the way the official app does — that trio is the active testing surface. Other CareLink-compatible models should work but aren't in the regression suite, and closed-loop control of any kind is out of scope.</p>
-      </details>
-      <details class="faq">
-        <summary>How much does it cost?</summary>
-        <p>Free: all four repos are MIT-licensed, with no paid tier, no subscription, and no telemetry. You only pay for the hardware you already own and the small VPS you choose to host the bridge on.</p>
-      </details>
-      <details class="faq">
-        <summary>How do I get started?</summary>
-        <p>Read the <a href="https://github.com/NovaLux12/carelink-bridge">bridge docs</a> — the USER-GUIDE walks you from a fresh VPS to a working Nightscout + bridge + Cloudflare tunnel stack, budgeting about 15 minutes for the setup itself. Run <code>npm run doctor</code> any time to check the pipe, or <a href="/#contact">mail the maintainer</a> if the docs don't cover it.</p>
-      </details>
-      <details class="faq">
-        <summary>Can my clinic use the reports?</summary>
-        <p>That is the whole point of the clinic-reports bet on the <a href="#roadmap">roadmap's "next" phase</a>. The toolkit already emits machine-readable JSON plus per-day breakdowns, so a clinic can audit every number — the polished shareable PDF is what's being built next.</p>
-      </details>
-      <details class="faq">
-        <summary>Where does my data live?</summary>
-        <p>On your Nightscout instance, which you host — the bridge posts there and nowhere else, the MCP server reads your instance on your machine, and there is no telemetry back to us. Confirmed writes are logged to a 0600 JSONL file on your own disk.</p>
-      </details>
-      <details class="faq">
-        <summary>Are you affiliated with Medtronic?</summary>
-        <p>No — an MIT-licensed community fork, kept alive while upstream is quiet, and not affiliated with, endorsed by, or sponsored by Medtronic. Our fork builds on <a href="https://github.com/domien-f/carelink-bridge">domien-f/carelink-bridge</a>, itself inspired by the Nightscout community's <a href="https://github.com/nightscout/minimed-connect-to-nightscout">minimed-connect-to-nightscout</a>. If upstream wakes up, we fold our fixes back.</p>
-      </details>
-      <details class="faq">
-        <summary>What is a CareLink-to-Nightscout bridge?</summary>
-        <p>CareLink is Medtronic's cloud service: your pump and sensor upload readings to it. Nightscout is an open-source platform you host yourself for viewing those readings. The bridge signs into CareLink the way the official app does and copies new pump and <abbr title="Continuous glucose monitoring">CGM</abbr> data into your Nightscout every five minutes — see <a href="#bridge">the bridge</a>.</p>
-      </details>
-      <details class="faq">
-        <summary>What is Nightscout?</summary>
-        <p>A free, open-source remote monitor for glucose data, maintained by the #WeAreNotWaiting community. You host your own instance; it stores <abbr title="Continuous glucose monitoring">CGM</abbr> readings, treatments and device status. Every Loopwise tool reads from your Nightscout — or writes to it — and nowhere else.</p>
-      </details>
-      <details class="faq">
-        <summary>What do GMI, TIR and CV mean?</summary>
-        <p>Three standard summary numbers. <abbr title="Glucose Management Indicator">GMI</abbr> estimates your HbA1c from mean sensor glucose. <abbr title="Time in range">TIR</abbr> is the share of readings between 3.9 and 10.0 mmol/L — the band our reports use. <abbr title="Coefficient of variation">CV</abbr> is variability relative to the mean; staying under 36% is the usual clinical target.</p>
-      </details>
-      <details class="faq">
-        <summary>What is the MCP server?</summary>
-        <p><abbr title="Model Context Protocol">MCP</abbr> is an open standard that lets AI assistants call tools. Our server exposes 60 read tools over your Nightscout data — history, metrics, loop status — plus 6 write tools that dry-run unless explicitly confirmed. See <a href="#mcp">the MCP server</a>.</p>
-      </details>
-      <details class="faq">
-        <summary>Why does the mmol/L conversion matter?</summary>
-        <p>The UK measures glucose in mmol/L; CareLink and Nightscout trade in mg/dL. Mixing the two up would make looping software over-deliver insulin, so the bridge converts at the source — see <a href="#bridge">the bridge</a>.</p>
-      </details>
-      <details class="faq">
-        <summary>What is an ADR?</summary>
-        <p>An <abbr title="Architecture decision record">ADR</abbr> is a short dated note recording why a technical decision was taken and what would reverse it. The bridge publishes eight; they are the paper trail behind claims like the retry policy — see <a href="#open">built in the open</a>.</p>
-      </details>
+      <details class="faq"><summary>What is the Model Context Protocol?</summary><p>An open standard that lets an assistant call tools exposed by a program. <code>nightscout-mcp</code> is a Nightscout server in those terms: sixty read tools, six write tools.</p></details>
+      <details class="faq"><summary>What is an ADR?</summary><p>An architecture decision record — a short dated note recording why a technical decision was taken and what would reverse it. The bridge publishes eight under <code>docs/adr/</code>.</p></details>
+      <details class="faq"><summary>Why does the mmol/L conversion matter so much?</summary><p>The UK measures glucose in mmol/L; CareLink and Nightscout trade in mg/dL. Mixing them makes looping clients over-deliver insulin, so the bridge converts at the ingest site rather than trusting each consumer to get it right.</p></details>
+      <details class="faq"><summary>What are GMI, TIR and CV?</summary><p>Three standard summary numbers. GMI estimates HbA1c from mean sensor glucose. TIR is the share of readings between 3.9 and 10.0 mmol/L. CV is variability relative to the mean, with under 36% the usual clinical target.</p></details>
+      <details class="faq"><summary>What is a CGM SGV?</summary><p>A sensor glucose value: one reading from a continuous glucose monitor, usually timestamped and interpolated by the platform rather than read straight off the sensor.</p></details>
+      <details class="faq"><summary>What is Nightscout?</summary><p>An open-source remote monitor for glucose data, maintained by the #WeAreNotWaiting community, that you host yourself. Every Loopwise tool reads from your Nightscout instance, or writes to it, and nowhere else.</p></details>
+      <details class="faq"><summary>What is CareLink?</summary><p>Medtronic&rsquo;s cloud service. Your pump and sensor upload to it; the bridge signs in the way the official app does and copies the new data across.</p></details>
+      <details class="faq"><summary>What does the BLE detection fix do?</summary><p>Device discovery over Bluetooth Low Energy. The fix was carried from upstream pull request #2 by @terminalcommand and landed here with a regression test, because upstream has been quiet.</p></details>
+      <details class="faq"><summary>Is this affiliated with Medtronic?</summary><p>No. It is an MIT-licensed community fork, not affiliated with, endorsed by, or sponsored by Medtronic. It builds on <a href="https://github.com/domien-f/carelink-bridge">domien-f/carelink-bridge</a>, itself inspired by the Nightscout community&rsquo;s <a href="https://github.com/nightscout/minimed-connect-to-nightscout">minimed-connect-to-nightscout</a>. If upstream wakes up, the fixes fold back.</p></details>
     </div>
   </section>
-
   <section id="sponsors" class="reveal cv-section" aria-label="Infrastructure sponsorship">
     <div class="kicker">Sponsors · be the first</div>
     <h2>Run inference? Help keep the lights on.</h2>
-    <p class="section-sub">Loopwise is a bootstrapped solo project. The overnight briefs, clinic reports, and repo triage all run on hosted inference — every token is out of pocket. If you run an inference platform, a GPU cloud, or an API with a sponsorship programme, we'd love to talk.</p>
+    <p class="section-sub">Loopwise is a bootstrapped solo project. The overnight briefs, clinic reports and repo triage run on hosted inference, and every token is out of pocket. API credits, GPU time, or a startup tier that covers overnight agent runs would all help.</p>
     <div class="cv-sponsor">
-      <p><b>No sponsors yet — be the first.</b> What helps: API credits, hosted inference, GPU time, or a startup tier that covers overnight agent runs. What you get: honest attribution on this page and in the repos, a real-world health-infra workload to point at, and direct feedback from the person building on it.</p>
+      <p><b>No sponsors yet — be the first.</b> Sponsorship buys compute, never influence over safety decisions. Sponsors are credited here and in the repository READMEs they help power.</p>
       <a class="btn primary" href="mailto:founder@loopwise.uk?subject=Inference%20sponsorship">Talk about sponsorship</a>
     </div>
-    <div class="grid cv-sponsor-grid">
-      <div class="card"><span class="tag neutral">What it funds</span><h3>Overnight agent runs</h3><p>Morning briefs, weekly clinic PDFs, and repo triage — batch inference on real CGM traces, every night.</p></div>
-      <div class="card"><span class="tag neutral">No strings</span><h3>Open stays open</h3><p>MIT repos, no telemetry, no lock-in. Sponsorship buys compute, never influence over safety decisions.</p></div>
-      <div class="card"><span class="tag neutral">Attribution</span><h3>Named here and in-repo</h3><p>Sponsors are credited on this page and in the repo READMEs they help power. No logos invented, no claims inflated.</p></div>
-    </div>
   </section>
-
   <div class="safety cv-safety"><span class="safety-mark" aria-hidden="true">Research use</span>Research and educational tooling only. Not FDA approved, not a medical device, does not recommend insulin doses. Not affiliated with or endorsed by Medtronic. Every treatment decision stays with the human operator and their diabetes team. Contact: <a href="mailto:founder@loopwise.uk"><code>founder@loopwise.uk</code></a></div>
   </main>
   <footer class="site" aria-label="Site footer">
@@ -399,20 +347,21 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
     <div class="sitemap">
       <div class="col brand-col">
         <span class="brand-lockup"><svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="#2dd4bf" stroke-width="5" opacity=".28"/><circle cx="32" cy="32" r="23" fill="none" stroke="#2dd4bf" stroke-width="5.5"/><path d="M21 33.5l7.5 7.5L44 23" fill="none" stroke="#2dd4bf" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Loopwise Health</span>
-        <p>How it is built — open diabetes infrastructure, and a Claude-powered layer on top.</p>
+        <p>Open Type 1 diabetes infrastructure. Built and maintained by one person in the UK.</p>
         <p><a href="/">Back to the plain-English version</a></p>
       </div>
       <div class="col nav-col">
         <span class="kicker">On this page</span>
         <ul>
-          <li><a href="#open">Built in the open</a></li>
-          <li><a href="#bridge">carelink-bridge</a></li>
-          <li><a href="#mcp">nightscout-mcp</a></li>
-          <li><a href="#toolkit">Reporting toolkit</a></li>
-          <li><a href="#pipeline">Pipeline</a></li>
-          <li><a href="#roadmap">Roadmap</a></li>
-          <li><a href="#proof">Proof, not promises</a></li>
-          <li><a href="#faq">Reference</a></li>
+          <li><a href="#quickstart">Quick start</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#repos">Repositories</a></li>
+          <li><a href="#mcp">Agent layer</a></li>
+          <li><a href="#status">Live status</a></li>
+          <li><a href="#security">Security</a></li>
+          <li><a href="#releases">Releases</a></li>
+          <li><a href="#contributing">Contributing</a></li>
+          <li><a href="#reference">Reference</a></li>
           <li><a href="#sponsors">Sponsors</a></li>
         </ul>
       </div>
@@ -429,6 +378,7 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
         <span class="kicker">Contact</span>
         <p><a href="mailto:founder@loopwise.uk">founder@loopwise.uk</a></p>
         <p class="hint">Maintainer-run · UK evenings · 1–2 working days</p>
+        <p><a href="/security.txt">security.txt</a></p>
       </div>
     </div>
     <div class="legal">© 2026 Loopwise Health · Research and educational tooling only · Not a medical device, not FDA approved · Not affiliated with or endorsed by Medtronic · Set in Fraunces, Inter and JetBrains Mono · No JavaScript ships to your browser</div>

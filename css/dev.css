@@ -1,0 +1,16 @@
+/* dev.css — the developer page only. Not loaded by /.
+
+   One rule. Bare `.grid` rows sit flush against whatever precedes them,
+   because in the rest of the system a grid lives inside another component that
+   owns the spacing (.showdown, .docs-strip, .principles all carry their own
+   margin-top). On /build/ several grids stand alone between sections, so they
+   need the same 1.5rem rhythm those components use — as a class rather than an
+   inline style, because the worker sets style-src with no 'unsafe-inline'. */
+.dev-row{margin-top:1.5rem}
+
+/* The architecture flow is a real <ol>, so assistive tech announces each node
+   as a list item with its position. Browsers still apply UA list styling to it:
+   .pipe sets margin-top but nothing resets padding-left, so the flow would sit
+   40px out of alignment with every other block on the page. Reset the marker
+   and the indent, keep the .pipe margins. */
+.pipe-list{list-style:none;margin-bottom:0;padding-left:0}
