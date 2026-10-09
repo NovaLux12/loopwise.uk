@@ -200,6 +200,10 @@ details.faq a{color:var(--teal)}
 footer .contact a{color:var(--muted)}
 footer .contact a:hover{color:var(--teal)}
 .safety{margin-top:3.5rem;background:var(--surface2);border:1px solid var(--line);border-radius:var(--radius);padding:1.25rem 1.4rem;font-size:.85rem;color:var(--muted)}
+/* The disclosure line carries an unbreakable mailto code span, which pushed the
+   document ~30px wider than a 390px viewport and gave the whole page a sideways
+   scroll. Let it wrap. */
+.safety code{overflow-wrap:anywhere}
 /* footer sitemap */
 footer.site{margin:3rem 0 2.5rem;padding-top:1.5rem;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
 footer.site .sitemap{display:grid;grid-template-columns:repeat(4,1fr);gap:1.75rem;margin-bottom:1.5rem}

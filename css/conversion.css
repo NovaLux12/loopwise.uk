@@ -230,7 +230,15 @@ table.cv-compare.cv-compare{font-size:.92rem;min-width:44rem}
   .cv-compare th,.cv-compare td{padding:.65rem .8rem}
   .cv-paper > h3{font-size:1.2rem}
   .cv-midcta{padding:1.4rem 1.25rem}
-  .cv-proof{grid-template-columns:1fr}
+  /* Specificity bug: the base rule is .cv-shipped.cv-proof (0,2,0), so this
+     plain .cv-proof (0,1,0) never won the cascade — media queries add no
+     specificity, so the proof grid stayed four columns on phones and the
+     document scrolled sideways. The unequal track widths were the tell: 1fr
+     is minmax(auto,1fr), so min-content long links forced the tracks wider
+     than the container. Match the selector, and use minmax(0,1fr) so the
+     tracks are allowed to shrink. */
+  .cv-shipped.cv-proof{grid-template-columns:minmax(0,1fr)}
+  .cv-proof{grid-template-columns:minmax(0,1fr)}
   .cv-shipped .proof-item.ship-first{grid-column:span 1}
   .cv-pilot .btn,.cv-close .btn{width:100%;text-align:center}
   .cv-sponsor .btn{width:100%;text-align:center}
