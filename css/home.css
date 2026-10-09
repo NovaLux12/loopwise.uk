@@ -1,0 +1,10 @@
+/* home.css — plain-language homepage only. Not loaded by /build/.
+
+   One addition. The middle card in #who-its-for is "this is not for you if",
+   which is out-of-scope messaging — the same semantic the roadmap's
+   "explicitly out of scope" note already carries. Amber there would read as
+   "pending review", so it takes the red that is already rationed to safety and
+   scope messaging, mirroring the existing .phase.now/.next/.later rules
+   structurally and changing no other value. */
+.phase.no{border-top-color:var(--red)}
+.phase.no .phase-state{color:var(--red);border-color:rgba(251,94,122,.45);background:rgba(251,94,122,.08)}

@@ -1,13 +1,29 @@
 # Loopwise Health
 
 > Reading this as an agent? This file describes Loopwise Health as it works
-> today (2026-10-08). The human-readable site is https://loopwise.uk/.
+> today (2026-10-09). The site has two pages: the plain-language home page at
+> https://loopwise.uk/ and the full engineering page at
+> https://loopwise.uk/build/.
 
 Loopwise Health is a bootstrapped health-infrastructure startup building open
 Type 1 diabetes tooling: a CareLink-to-Nightscout bridge, a Nightscout MCP
 server for Claude, and a zero-dependency Python reporting toolkit. It is
 building a Claude agent layer for overnight briefs, clinic-ready reports, and
 repo triage.
+
+## The two pages
+
+- https://loopwise.uk/ is the everyday-person front door: what you get (a
+  morning brief, a weekly clinic page, a written record), how it works, who it
+  is for, the sample brief, the pilot programme, plain-language FAQ and contact.
+  It avoids engineering jargon: the only acronyms on it are Nightscout, CGM
+  and MIT, and each is explained where it appears.
+- https://loopwise.uk/build/ is the engineering page: the carelink-bridge,
+  nightscout-mcp, ns-reports and ns-cgm-graph repositories, the sensor-to-
+  sentence pipeline, the roadmap, the full reference FAQ (MCP, ADR, GMI/TIR/CV,
+  mmol/L conversion) and the sponsorship invitation.
+- Both pages carry the same safety language verbatim. Neither is a medical
+  device, neither is FDA approved, and neither gives dosing advice.
 
 ## Repos
 
@@ -35,7 +51,7 @@ repo triage.
 - Founder: founder@loopwise.uk (maintainer-run, UK evenings)
 - Infrastructure sponsorship: Loopwise has no sponsors yet and is openly
   inviting inference providers (API credits, hosted inference, GPU time).
-  See https://loopwise.uk/#sponsors. Never invent a sponsor.
+  See https://loopwise.uk/build/#sponsors. Never invent a sponsor.
 - No trackers on the site; no analytics cookies.
 
 ## Live data
@@ -43,7 +59,8 @@ repo triage.
 - https://loopwise.uk/ carries a server-rendered "Repo activity" strip (latest
   releases and commits across the public repos, newest release and newest push
   per repo). It is assembled by the Cloudflare Worker from GitHub's public Atom
-  feeds and refreshed at the edge; no JavaScript is involved. Machine-readable
-  timestamps are in <time datetime="..."> elements.
+  feeds and refreshed at the edge; no JavaScript is involved. The same strip is
+  server-rendered on https://loopwise.uk/build/. Machine-readable timestamps
+  are in <time datetime="..."> elements.
 - Feed: https://loopwise.uk/feed.xml (Atom, union of the three public repos'
   release feeds).

@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://loopwise.uk/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://loopwise.uk/#pilots</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://loopwise.uk/#open</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://loopwise.uk/#bridge</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://loopwise.uk/#what-you-get</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://loopwise.uk/#mcp</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://loopwise.uk/#toolkit</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://loopwise.uk/#how-it-works</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://loopwise.uk/#sample-brief</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://loopwise.uk/#who-its-for</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://loopwise.uk/#pilots</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://loopwise.uk/#compare</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://loopwise.uk/#proof</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://loopwise.uk/#pipeline</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://loopwise.uk/#sample-brief</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://loopwise.uk/#roadmap</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://loopwise.uk/#faq</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://loopwise.uk/#contact</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://loopwise.uk/#sponsors</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://loopwise.uk/build/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://loopwise.uk/build/#open</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://loopwise.uk/build/#bridge</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://loopwise.uk/build/#mcp</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://loopwise.uk/build/#toolkit</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://loopwise.uk/build/#pipeline</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://loopwise.uk/build/#roadmap</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://loopwise.uk/build/#faq</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://loopwise.uk/build/#sponsors</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
   <url><loc>https://loopwise.uk/llms.txt</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
   <url><loc>https://loopwise.uk/feed.xml</loc><changefreq>hourly</changefreq><priority>0.3</priority></url>
 </urlset>
