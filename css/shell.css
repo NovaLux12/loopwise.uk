@@ -8,6 +8,10 @@
   --shell-glow:rgba(45,212,191,.09);
   --shell-hairline:rgba(45,212,191,.16);
   --shell-wash:rgba(45,212,191,.08);
+  /* Hover ring for the three "quiet" chrome links (nav pill, back-to-top,
+     footer ghost links). Was referenced but never defined, so all three hover
+     rules silently fell back to currentColor instead of the teal hairline. */
+  --shell-ring:rgba(45,212,191,.45);
   --shell-pill-text:#052e2a;
 }
 

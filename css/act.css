@@ -1,0 +1,62 @@
+/* act.css — live repo-activity register spliced into the homepage at <!--ACT-->.
+   Server-rendered from GitHub Atom feeds by a Cloudflare Worker: static HTML, no
+   client behaviour. CSS-only (CSP script-src 'none'): no JavaScript required or
+   referenced. Linked LAST, after pop-format.css; owns ONLY the .act-* scope.
+   Mono-taxonomy / hairline / single-teal register, per hero.css + shell.css. */
+
+/* ---------- frame: one rule opens the register; no card, no wash ---------- */
+.act{border-top:1px solid var(--line);padding-top:.9rem}
+.act-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.35rem .9rem;padding-bottom:.7rem;border-bottom:1px solid var(--line)}
+/* kicker + live dot hold the only loud teal on the page */
+.act-kicker{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+.act-stamp{display:inline-flex;align-items:center;gap:.45rem;font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.act-dot{flex:none;width:.45rem;height:.45rem;border-radius:50%;background:var(--teal);animation:act-pulse 2.4s ease-out infinite}
+/* degraded: amber dot; the stamp sentence, not the colour, carries the state */
+.act[data-live="0"] .act-dot{background:var(--amber);animation:none;box-shadow:none}
+
+/* ---------- rows: date | what | link; hairline between, never whitespace alone ---------- */
+.act-list{margin:0;padding:0;list-style:none}
+.act-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:.2rem 1.1rem;align-items:baseline;padding:.55rem 0}
+.act-row + .act-row{border-top:1px solid var(--line)}
+.act-when{margin:0;font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.act-what{color:var(--muted);min-width:0;overflow-wrap:break-word}
+.act-what b{color:var(--text);font-weight:600}
+/* link stays muted so the register keeps one accent; teal only on hover/focus */
+.act-go{font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.06em;color:var(--muted);white-space:nowrap;transition:color .15s ease}
+.act-go:hover{color:var(--teal);text-decoration:none}
+.act-go:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:3px}
+/* status note, not an alert: quiet sentence, no box, no red */
+.act-err{margin:.8rem 0 0;font-size:.87rem;line-height:1.7;color:var(--muted)}
+.act-sep{color:var(--faint)}
+
+/* ---------- meters: repo slug + release → push dateline ---------- */
+.act-meters{margin:.9rem 0 0;padding-top:.55rem;border-top:1px solid var(--line)}
+.act-meter{display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:.15rem 1.1rem;align-items:baseline;padding:.3rem 0}
+.act-meter + .act-meter{border-top:1px solid var(--line)}
+.act-meters dt{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;color:var(--faint)}
+.act-meters dd{margin:0;font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.04em;color:var(--muted)}
+.act-arrow{margin:0 .35rem;color:var(--muted)}
+.act code{font-family:"JetBrains Mono",monospace;font-size:.85em;color:var(--text)}
+
+/* ---------- disclaimer as furniture: quiet, never a warning ---------- */
+.act-note{margin:.9rem 0 0;padding-top:.6rem;border-top:1px solid var(--line);font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.08em;color:var(--muted)}
+
+/* ---------- responsive: three columns stack at ~700px ---------- */
+@media(max-width:700px){
+  .act-row{grid-template-columns:1fr;gap:.15rem}
+  .act-meter{grid-template-columns:1fr;gap:.1rem}
+}
+
+/* ---------- motion: CSS-only heartbeat; no JS ---------- */
+@keyframes act-pulse{0%{box-shadow:0 0 0 0 rgba(45,212,191,.5)}100%{box-shadow:0 0 0 .55rem rgba(45,212,191,0)}}
+@media(prefers-reduced-motion:reduce){
+  .act-dot{animation:none;box-shadow:none}
+  .act-go{transition:none}
+}
+
+/* ---------- print: no colour-only state, hairlines at the site's #999 ---------- */
+@media print{
+  .act,.act-head,.act-row+.act-row,.act-meters,.act-meter+.act-meter,.act-note{border-color:#999}
+  .act-dot{display:none}
+  .act-head,.act-row,.act-meter,.act-note{break-inside:avoid}
+}
