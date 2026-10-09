@@ -9,6 +9,16 @@
 .hero-main{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:3.5rem;align-items:center;margin-bottom:8rem}
 .hero-copy{min-width:0}
 .hero-visual{position:relative;min-width:0;display:flex;flex-direction:column;align-items:center}
+/* The glow is inset -8% VERTICALLY and -12% HORIZONTALLY, so it bleeds past
+   the .hero-visual box on both sides. The left bleed lands in the column gap;
+   the right bleed has nowhere to go and was widening the document — every
+   page scrolled sideways by 78px at 900px and 17px at 390px. Clip the hero at
+   its own box instead of changing the gradient: the effect is a soft radial
+   centred at 50%, so clipping the bleed is visually a no-op.
+   `clip` rather than `hidden` deliberately — `hidden` would force the other
+   axis to auto and create a scroll container, which can break sticky
+   descendants. `clip` creates none. */
+.hero{overflow-x:clip}
 .hero-visual::before{content:"";position:absolute;inset:-8% -12%;background:radial-gradient(24rem 20rem at 50% 42%,rgba(45,212,191,.14),transparent 68%);pointer-events:none}
 
 /* ---- typography: huge tight serif, Linear-like rhythm ---- */
