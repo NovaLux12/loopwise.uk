@@ -1,0 +1,5 @@
+Contact: https://github.com/NovaLux12/carelink-bridge/security/advisories/new
+Expires: 2027-10-09T12:00:00.000Z
+Preferred-Languages: en
+Canonical: https://loopwise.uk/.well-known/security.txt
+Policy: https://github.com/NovaLux12/carelink-bridge/blob/main/SECURITY.md

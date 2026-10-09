@@ -268,3 +268,7 @@ table.cv-compare.cv-compare{font-size:.92rem;min-width:44rem}
   .cv-briefs .brief{opacity:1!important;visibility:visible!important;position:static}
   .cv-phases::before,.cv-phases .phase::before,.offer-icon,.mail-glyph{display:none!important}
 }
+
+/* Fig caption under the sample brief — the hero caption's register, extended
+   to the second artefact so the captioned exhibit becomes a system, not a one-off. */
+.paper-cap{margin:.9rem 0 0;font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:center}

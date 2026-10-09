@@ -27,7 +27,7 @@
 <meta name="twitter:image:alt" content="Loopwise Health — Type 1 data, in plain English.">
 <meta name="twitter:title" content="Loopwise Health — Type 1 data, in plain English">
 <meta name="twitter:description" content="Open diabetes infrastructure (CareLink bridge, Nightscout MCP, reporting toolkit) plus a Claude-powered layer for briefs, reports, and triage.">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Loopwise Health","url":"https://loopwise.uk/","email":"founder@loopwise.uk","foundingDate":"2026","sameAs":["https://github.com/NovaLux12/carelink-bridge"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Loopwise Health","url":"https://loopwise.uk/","logo":"https://loopwise.uk/assets/favicon.svg","description":"Open Type 1 diabetes infrastructure: CareLink-to-Nightscout bridge, Nightscout MCP server, reporting toolkit, Claude-powered briefs.","email":"founder@loopwise.uk","foundingDate":"2026","areaServed":"GB","knowsAbout":["Type 1 diabetes","Continuous glucose monitoring","Nightscout","Model Context Protocol","Medtronic CareLink"],"sameAs":["https://github.com/NovaLux12"]}</script>
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,10 +48,10 @@
 <link rel="stylesheet" href="/css/act.css">
 </head>
 <body>
-<div class="announce" role="status" aria-label="Project status">
+<div class="announce" role="status">
   <span class="announce-inner"><span class="pulse" aria-hidden="true"></span><span class="announce-text"><b>carelink-bridge v0.2.0</b> · nightscout-mcp in private preview — opt-in only, no telemetry</span></span>
 </div>
-<a class="skip" href="#bridge">Skip to content</a>
+<a class="skip" href="#main">Skip to content</a>
 <nav aria-label="Primary"><div class="wrap">
   <a class="brand" href="#top" aria-label="Loopwise Health home">
     <svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="#2dd4bf" stroke-width="5" opacity=".28"/><circle cx="32" cy="32" r="23" fill="none" stroke="#2dd4bf" stroke-width="5.5"/><path d="M21 33.5l7.5 7.5L44 23" fill="none" stroke="#2dd4bf" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -144,14 +144,15 @@
       <div class="stat" tabindex="0"><b><em>0</em></b><span>dosing decisions delegated to software — ever</span><span class="so-what">Research and educational tooling only — see #faq</span></div>
     </div>
     <div class="principles">
-      <div class="principle" tabindex="0"><b>Safety first, then clever</b><span>The mmol/L conversion shipped before any feature work. Correctness outranks novelty on every roadmap.</span></div>
-      <div class="principle" tabindex="0"><b>Docs or it didn't happen</b><span>User guides, architecture records, security models, changelogs — the bridge ships the full set, and no repo is left at README-and-hope.</span></div>
-      <div class="principle" tabindex="0"><b>No silent forks</b><span>Every carried fix is traceable to upstream. If upstream wakes up, we fold back — we're keeping it alive, not replacing it.</span></div>
+      <div class="principle"><b>Safety first, then clever</b><span>The mmol/L conversion shipped before any feature work. Correctness outranks novelty on every roadmap.</span></div>
+      <div class="principle"><b>Docs or it didn't happen</b><span>User guides, architecture records, security models, changelogs — the bridge ships the full set, and no repo is left at README-and-hope.</span></div>
+      <div class="principle"><b>No silent forks</b><span>Every carried fix is traceable to upstream. If upstream wakes up, we fold back — we're keeping it alive, not replacing it.</span></div>
     </div>
   </header>
 
+  <main id="main">
   <section id="pilots" aria-label="Pilot users">
-    <div class="kicker">Pilot users</div>
+    <div class="kicker">Pilot users · 1 live · 2 recruiting</div>
     <h2>Pilot programme: in progress.</h2>
     <p class="section-sub">Solo project, building carefully: the maintainer's own setup is live; two pilot slots are recruiting while the Claude layer is in private preview. No logos, no press, no invented numbers.</p>
     <div class="pilot-board">
@@ -198,7 +199,7 @@
   </div>
 
   <section id="open" class="reveal">
-    <div class="kicker">Built in the open</div>
+    <div class="kicker">Built in the open · 4 repos · MIT</div>
     <h2>You can verify everything we claim.</h2>
     <p class="section-sub">No badges, no invented stats: public pipeline, permissive licence, the same docs we use.</p>
     <div class="open-strip">
@@ -221,7 +222,7 @@
         <p>The bridge ships USER-GUIDE, ARCHITECTURE, SECURITY, CONTRIBUTING, ROADMAP, CHANGELOG and eight ADRs. The MCP server ships ARCHITECTURE, CHANGELOG and a 13-file docs set. The Python tools ship README, USER-GUIDE and SECURITY. README-and-hope isn't the bar.</p>
       </div>
     </div>
-    <div class="docs-strip">Latest tag <span class="cmd-unit" tabindex="0" aria-label="Release summary"> <code>v0.2.0</code>, 22 July 2026 · 31 commits on <code>main</code> since (as of 8 Oct) · BLE detection carried from upstream PR #2 · mmol/L converted at the source · <code>npm run doctor</code> one-command diagnostics</span></div>
+    <div class="docs-strip">Latest tag <span class="cmd-unit"> <code>v0.2.0</code>, 22 July 2026 · 31 commits on <code>main</code> since (as of 8 Oct) · BLE detection carried from upstream PR #2 · mmol/L converted at the source · <code>npm run doctor</code> one-command diagnostics</span></div>
   </section>
 
   <section id="bridge" class="reveal repo-pipe" aria-label="carelink-bridge repository">
@@ -243,7 +244,7 @@
   </section>
 
   <section id="what-you-get" class="reveal cv-section">
-    <div class="kicker">What you get</div>
+    <div class="kicker">What you get · each morning · each week · always</div>
     <h2>Three things, every week.</h2>
     <p class="section-sub">No dashboard to learn. No SaaS login. You get a brief, a PDF, and a paper trail — and you stay in charge of every decision.</p>
     <div class="grid cv-offer">
@@ -313,7 +314,7 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
   </section>
 
   <section id="compare" class="reveal cv-section">
-    <div class="kicker">Not your average checkup</div>
+    <div class="kicker">Manual Nightscout · Loopwise</div>
     <h2>Manual grind versus Loopwise.</h2>
     <p class="section-sub">The old way works — it just costs evenings. Loopwise keeps the same data, removes the graft.</p>
     <div class="compare-wrap cv-compare-wrap">
@@ -337,7 +338,7 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
   </section>
 
   <section id="proof" class="reveal cv-section" aria-label="Why you can trust Loopwise">
-    <div class="kicker">Proof, not promises</div>
+    <div class="kicker">Proof, not promises · releases · runs · licence</div>
     <h2>Don't take our word for it.</h2>
     <p class="section-sub">No testimonials yet — the pilot programme is still recruiting. So here is what you can check yourself, right now.</p>
     <div class="cv-proof cv-shipped">
@@ -359,7 +360,7 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
   </section>
 
   <section id="pipeline" class="reveal cv-section">
-    <div class="kicker">How it fits together</div>
+    <div class="kicker">Pipeline · sensor to sentence</div>
     <h2>From sensor to sentence.</h2>
     <p class="section-sub">Four maintained repos form the pipe; the Claude layer turns the flow into something a human — and their clinic — can act on. The toolkit already produces the metrics and visuals; Claude composes them into the story.</p>
     <div class="pipe-story">
@@ -380,7 +381,7 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
   </section>
 
   <section id="sample-brief" class="reveal cv-section">
-    <div class="kicker">A sample morning</div>
+    <div class="kicker">Sample · No. 042 · illustrative</div>
     <h2>This is what lands in your inbox.</h2>
     <p class="section-sub">One paragraph, three flags, zero instructions. Every number traceable to its Nightscout source.</p>
     <div class="sample cv-paper">
@@ -395,6 +396,7 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
       </ul>
       <div class="paper-foot" aria-hidden="true"><span>Traceable to Nightscout source data</span><span>Flags only · never advice</span></div>
     </div>
+    <p class="paper-cap">Fig. 1 · the 06:42 morning brief, printed · illustrative</p>
   </section>
 
   <div class="mid-cta cv-midcta">
@@ -403,7 +405,7 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
   </div>
 
   <section id="roadmap" class="reveal cv-section">
-    <div class="kicker">Future plans</div>
+    <div class="kicker">Roadmap · now · next · later</div>
     <h2>What's next.</h2>
     <p class="section-sub">The bridge follows a phased, opt-in roadmap — nothing ships until the phase before it is solid. The Claude layer is where the startup bet goes, and the toolkit is its foundation.</p>
     <div class="phases cv-phases">
@@ -427,7 +429,8 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
   </section>
 
   <section id="faq" class="reveal cv-section">
-    <div class="kicker">Frequently asked</div>
+    <div class="kicker">Frequently asked · answered by a person</div>
+    <h2>Questions we're asked.</h2>
     <p class="section-sub">If yours isn't here, <a href="mailto:founder@loopwise.uk">mail the maintainer</a> — the inbox is read by a person.</p>
     <div class="faq-list cv-faq">
       <details class="faq">
@@ -460,13 +463,37 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
       </details>
       <details class="faq">
         <summary>Are you affiliated with Medtronic?</summary>
-        <p>No — an MIT-licensed community fork, kept alive while upstream is quiet, and not affiliated with, endorsed by, or sponsored by Medtronic. If upstream wakes up, we fold our fixes back.</p>
+        <p>No — an MIT-licensed community fork, kept alive while upstream is quiet, and not affiliated with, endorsed by, or sponsored by Medtronic. Our fork builds on <a href="https://github.com/domien-f/carelink-bridge">domien-f/carelink-bridge</a>, itself inspired by the Nightscout community's <a href="https://github.com/nightscout/minimed-connect-to-nightscout">minimed-connect-to-nightscout</a>. If upstream wakes up, we fold our fixes back.</p>
+      </details>
+      <details class="faq">
+        <summary>What is a CareLink-to-Nightscout bridge?</summary>
+        <p>CareLink is Medtronic's cloud service: your pump and sensor upload readings to it. Nightscout is an open-source platform you host yourself for viewing those readings. The bridge signs into CareLink the way the official app does and copies new pump and <abbr title="Continuous glucose monitoring">CGM</abbr> data into your Nightscout every five minutes — see <a href="#bridge">the bridge</a>.</p>
+      </details>
+      <details class="faq">
+        <summary>What is Nightscout?</summary>
+        <p>A free, open-source remote monitor for glucose data, maintained by the #WeAreNotWaiting community. You host your own instance; it stores <abbr title="Continuous glucose monitoring">CGM</abbr> readings, treatments and device status. Every Loopwise tool reads from your Nightscout — or writes to it — and nowhere else.</p>
+      </details>
+      <details class="faq">
+        <summary>What do GMI, TIR and CV mean?</summary>
+        <p>Three standard summary numbers. <abbr title="Glucose Management Indicator">GMI</abbr> estimates your HbA1c from mean sensor glucose. <abbr title="Time in range">TIR</abbr> is the share of readings between 3.9 and 10.0 mmol/L — the band our reports use. <abbr title="Coefficient of variation">CV</abbr> is variability relative to the mean; staying under 36% is the usual clinical target.</p>
+      </details>
+      <details class="faq">
+        <summary>What is the MCP server?</summary>
+        <p><abbr title="Model Context Protocol">MCP</abbr> is an open standard that lets AI assistants call tools. Our server exposes 60 read tools over your Nightscout data — history, metrics, loop status — plus 6 write tools that dry-run unless explicitly confirmed. See <a href="#mcp">the MCP server</a>.</p>
+      </details>
+      <details class="faq">
+        <summary>Why does the mmol/L conversion matter?</summary>
+        <p>The UK measures glucose in mmol/L; CareLink and Nightscout trade in mg/dL. Mixing the two up would make looping software over-deliver insulin, so the bridge converts at the source — see <a href="#bridge">the bridge</a>.</p>
+      </details>
+      <details class="faq">
+        <summary>What is an ADR?</summary>
+        <p>An <abbr title="Architecture decision record">ADR</abbr> is a short dated note recording why a technical decision was taken and what would reverse it. The bridge publishes eight; they are the paper trail behind claims like the retry policy — see <a href="#open">built in the open</a>.</p>
       </details>
     </div>
   </section>
   <section id="contact" class="reveal cv-section cv-contact">
     <div class="contact-frame">
-      <div class="kicker">Get started</div>
+      <div class="kicker">Contact · one email</div>
       <h2>Email the maintainer.</h2>
       <p class="section-sub">That's the entire onboarding. No form, no funnel, no signup. One email to a person in the UK who reads the inbox themselves — pilot slots, clinic partnerships, bug reports, plain feedback.</p>
       <div class="contact-cta cv-cta">
@@ -482,7 +509,7 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
   </section>
 
   <section id="sponsors" class="reveal cv-section" aria-label="Infrastructure sponsorship">
-    <div class="kicker">Sponsors</div>
+    <div class="kicker">Sponsors · be the first</div>
     <h2>Run inference? Help keep the lights on.</h2>
     <p class="section-sub">Loopwise is a bootstrapped solo project. The overnight briefs, clinic reports, and repo triage all run on hosted inference — every token is out of pocket. If you run an inference platform, a GPU cloud, or an API with a sponsorship programme, we'd love to talk.</p>
     <div class="cv-sponsor">
@@ -498,6 +525,7 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
 
   <div class="safety cv-safety"><span class="safety-mark" aria-hidden="true">Research use</span>Research and educational tooling only. Not FDA approved, not a medical device, does not recommend insulin doses. Not affiliated with or endorsed by Medtronic. Every treatment decision stays with the human operator and their diabetes team. Contact: <a href="mailto:founder@loopwise.uk"><code>founder@loopwise.uk</code></a></div>
 
+  </main>
   <footer class="site" aria-label="Site footer">
     <a class="to-top" href="#top" aria-label="Back to top of page">↑ Back to top</a>
     <div class="sitemap">
@@ -539,7 +567,7 @@ wrote <span class="g">cgm-72h.svg</span> <span class="c">(12 KB, stdlib only)</s
         <p class="hint">Maintainer-run · UK evenings · 1–2 working days</p>
       </div>
     </div>
-    <div class="legal">© 2026 Loopwise Health · Research and educational tooling only · Not a medical device, not FDA approved · Not affiliated with or endorsed by Medtronic</div>
+    <div class="legal">© 2026 Loopwise Health · Research and educational tooling only · Not a medical device, not FDA approved · Not affiliated with or endorsed by Medtronic · Set in Fraunces, Inter and JetBrains Mono · No JavaScript ships to your browser</div>
   </footer>
 </div>
 </body>

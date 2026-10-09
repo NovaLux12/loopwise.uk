@@ -7,10 +7,13 @@
 #mcp .section-sub,
 #toolkit .section-sub{max-width:44rem}
 
-/* R2 density + R3 air: one idea per screen — a full section-gap above each repos section */
-#pilots,#open,#bridge,#mcp,#toolkit{margin-top:clamp(4rem,8vw,7rem)}
-/* R3: full section-gap of air AFTER each of the three repo sections too */
-#bridge,#mcp,#toolkit{margin-bottom:clamp(4rem,8vw,7rem)}
+/* Editorial rhythm: every section opens on a drawn 1px rule, not dead air.
+   Reverses the R2/R3 full-gap margins below — the rule carries the separation,
+   so the air budget drops to a tight measure. First section included: the hero
+   closes, a rule opens the departments. */
+main>section[id]{border-top:1px solid var(--line);padding-top:clamp(1.75rem,4vw,2.75rem)}
+#pilots,#open,#bridge,#mcp,#toolkit{margin-top:clamp(2.5rem,5vw,4rem)}
+#bridge,#mcp,#toolkit{margin-bottom:clamp(2.5rem,5vw,4rem)}
 
 /* ---------- pilots: editorial board, live vs recruiting states ---------- */
 .pilot-board{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:1rem;align-items:start;margin-top:1.5rem}
@@ -59,6 +62,9 @@ a.repo-slug:hover{color:var(--teal);text-decoration:none}
 
 /* ---------- shared card system, differentiated per repo ---------- */
 .repo-grid{counter-reset:rcard}
+/* Cards size to their content instead of stretching to the tallest in the row:
+   staggered bottoms read as set type, not empty boxes. */
+.repo-grid{align-items:start}
 .repo-grid .card{counter-increment:rcard;position:relative;transition:border-color .15s,transform .2s ease,box-shadow .25s ease}
 .repo-pipe .card h3::before{content:"node-0" counter(rcard);display:block;width:max-content;font-family:"JetBrains Mono",monospace;font-size:.66rem;font-weight:400;letter-spacing:.12em;color:var(--faint);border:1px solid var(--line);border-radius:5px;padding:.12rem .45rem;margin-bottom:.6rem}
 .repo-agent .card h3::before{content:"› tool-0" counter(rcard);display:block;width:max-content;font-family:"JetBrains Mono",monospace;font-size:.66rem;font-weight:400;letter-spacing:.1em;color:var(--teal);background:rgba(45,212,191,.08);border:1px solid rgba(45,212,191,.3);border-radius:5px;padding:.12rem .45rem;margin-bottom:.6rem}
