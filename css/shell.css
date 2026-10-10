@@ -110,3 +110,12 @@ footer.site .legal{border-top:1px solid var(--line);padding-top:1.25rem;margin-t
   .scroll-progress{display:none}
   nav .links a,.ghost-links a,.to-top,nav .links a.nav-pill{transition:none}
 }
+
+/* 404 in light mode. shell.css loads after styles.css, so the :root palette
+   swap alone is not enough here — the dead-end chrome hardcodes its own
+   surfaces. Kept in this file so it wins the cascade without !important. */
+@media (prefers-color-scheme: light){
+  .dead-end-top{background:rgba(255,255,255,.78)}
+  .dead-end-main{background:radial-gradient(46rem 20rem at 50% -4rem,rgba(10,126,114,.07),transparent 70%)}
+  .dead-end-card .code-404{color:transparent;-webkit-text-stroke:1px rgba(10,126,114,.22)}
+}
