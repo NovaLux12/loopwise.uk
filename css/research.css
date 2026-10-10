@@ -51,3 +51,28 @@
 /* Reduced motion: the paper fold and stamp are the only motion here, and they
    are already gated in conversion.css. Nothing to do beyond keeping the page
    free of scroll-driven reveals. */
+/* ---- Citations ----------------------------------------------------------
+   Every factual claim on this page carries a numbered marker that links to a
+   source entry at the foot. The markers are superscript-sized so the prose
+   stays readable, but they are real links and are reachable by keyboard. */
+.cite{font-family:"JetBrains Mono",monospace;font-size:.66em;vertical-align:.45em;text-decoration:none;margin-left:.12em;color:var(--teal);letter-spacing:0}
+.cite:hover,.cite:focus-visible{text-decoration:underline}
+.cite-note{color:var(--muted);font-size:.9rem;max-width:44rem;margin:0 0 1.6rem}
+
+/* The absence caveat. Distinguished because it is the one claim on the page
+   that cannot be cited to anything — it is a claim about what was not found. */
+.caveat{margin:1.2rem 0 0;padding:.8rem 1rem;border-left:2px solid var(--amber);background:rgba(245,165,36,.07);color:var(--muted);font-size:.93rem}
+
+/* Sources list. Mono source identifiers, Spectral for the note, so the
+   reference list reads as apparatus rather than prose. */
+.sources{margin:0 0 1.5rem;padding:0;list-style:none;counter-reset:src;display:grid;gap:.55rem}
+.sources li{counter-increment:src;position:relative;padding-left:2.4rem;font-size:.92rem;line-height:1.5}
+.sources li::before{content:"[" counter(src) "]";position:absolute;left:0;top:0;font-family:"JetBrains Mono",monospace;font-size:.8rem;color:var(--teal)}
+.sources li:target{background:rgba(45,212,191,.12);border-radius:4px;padding-left:2.4rem;margin-left:-.4rem;padding-top:.1rem;padding-bottom:.1rem}
+.sources a{overflow-wrap:anywhere}
+
+@media (prefers-color-scheme: light){
+  .caveat{border-left-color:var(--amber);background:rgba(138,90,0,.06);color:var(--muted)}
+  .sources li:target{background:rgba(10,126,114,.12)}
+  .cite{color:var(--teal)}
+}
