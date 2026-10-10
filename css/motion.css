@@ -131,8 +131,6 @@ nav .links a {
    shorthand from winning; our later @keyframes trip wins the name. */
 .hero .phone-card .tracer-phone,
 .tracer-phone {
-  transform-box: fill-box;
-  transform-origin: center;
   stroke: #2dd4bf;
   stroke-opacity: 0;
   animation: trip 20s linear 1s infinite;

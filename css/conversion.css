@@ -11,6 +11,31 @@
   --cv-yes:#2dd4bf;
   --cv-no:#8b96a9;
 }
+/* Light palette for the cv-* card system. The paper artefact (--cv-paper,
+   --cv-paper-ink, --cv-paper-mute) stays dark-independent: a printed clinic
+   document is paper-coloured in both schemes. The print block at the foot
+   of this file overrides --cv-panel with a flat white to keep the printed
+   page ink-on-paper. The @media print block in styles.css is loaded first
+   and also redefines :root, so the print cascade wins by source order
+   when printing. */
+@media (prefers-color-scheme: light){
+  :root{
+    --cv-hair:rgba(20,24,29,.08);
+    --cv-panel:linear-gradient(180deg,#fff 0%,#fafaf7 100%);
+  }
+  /* Stroke that read as a 28% teal whisper on dark navy becomes a vanishing
+     mark on white. Re-tint to the dark-mode teal at a higher opacity so the
+     01/02/03 still reads as a number, not a smudge. */
+  .offer-num{-webkit-text-stroke-color:rgba(10,126,114,.55)}
+  /* The teal chip in the proof first-card uses solid teal bg + #052e2a text
+     for ~7:1 contrast in dark mode. In light mode the same pair is ~1.5:1
+     and the chip becomes a dark blob. Flip to a tinted background with the
+     dark-mode teal as text so it stays legible. */
+  .ship-kick code{background:rgba(10,126,114,.12);color:#0a7e72;border:1px solid rgba(10,126,114,.32)}
+  /* Hardcoded dark navy gradient sat as a black band on the light page.
+     Lift to a warm white that matches the safety print treatment. */
+  .cv-safety{background:linear-gradient(180deg,#fff,#faf7ef)}
+}
 
 /* Section rhythm — a touch more air than the base, Linear-like calm */
 .cv-section{position:relative}
@@ -19,8 +44,8 @@
 /* ---------- what-you-get: numbered ritual ---------- */
 .cv-offer .offer{position:relative;overflow:hidden;padding-top:2.6rem;
   background:var(--cv-panel);border-color:var(--cv-hair)}
-.offer-num{position:absolute;top:.55rem;right:.9rem;font-family:"Fraunces",Georgia,serif;
-  font-weight:700;font-size:3.4rem;line-height:1;color:transparent;
+.offer-num{position:absolute;top:.55rem;right:.9rem;font-family:"Spectral",Georgia,serif;
+  font-weight:600;font-size:3.4rem;line-height:1;color:transparent;font-variant-numeric:lining-nums tabular-nums;
   -webkit-text-stroke:1px rgba(45,212,191,.28);user-select:none}
 .offer-icon{display:block;margin-bottom:.7rem;opacity:.95}
 .cv-offer .offer .tag{margin-bottom:.55rem}
@@ -142,7 +167,7 @@ table.cv-compare.cv-compare{font-size:.92rem;min-width:44rem}
 .paper-mast .mast-no{color:var(--cv-paper-mute)}
 .cv-paper > .when{display:block;padding:1rem 1.4rem 0;color:#0a7e72}
 .cv-paper > h3{padding:0 1.4rem;color:var(--cv-paper-ink);font-family:"Fraunces",Georgia,serif;
-  font-weight:700;font-size:1.4rem;letter-spacing:-.01em}
+  font-weight:700;font-size:1.4rem;letter-spacing:-.01em;text-box:trim-both cap alphabetic}
 .cv-paper > h3 em{color:#0a7e72}
 .cv-paper > p{padding:0 1.4rem;color:#33405a;font-size:.94rem}
 .cv-paper > ul{margin:.4rem 0 0;padding:.9rem 1.4rem .4rem 2.5rem;color:#33405a;list-style:none}
@@ -158,7 +183,7 @@ table.cv-compare.cv-compare{font-size:.92rem;min-width:44rem}
 /* ---------- mid-cta: genuine conversion moment ---------- */
 .cv-midcta{background:linear-gradient(120deg,rgba(45,212,191,.14),rgba(45,212,191,.04) 55%,transparent),
   var(--surface2);border-color:rgba(45,212,191,.4);border-radius:18px;
-  padding:1.75rem 1.75rem;gap:1.5rem}
+  padding:1.75rem;gap:1.5rem}
 .midcta-copy{flex:1 1 18rem;min-width:0}
 .midcta-kick{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:.68rem;
   letter-spacing:.14em;text-transform:uppercase;color:var(--teal);
@@ -256,7 +281,7 @@ table.cv-compare.cv-compare{font-size:.92rem;min-width:44rem}
 /* ---------- print: clean clinic output, paper stays light ---------- */
 @media print{
   .cv-section h2,.cv-paper > h3,.cv-paper > ul li b{color:#000!important}
-  .offer-num{color:#fff!important;-webkit-text-stroke:1px solid #999}
+  .offer-num{color:#fff!important;-webkit-text-stroke:1px #999}
   .cv-compare-wrap{box-shadow:none;background:#fff!important;border-color:#999}
   table.cv-compare{background:#fff!important}
   .cv-compare .loop-h{background:#eee!important;color:#000!important}
@@ -280,3 +305,26 @@ table.cv-compare.cv-compare{font-size:.92rem;min-width:44rem}
 /* Fig caption under the sample brief — the hero caption's register, extended
    to the second artefact so the captioned exhibit becomes a system, not a one-off. */
 .paper-cap{margin:.9rem 0 0;font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:center}
+
+/* -- Paper focal moment ---------------------------------------------------
+   The sample brief is the one authored artefact on the page. It gets the only
+   real "handled object" motion: a fold that settles, and a hand stamp that
+   lands just after it. No typewriter — the register here is a clinic document,
+   not a bit. Everything on screen is static at rest; both effects are gated on
+   reduced-motion so they are simply absent for anyone who asks for stillness. */
+@media (prefers-reduced-motion: no-preference){
+  .cv-paper{transform-origin:top center;animation:paper-fold .48s cubic-bezier(.16,1,.3,1) both}
+  .paper-mast .mast-no{
+    transform:rotate(-1.5deg);opacity:.62;
+    border:1px solid currentcolor;border-radius:3px;padding:.05rem .35rem;
+    animation:stamp-settle .18s cubic-bezier(.16,1,.3,1) .5s both;
+  }
+  @keyframes paper-fold{
+    from{transform:perspective(900px) rotateX(-13deg) translateY(-10px);opacity:0}
+    to{transform:none;opacity:1}
+  }
+  @keyframes stamp-settle{
+    from{transform:rotate(-1.5deg) scale(1.35);opacity:0}
+    to{transform:rotate(-1.5deg) scale(1);opacity:.62}
+  }
+}

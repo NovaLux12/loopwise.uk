@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Medtronic already publishes most of this — Loopwise Health</title>
+<meta name="description" content="A read-only, unauthenticated map of the Medtronic CareLink API surface: what is published without a login, what is not, and what that means for anyone whose diabetes data they cannot get out.">
+<meta name="author" content="Loopwise Health">
+<meta name="color-scheme" content="dark light">
+<meta property="og:title" content="Medtronic already publishes most of this — Loopwise Health">
+<meta property="og:description" content="A read-only, unauthenticated map of the CareLink API surface. No credentials used. What is published, what is not, and what that costs patients.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://loopwise.uk/research/">
+<meta property="og:site_name" content="Loopwise Health">
+<meta property="og:locale" content="en_GB">
+<link rel="canonical" href="https://loopwise.uk/research/">
+<link rel="alternate" type="application/atom+xml" href="https://loopwise.uk/feed.xml" title="Loopwise Health — repository releases">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0a0e14">
+<meta property="og:image" content="https://loopwise.uk/assets/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Loopwise Health — Type 1 data, in plain English.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://loopwise.uk/assets/og-card.png">
+<meta name="twitter:title" content="Medtronic already publishes most of this — Loopwise Health">
+<meta name="twitter:description" content="A read-only, unauthenticated map of the CareLink API surface. No credentials used.">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/spectral-400.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/fraunces-var.woff2" crossorigin>
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/css/shell.css">
+<link rel="stylesheet" href="/css/hero.css">
+<link rel="stylesheet" href="/css/conversion.css">
+<link rel="stylesheet" href="/css/motion.css">
+<link rel="stylesheet" href="/css/research.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav aria-label="Primary"><div class="wrap">
+  <a class="brand" href="/" aria-label="Loopwise Health home">
+    <svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="#2dd4bf" stroke-width="5" opacity=".28"/><circle cx="32" cy="32" r="23" fill="none" stroke="#2dd4bf" stroke-width="5.5"/><path d="M21 33.5l7.5 7.5L44 23" fill="none" stroke="#2dd4bf" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Loopwise Health</a>
+  <div class="links">
+    <a href="/">Plain English</a>
+    <a href="/build/">Engineering</a>
+    <a href="/research/" aria-current="page">Research</a>
+  </div>
+</div></nav>
+
+<main id="main">
+<header class="wrap hero" id="top">
+  <div class="eyebrow">Open access, or no access</div>
+  <h1>Medtronic already publishes most of this. Nobody wrote it down.</h1>
+  <p class="lede">There is no public API documentation for CareLink. There is no developer programme. And yet most of what a third-party client needs is already served without a login, undocumented, in production. So the work nobody has to do, everybody does twice.</p>
+  <p class="research-meta"><a class="btn primary" href="https://github.com/NovaLux12/carelink-api-research" rel="noopener">Read the research repository</a> <a class="btn" href="#the-work">What I found</a></p>
+</header>
+
+<div class="wrap">
+<section id="the-state" aria-labelledby="h-state">
+  <div class="kicker">The state of it</div>
+  <h2 id="h-state">One vendor has an API. Four do not.</h2>
+  <p class="section-sub">As of October 2026, this is the documented position across the major diabetes device manufacturers.</p>
+  <div class="table-scroll">
+  <table class="vendor-table">
+    <caption class="visually-hidden">Public API availability by manufacturer, October 2026</caption>
+    <thead>
+      <tr><th scope="col">Vendor</th><th scope="col">Public API</th><th scope="col">What exists instead</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">Dexcom</th><td>Yes. REST and OAuth 2.0, real-time, FDA-cleared 2021</td><td>Production access gated by a non-negotiable data licence agreement</td></tr>
+      <tr><th scope="row">Abbott</th><td>No</td><td>Partner integrations only: Glooko, Validic, and Epic since 2025</td></tr>
+      <tr><th scope="row">Medtronic</th><td>No</td><td>CareLink Personal and Professional portals. Manual CSV and PDF</td></tr>
+      <tr><th scope="row">Tandem</th><td>No</td><td>Had three undocumented internal endpoints. Removed them during re-platforming</td></tr>
+      <tr><th scope="row">Senseonics</th><td>No</td><td>Clinician portal only</td></tr>
+      <tr><th scope="row">Insulet</th><td>No</td><td>Named data partner is Glooko. No patient-facing API</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Dexcom genuinely does this well. A UK user with a compatible G6 or G7 can grant a third-party application access today, through OAuth, without asking anyone&rsquo;s permission. That is the exception, and it proves the pattern is workable rather than impossible.</p>
+  <p>Two things worth knowing. Dexcom ONE does not support Dexcom Share at all, so the standard workaround fails for roughly half of the UK Dexcom installed base. And Tandem is the only vendor that had undocumented endpoints and then deliberately removed them during a platform migration.</p>
+</section>
+
+<section id="entitled" aria-labelledby="h-entitled">
+  <div class="kicker">What you are entitled to</div>
+  <h2 id="h-entitled">Rights that stop at the account record</h2>
+  <p>UK GDPR Article 15 gives you the right to a copy of the personal data a company already holds about you. That data includes what your devices observed, held in your account.</p>
+  <p>Article 20 covers portability of data you have provided. The ICO reads that as including data observed from using a device. It does not cover inferred or derived data, and it does not oblige a company to hold data in real time in order to hand it over.</p>
+  <p>What none of this does is require a manufacturer to build a product that makes data accessible in the first place. A right to a copy of what is collected is not a right to continuous access to what is generated. Those are different things, and only one of them exists.</p>
+</section>
+
+<section id="regulators" aria-labelledby="h-regulators">
+  <div class="kicker">Elsewhere</div>
+  <h2 id="h-regulators">The direction regulators are taking</h2>
+  <dl class="reg-list">
+    <dt>The EU</dt>
+    <dd>The EU Data Act covers connected medical devices explicitly. From 12 September 2025, users in the EU can access data their devices generate and pass it to third parties. It does not apply in the UK.</dd>
+    <dt>The US</dt>
+    <dd>FDA cybersecurity guidance for medical devices, 2023, states that security controls on a device should not be intended to stop a user accessing their own device data.</dd>
+    <dt>The UK</dt>
+    <dd>Nothing. No parliamentary debate, no APPG report, no CMA action, no ICO decision, no MHRA position on patient access to raw device data. As of October 2026 the question has been left to the device community and to regulatory inertia.</dd>
+  </dl>
+</section>
+
+<section id="finding" aria-labelledby="h-finding">
+  <div class="kicker">A finding</div>
+  <h2 id="h-finding">A European regulator has already looked at this</h2>
+  <p>In 2024, Italy&rsquo;s data protection authority, Garante, fined Medtronic &euro;300,000 over CareLink transparency.</p>
+  <p>That is worth more than any opinion I could offer. A regulator with enforcement powers looked at this specific system and took action. I am not asserting that anyone chose to withhold access. I am pointing at a finding that was made without me having to argue anything.</p>
+</section>
+
+<section id="the-cost" aria-labelledby="h-cost">
+  <div class="kicker">What people do about it</div>
+  <h2 id="h-cost">Everyone builds it themselves</h2>
+  <p>There is no supported route, so the ecosystem reverse engineered its own. Open-source clients exist for CareLink, for Tandem&rsquo;s portal, for Abbott&rsquo;s Libre data. They work. They are maintained by people who needed them. They break when a vendor re-platforms, because they depend on undocumented behaviour the vendor is under no obligation to preserve.</p>
+  <p>That is the actual cost. Not the reverse engineering. The fragility.</p>
+  <p><strong>And the safety argument is fair.</strong> Connected devices can be attacked. The FDA recalled Medtronic MiniMed pumps in 2019 for an exploitable wireless vulnerability, and the same year issued a safety communication advising against unauthorised diabetes devices after an insulin overdose. Manufacturers operate in a liability regime where opening a data pathway genuinely adds risk. &ldquo;They should just publish an API&rdquo; skips over that.</p>
+</section>
+
+<section id="the-work" aria-labelledby="h-work">
+  <div class="kicker">The work</div>
+  <h2 id="h-work">I did not have to log in to find most of this</h2>
+  <p>The <a href="https://github.com/NovaLux12/carelink-api-research" rel="noopener">research repository</a> is a read-only map of CareLink&rsquo;s API surface. Every request was unauthenticated. No token, no cookie, no vendor API key, no login, no credentials used at all. Around 600 requests across several days, rate-limited to one per second, with a hard per-pass cap recorded in the logs and never exceeded.</p>
+
+  <div class="cv-paper paper-slab" role="group" aria-label="Key finding">
+    <div class="paper-mast" aria-hidden="true"><span class="mast-brand">The finding</span><span class="mast-no">No. 001</span></div>
+    <span class="when">The short version</span>
+    <h3>The gap is not secrecy. The gap is documentation.</h3>
+    <p>One unauthenticated file names every device family Medtronic manufactures. Another answers unauthenticated for 117 countries. A third lets you establish which API routes exist without ever holding a token. A configuration endpoint returns 69 keys with no credential required. It has been there the whole time.</p>
+    <p>Anyone building a client for CareLink reverse engineers the same surface independently, because nothing tells them the half of it that is already published. That work is duplicated across every project in this space, and none of it was necessary.</p>
+  </div>
+
+  <h3>Three things it took a while to pin down</h3>
+  <ul class="finding-list">
+    <li>The app-version parameter looks like a dial with an open range. It is not. It resolves to exactly one of two documents. Probing a new version number usually re-derives something already known, which closes off an entire class of wasted work for anyone who knows it.</li>
+    <li>Several routes are POST-only and invisible to a GET-only probe. A route answering <em>method not allowed</em> is a live route, not a dead one.</li>
+    <li>Booleans in the public configuration arrive as the strings <code>&quot;true&quot;</code> and <code>&quot;false&quot;</code>. A strict equality check against <code>false</code> therefore never fires and fails silently. I found this because a check I trusted was returning nothing.</li>
+  </ul>
+
+  <h3>What I did not find</h3>
+  <p><strong>No exploitable vulnerability.</strong> No patient data is reachable without a valid token. Redirect URI validation is strict. TLS is enforced correctly. The one credential appearing in a public JavaScript bundle is verified dead. What exists is a ranked list of hardening gaps, none of them exploitable as far as I can tell.</p>
+  <p><strong>One finding I am not publishing.</strong> There is a pair of API keys served unauthenticated on the US and trials hosts. That is a real issue and it is not mine to publish. It is documented in the repository as withheld, to be disclosed properly rather than dropped on a blog.</p>
+  <p class="research-meta"><a class="btn primary" href="https://github.com/NovaLux12/carelink-api-research" rel="noopener">Read the research repository</a></p>
+</section>
+
+<section id="where-i-stand" aria-labelledby="h-stand">
+  <div class="kicker">The rest</div>
+  <h2 id="h-stand">Where I get to</h2>
+  <p>I maintain Loopwise alone, in the UK, in my own time. No company funds it, no patient pays for it, and nothing on this page or in that repository is monetised. That is a deliberate choice, not modesty: the moment this becomes a business, the argument stops being about patient data access and starts being about my revenue.</p>
+  <p>The bridge reads your own CareLink account. It sends your data to a Nightscout site you run. It does not phone home.</p>
+  <p class="legal-line">Research and educational use. Not a medical device. Not affiliated with or endorsed by Medtronic.</p>
+</section>
+</div>
+</main>
+
+<footer class="site" aria-label="Site footer">
+  <a class="to-top" href="#top" aria-label="Back to top of page">↑ Back to top</a>
+  <div class="sitemap">
+    <div class="col brand-col">
+      <span class="brand-lockup"><svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="#2dd4bf" stroke-width="5" opacity=".28"/><circle cx="32" cy="32" r="23" fill="none" stroke="#2dd4bf" stroke-width="5.5"/><path d="M21 33.5l7.5 7.5L44 23" fill="none" stroke="#2dd4bf" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Loopwise Health</span>
+      <p>Open Type 1 diabetes infrastructure. Built and maintained by one person in the UK.</p>
+      <p><a href="/">Back to the plain-English version</a></p>
+    </div>
+    <div class="col nav-col">
+      <span class="kicker">On this page</span>
+      <ul>
+        <li><a href="#the-state">The state of it</a></li>
+        <li><a href="#entitled">What you are entitled to</a></li>
+        <li><a href="#regulators">Elsewhere</a></li>
+        <li><a href="#finding">A finding</a></li>
+        <li><a href="#the-cost">What people do</a></li>
+        <li><a href="#the-work">The work</a></li>
+        <li><a href="#where-i-stand">Where I get to</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <span class="kicker">Elsewhere</span>
+      <ul>
+        <li><a href="/">Plain-English version</a></li>
+        <li><a href="/build/">How it is built</a></li>
+        <li><a href="https://github.com/NovaLux12/carelink-api-research" rel="noopener">CareLink API research</a></li>
+        <li><a href="mailto:founder@loopwise.uk">Email the maintainer</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal">&copy; 2026 Loopwise Health &middot; Research and educational tooling only &middot; Not a medical device, not FDA approved &middot; Not affiliated with or endorsed by Medtronic &middot; Set in Fraunces, Spectral and JetBrains Mono &middot; No JavaScript ships to your browser</div>
+</footer>
+</body>
+</html>

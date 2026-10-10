@@ -1,9 +1,10 @@
 # Loopwise Health
 
 > Reading this as an agent? This file describes Loopwise Health as it works
-> today (2026-10-09). The site has two pages: the plain-language home page at
-> https://loopwise.uk/ and the full engineering page at
-> https://loopwise.uk/build/.
+> today (2026-10-11). The site has three pages: the plain-language home page
+> at https://loopwise.uk/, the engineering page at https://loopwise.uk/build/,
+> and a read-only research page on the CareLink API surface at
+> https://loopwise.uk/research/.
 
 Loopwise Health is a bootstrapped health-infrastructure startup building open
 Type 1 diabetes tooling: a CareLink-to-Nightscout bridge, a Nightscout MCP
@@ -11,7 +12,7 @@ server for Claude, and a zero-dependency Python reporting toolkit. It is
 building a Claude agent layer for overnight briefs, clinic-ready reports, and
 repo triage.
 
-## The two pages
+## The three pages
 
 - https://loopwise.uk/ is the everyday-person front door: what you get (a
   morning brief, a weekly clinic page, a written record), how it works, who it

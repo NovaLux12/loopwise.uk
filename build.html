@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
@@ -30,10 +30,8 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Loopwise Health","url":"https://loopwise.uk/","logo":"https://loopwise.uk/assets/favicon.svg","description":"Developer surface for Loopwise Health: a CareLink-to-Nightscout bridge in TypeScript, an MCP server for Nightscout, and two stdlib-only Python reporting tools.","email":"founder@loopwise.uk","foundingDate":"2026","areaServed":"GB","knowsAbout":["Type 1 diabetes","Continuous glucose monitoring","Nightscout","Model Context Protocol","Medtronic CareLink"],"sameAs":["https://github.com/NovaLux12"]}</script>
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/spectral-400.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/fraunces-var.woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
 <link rel="stylesheet" href="/css/shell.css">
 <link rel="stylesheet" href="/css/hero.css">
@@ -59,7 +57,7 @@
     <svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="#2dd4bf" stroke-width="5" opacity=".28"/><circle cx="32" cy="32" r="23" fill="none" stroke="#2dd4bf" stroke-width="5.5"/><path d="M21 33.5l7.5 7.5L44 23" fill="none" stroke="#2dd4bf" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <span class="wordmark">Loopwise <span>Health</span></span></a>
   <div class="links">
-    <a href="#quickstart">Quick start</a><a href="#repos">Repositories</a><a href="#security">Security</a><a href="#reference">Reference</a>
+    <a href="#quickstart">Quick start</a><a href="#repos">Repositories</a><a href="#security">Security</a><a href="#reference">Reference</a><a href="/research/">Research</a>
   </div>
   <a class="nav-pill" href="https://github.com/NovaLux12">GitHub</a>
 <span class="scroll-progress" aria-hidden="true"></span></div></nav>
@@ -77,7 +75,7 @@
         </div>
       </div>
       <div class="hero-visual">
-        <div class="phone-card" aria-label="Illustrative morning brief notification at 06:42">
+        <div class="phone-card">
           <svg viewBox="0 0 320 430" role="img" aria-labelledby="phoneTitle">
         <title id="phoneTitle">Illustrative phone lock screen with a Loopwise morning brief notification at 06:42</title>
         <defs>
@@ -88,20 +86,20 @@
         </defs>
         <rect x="6" y="6" width="308" height="418" rx="34" fill="#101724" stroke="#1f2a3d" stroke-width="1.5"/>
         <rect x="128" y="22" width="64" height="16" rx="8" fill="#0a0e14"/>
-        <text x="32" y="40" fill="#e8edf4" font-family="Inter,sans-serif" font-size="11" font-weight="600">06:42</text>
-        <text x="288" y="40" fill="#e8edf4" font-family="Inter,sans-serif" font-size="11" text-anchor="end">100%</text>
+        <text x="32" y="40" fill="#e8edf4" font-family="Spectral,Georgia,serif" font-size="11" font-weight="600">06:42</text>
+        <text x="288" y="40" fill="#e8edf4" font-family="Spectral,Georgia,serif" font-size="11" text-anchor="end">100%</text>
         <text x="160" y="80" fill="#93a0b4" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="2" text-anchor="middle">WED · 8 OCT</text>
         <rect x="20" y="100" width="280" height="140" rx="16" fill="#141d2e" stroke="#1f2a3d"/>
         <rect x="32" y="116" width="30" height="30" rx="7" fill="#0a0e14"/>
         <circle cx="47" cy="131" r="7" fill="none" stroke="#2dd4bf" stroke-width="1.5"/>
         <path d="M42 131 l3.5 3.5 7-7" stroke="#2dd4bf" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <text x="70" y="129" fill="#e8edf4" font-family="Inter,sans-serif" font-size="11" font-weight="600">Loopwise</text>
+        <text x="70" y="129" fill="#e8edf4" font-family="Spectral,Georgia,serif" font-size="11" font-weight="600">Loopwise</text>
         <text x="70" y="142" fill="#77879f" font-family="JetBrains Mono,monospace" font-size="9" letter-spacing="0.5">MORNING BRIEF</text>
-        <text x="288" y="129" fill="#93a0b4" font-family="Inter,sans-serif" font-size="10" text-anchor="end">now</text>
-        <text x="32" y="174" fill="#e8edf4" font-family="Inter,sans-serif" font-size="14" font-weight="700">Steady night, one dip at 05:40.</text>
-        <text x="32" y="198" fill="#2dd4bf" font-family="Inter,sans-serif" font-size="13" font-weight="600">82% in range overnight</text>
-        <text x="32" y="218" fill="#93a0b4" font-family="Inter,sans-serif" font-size="11">Sensor gap 02:10–02:40, no fill</text>
-        <text x="32" y="234" fill="#93a0b4" font-family="Inter,sans-serif" font-size="11">Decisions stay with you and your clinic</text>
+        <text x="288" y="129" fill="#93a0b4" font-family="Spectral,Georgia,serif" font-size="10" text-anchor="end">now</text>
+        <text x="32" y="174" fill="#e8edf4" font-family="Spectral,Georgia,serif" font-size="14" font-weight="700">Steady night, one dip at 05:40.</text>
+        <text x="32" y="198" fill="#2dd4bf" font-family="Spectral,Georgia,serif" font-size="13" font-weight="600">82% in range overnight</text>
+        <text x="32" y="218" fill="#93a0b4" font-family="Spectral,Georgia,serif" font-size="11">Sensor gap 02:10–02:40, no fill</text>
+        <text x="32" y="234" fill="#93a0b4" font-family="Spectral,Georgia,serif" font-size="11">Decisions stay with you and your clinic</text>
         <rect x="20" y="248" width="280" height="134" rx="16" fill="#0d1420" stroke="#1f2a3d"/>
         <text x="34" y="266" fill="#77879f" font-family="JetBrains Mono,monospace" font-size="8" letter-spacing="1.5">OVERNIGHT · mmol/L</text>
         <text x="286" y="266" fill="#77879f" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="end">00–06:42</text>
@@ -126,8 +124,8 @@
         <text x="137" y="354" fill="#77879f" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">02</text>
         <text x="212" y="354" fill="#77879f" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">04</text>
         <text x="272" y="354" fill="#77879f" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">06</text>
-        <text x="160" y="372" fill="#77879f" font-family="Inter,sans-serif" font-size="9" text-anchor="middle">Dip 05:40 · gap 02:10–02:40 unfilled</text>
-        <text x="160" y="398" fill="#77879f" font-family="Inter,sans-serif" font-size="10" text-anchor="middle">Swipe up to open · illustrative</text>
+        <text x="160" y="372" fill="#77879f" font-family="Spectral,Georgia,serif" font-size="9" text-anchor="middle">Dip 05:40 · gap 02:10–02:40 unfilled</text>
+        <text x="160" y="398" fill="#77879f" font-family="Spectral,Georgia,serif" font-size="10" text-anchor="middle">Swipe up to open · illustrative</text>
         <rect x="130" y="408" width="60" height="4" rx="2" fill="#77879f"/>
       </svg>
     </div>
@@ -206,12 +204,12 @@ cd ns-cgm-graph
     <h2>How the pieces fit.</h2>
     <p class="section-sub">Four repositories, one direction of data flow. Everything reads or writes Nightscout, which is the source of truth; nothing writes back to CareLink and nothing touches dosing.</p>
     <ol class="pipe cv-pipe pipe-list" aria-label="Data flow: pump and sensor upload to CareLink; carelink-bridge copies that into Nightscout; nightscout-mcp lets an agent read it; the Python tools turn history into reports and charts; the Claude layer composes those into briefs and clinic documents.">
-      <li class="node" role="listitem"><span class="node-step" aria-hidden="true">1</span><b>Pump + sensor</b><span>780G · Guardian 4 · Simplera</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
-      <li class="node" role="listitem"><span class="node-step" aria-hidden="true">2</span><b>CareLink</b><span>Medtronic&rsquo;s cloud</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
-      <li class="node" role="listitem"><span class="node-step" aria-hidden="true">3</span><b>carelink-bridge</b><span>fetch · normalise · upload</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
-      <li class="node" role="listitem"><span class="node-step" aria-hidden="true">4</span><b>Nightscout</b><span>source of truth, yours</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
-      <li class="node" role="listitem"><span class="node-step" aria-hidden="true">5</span><b>tools</b><span>MCP server · reports · graphs</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
-      <li class="node agent glow" role="listitem"><span class="node-step" aria-hidden="true">6</span><b>Claude layer</b><span>briefs · reports · triage</span></li>
+      <li class="node"><span class="node-step" aria-hidden="true">1</span><b>Pump + sensor</b><span>780G · Guardian 4 · Simplera</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
+      <li class="node"><span class="node-step" aria-hidden="true">2</span><b>CareLink</b><span>Medtronic&rsquo;s cloud</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
+      <li class="node"><span class="node-step" aria-hidden="true">3</span><b>carelink-bridge</b><span>fetch · normalise · upload</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
+      <li class="node"><span class="node-step" aria-hidden="true">4</span><b>Nightscout</b><span>source of truth, yours</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
+      <li class="node"><span class="node-step" aria-hidden="true">5</span><b>tools</b><span>MCP server · reports · graphs</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
+      <li class="node agent glow"><span class="node-step" aria-hidden="true">6</span><b>Claude layer</b><span>briefs · reports · triage</span></li>
     </ol>
     <div class="grid dev-row">
       <div class="card"><span class="tag safe">Your machine</span><h3>Everything from step 1 to 5</h3><p>The bridge, the MCP server and both Python tools run on hardware you control, pointed at a Nightscout instance you host. None of them phone home.</p></div>
@@ -361,7 +359,7 @@ cd ns-cgm-graph
           <li><a href="#security">Security</a></li>
           <li><a href="#releases">Releases</a></li>
           <li><a href="#contributing">Contributing</a></li>
-          <li><a href="#reference">Reference</a></li>
+          <li><a href="#reference">Reference</a><a href="/research/">Research</a></li>
           <li><a href="#sponsors">Sponsors</a></li>
         </ul>
       </div>
@@ -381,7 +379,7 @@ cd ns-cgm-graph
         <p><a href="/security.txt">security.txt</a></p>
       </div>
     </div>
-    <div class="legal">© 2026 Loopwise Health · Research and educational tooling only · Not a medical device, not FDA approved · Not affiliated with or endorsed by Medtronic · Set in Fraunces, Inter and JetBrains Mono · No JavaScript ships to your browser</div>
+    <div class="legal">© 2026 Loopwise Health · Research and educational tooling only · Not a medical device, not FDA approved · Not affiliated with or endorsed by Medtronic · Set in Fraunces, Spectral and JetBrains Mono · No JavaScript ships to your browser</div>
   </footer>
 </div>
 </body>

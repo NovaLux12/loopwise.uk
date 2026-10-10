@@ -1,4 +1,4 @@
-/* act.css — live repo-activity register spliced into the homepage at <!--ACT-->.
+/* act.css — live repo-activity register spliced into the homepage at \3c !--ACT-->.
    Server-rendered from GitHub Atom feeds by a Cloudflare Worker: static HTML, no
    client behaviour. CSS-only (CSP script-src 'none'): no JavaScript required or
    referenced. Linked LAST, after pop-format.css; owns ONLY the .act-* scope.

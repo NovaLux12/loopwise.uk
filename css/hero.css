@@ -39,7 +39,7 @@
 .hero-pills .pill{border-radius:999px;padding:.55rem 1rem;display:inline-flex;align-items:center;gap:.55rem;background:rgba(45,212,191,.06);border:1px solid rgba(45,212,191,.28)}
 .hero-pills .pill::before{content:"";flex:none;width:.45rem;height:.45rem;border-radius:50%;background:var(--teal);box-shadow:0 0 10px rgba(45,212,191,.9)}
 .hero-pills .pill:last-child::before{background:var(--amber);box-shadow:0 0 10px rgba(245,165,36,.8)}
-.hero-pills .pill b{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:1.2rem;line-height:1;color:var(--teal);letter-spacing:-.02em;white-space:nowrap}
+.hero-pills .pill b{font-family:"Spectral",Georgia,serif;font-weight:600;font-size:1.2rem;line-height:1;color:var(--teal);letter-spacing:-.02em;white-space:nowrap;font-variant-numeric:lining-nums tabular-nums}
 .hero-pills .pill:last-child b{color:var(--amber)}
 .hero-pills .pill span{font-size:.82rem;color:var(--muted);line-height:1.3;white-space:nowrap}
 
@@ -49,11 +49,13 @@
 .hero-visual-cap{margin:.9rem 0 0;font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
 
 /* ---- CGM trace: draw-on, gradient fill, tracer ---- */
-.cgm-trace{fill:none;stroke:var(--teal);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:640;stroke-dashoffset:640;animation:cgm-draw 3s ease .6s forwards}
-.cgm-trace.low{stroke:var(--amber);animation-delay:1.1s}
+.cgm-trace{fill:none;stroke:var(--teal);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+/* The whole night is visible at rest — it is evidence, not an entrance. The only
+   motion is the dip being named: it thickens and brightens once, then holds. */
+.cgm-trace.low{stroke:var(--amber);stroke-width:3.2;animation:dip-mark 2.6s ease .9s 1 both}
+
 .cgm-fill{opacity:0;animation:cgm-fade 1.4s ease 2.2s forwards}
 .cgm-tracer{offset-path:path('M34,300 C58,296 74,292 96,288 S130,280 152,286 S186,304 206,300 S232,278 244,290 S268,304 286,296');offset-distance:0%;stroke:#2dd4bf;animation:cgm-trip 7s linear 3.8s infinite,cgm-pulse 2.4s ease-out 3.8s infinite}
-@keyframes cgm-draw{to{stroke-dashoffset:0}}
 @keyframes cgm-fade{to{opacity:1}}
 @keyframes cgm-trip{from{offset-distance:0%}to{offset-distance:100%}}
 @keyframes cgm-pulse{0%{r:3.5;stroke-opacity:0;stroke-width:0}15%{stroke-opacity:.7;stroke-width:1.5}100%{r:16;stroke-opacity:0;stroke-width:.25}}
@@ -72,7 +74,7 @@
 /* ---- stats strip: the deeper cut (cards, serif numerals) ---- */
 .hero .stats{margin:0 0 1.75rem;background:transparent;border:none;gap:.75rem}
 .hero .stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.25rem 1.3rem;border-top:2px solid rgba(45,212,191,.5)}
-.hero .stat b{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:2rem;letter-spacing:-.02em}
+.hero .stat b{font-family:"Spectral",Georgia,serif;font-weight:600;font-size:2rem;letter-spacing:-.02em;font-variant-numeric:lining-nums tabular-nums}
 .hero .stat span{display:block;margin-top:.3rem;line-height:1.45}
 
 /* ---- principles: quieter, guilded by the stats above ---- */
@@ -101,7 +103,7 @@
 /* ---- reduced motion: every animation above settles to its end state ---- */
 @media(prefers-reduced-motion:reduce){
   .hero-copy .eyebrow,.hero-copy h1,.hero-copy .lede,.hero-copy .cta-row,.hero-copy .hero-pills,.hero-visual,.hero .stats,.hero .principles{animation:none!important}
-  .cgm-trace{animation:none!important;stroke-dashoffset:0}
+  .cgm-trace{animation:none!important}
   .cgm-fill{opacity:1!important;animation:none!important}
   .cgm-tracer{animation:none!important;offset-distance:82%;stroke:none!important}
   .ticker-track{animation:none!important}
@@ -115,4 +117,12 @@
   .hero-copy .cta-row{display:none!important}
   .hero .stats{margin:1rem 0;gap:.5rem}
   .ticker{display:none!important}
+}
+
+@keyframes dip-mark{
+  0%,100%{stroke:var(--amber);stroke-width:2.5}
+  18%{stroke:#ffd08a;stroke-width:4.4}
+}
+@media (prefers-reduced-motion: reduce){
+  .cgm-trace.low{animation:none!important;stroke-width:3.2}
 }

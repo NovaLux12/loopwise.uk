@@ -1,0 +1,53 @@
+/* /research/ — the CareLink API research page.
+   Same shell as the other surfaces; only the page-specific furniture lives here.
+   Screen-only additions. Print reuses the clinical-document treatment in
+   styles.css, which already covers numbered sections and the identity footer. */
+
+/* Visually hidden but available to assistive tech. Used for the table caption. */
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+
+/* CTA row under the hero lede — reuses .btn, just sets the spacing. */
+.research-meta{margin:0 0 3rem;display:flex;gap:.8rem;flex-wrap:wrap}
+
+/* Wide tables scroll rather than forcing the page wide. The wrapper takes the
+   scroll so the keyboard focus lands somewhere meaningful on mobile. */
+.table-scroll{overflow-x:auto;margin:0 0 1.4rem;padding-bottom:.3rem;border:1px solid var(--line);border-radius:10px}
+.vendor-table{width:100%;border-collapse:collapse;font-size:.95rem;min-width:34rem}
+.vendor-table th,.vendor-table td{text-align:left;vertical-align:top;padding:.7rem .9rem;border-bottom:1px solid var(--line)}
+.vendor-table thead th{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--surface2)}
+.vendor-table tbody th{font-weight:600;color:var(--text);white-space:nowrap}
+.vendor-table tbody tr:last-child th,.vendor-table tbody tr:last-child td{border-bottom:0}
+
+/* Regulator list — the three jurisdictions, set as a definition list so the
+   term carries the weight and the text does the explaining. */
+.reg-list{margin:0 0 1.5rem;display:grid;gap:1.1rem}
+.reg-list dt{font-weight:600;color:var(--teal);letter-spacing:.04em}
+.reg-list dd{margin:.15rem 0 0;padding-left:1rem;border-left:2px solid var(--line);color:var(--text)}
+
+/* The paper slab: the one authored artefact on this page, same object as the
+   sample brief on the homepage, reused rather than reinvented. */
+.paper-slab{margin:1.6rem 0 2rem}
+.paper-slab > h3{text-box:trim-both cap alphabetic}
+.paper-slab code{font-family:"JetBrains Mono",monospace;font-size:.88em}
+
+/* Finding list — numbered rhythm without numbering, because these are three
+   independent facts rather than a sequence. */
+.finding-list{margin:0 0 1.6rem;padding-left:1.2rem;display:grid;gap:.7rem}
+.finding-list li::marker{color:var(--teal)}
+.finding-list code{font-family:"JetBrains Mono",monospace;font-size:.88em;background:var(--surface2);padding:.05rem .3rem;border-radius:4px}
+
+/* Closing legal line — set apart from the prose, deliberately quiet. */
+.legal-line{margin-top:1.6rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+
+/* Light mode: the paper stays paper-coloured in both schemes, so these blocks
+   only restate text and rule colours for the light palette. */
+@media (prefers-color-scheme: light){
+  .vendor-table thead th{background:var(--surface2)}
+  .reg-list dd{border-left-color:var(--line)}
+  .finding-list code{background:var(--surface2);color:var(--text)}
+  .legal-line{border-top-color:var(--line);color:var(--muted)}
+}
+
+/* Reduced motion: the paper fold and stamp are the only motion here, and they
+   are already gated in conversion.css. Nothing to do beyond keeping the page
+   free of scroll-driven reveals. */

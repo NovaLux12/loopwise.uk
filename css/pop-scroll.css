@@ -166,7 +166,7 @@ footer.site .col a,
 .pilot-cta,
 .compare td a {
   text-decoration: none;
-  background-image: linear-gradient(currentColor, currentColor);
+  background-image: linear-gradient(currentcolor, currentcolor);
   background-repeat: no-repeat;
   background-position: 50% 100%;
   background-size: 0% 1px;
@@ -194,7 +194,7 @@ footer.site .col a:focus-visible,
 }
 @media (min-width: 821px) {
   nav .links a {
-    background-image: linear-gradient(currentColor, currentColor);
+    background-image: linear-gradient(currentcolor, currentcolor);
     background-repeat: no-repeat;
     background-position: 50% calc(100% - 3px);
     background-size: 0% 1px;
