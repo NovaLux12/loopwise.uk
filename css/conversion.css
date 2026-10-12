@@ -7,6 +7,7 @@
   --cv-panel:linear-gradient(180deg,#111a29 0%,#0d1420 100%);
   --cv-head-wash:rgba(10,14,20,.55);
   --cv-loop-wash:rgba(45,212,191,.08);
+  --cv-safety-bg:linear-gradient(180deg,#101827,#0c121d);
   --cv-paper:#f6f3ec;
   --cv-paper-ink:#17202e;
   --cv-paper-mute:#5a6478;
@@ -28,6 +29,7 @@
        light page and took the column heads to 1.20-1.68:1. */
     --cv-head-wash:#f4f5f3;
     --cv-loop-wash:rgba(10,126,114,.10);
+    --cv-safety-bg:linear-gradient(180deg,#fff,#faf7ef);
   }
   /* Stroke that read as a 28% teal whisper on dark navy becomes a vanishing
      mark on white. Re-tint to the dark-mode teal at a higher opacity so the
@@ -42,8 +44,11 @@
      dark-mode teal as text so it stays legible. */
   .ship-kick code{background:rgba(10,126,114,.12);color:#0a7e72;border:1px solid rgba(10,126,114,.32)}
   /* Hardcoded dark navy gradient sat as a black band on the light page.
-     Lift to a warm white that matches the safety print treatment. */
-  .cv-safety{background:linear-gradient(180deg,#fff,#faf7ef)}
+   Now token-driven rather than a light-mode override: the override used to
+   live in the block at the top of this file and was DEAD, because the base
+   rule further down declares .cv-safety again at equal specificity and wins
+   on source order — the same trap as .offer-num. */
+  .cv-safety{border-left-color:var(--amber)}
 }
 
 /* Section rhythm — a touch more air than the base, Linear-like calm */
@@ -256,7 +261,7 @@ table.cv-compare.cv-compare{font-size:.92rem;min-width:44rem}
 
 /* ---------- safety: legal footer-block ---------- */
 .cv-safety{display:flex;gap:.9rem;align-items:flex-start;border-color:var(--cv-hair);
-  background:linear-gradient(180deg,#101827,#0c121d);border-left:3px solid var(--amber)}
+  background:var(--cv-safety-bg);border-left:3px solid var(--amber)}
 .safety-mark{flex:none;font-family:"JetBrains Mono",monospace;font-size:.62rem;letter-spacing:.14em;
   text-transform:uppercase;color:var(--amber);border:1px solid rgba(245,165,36,.45);
   border-radius:6px;padding:.2rem .5rem;margin-top:.1rem}
