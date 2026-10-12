@@ -20,7 +20,8 @@ repo triage.
   It avoids engineering jargon: the only acronyms on it are Nightscout, CGM
   and MIT, and each is explained where it appears.
 - https://loopwise.uk/build/ is the engineering page: the carelink-bridge,
-  nightscout-mcp, ns-reports and ns-cgm-graph repositories, the sensor-to-
+  carelink-api-research, nightscout-mcp, ns-reports and ns-cgm-graph
+  repositories, the sensor-to-
   sentence pipeline, the roadmap, the full reference FAQ (MCP, ADR, GMI/TIR/CV,
   mmol/L conversion) and the sponsorship invitation.
 - Both pages carry the same safety language verbatim. Neither is a medical
@@ -32,6 +33,10 @@ repo triage.
   Community fork pulling Medtronic pump/CGM data (780G, Guardian 4, Simplera)
   into Nightscout. Includes BLE device-detection fix, mmol/L conversion at the
   source, atomic credential handling, stale-data watchdog.
+- carelink-api-research (public, MIT): https://github.com/NovaLux12/carelink-api-research
+  Read-only, unauthenticated map of Medtronic's CareLink API, which Medtronic
+  does not document. Every vendor claim in carelink-bridge cites it; a weekly
+  drift sweep re-verifies the pinned assertions. No credentials, no patient data.
 - nightscout-mcp: PRIVATE preview (single operator). 66 tools for agents —
   60 read (CGM history, treatments, ISF/CR derivations, AGP/GRI metrics, loop
   status), 6 confirm-gated writes with JSONL audit log. Do not link a public
@@ -63,5 +68,5 @@ repo triage.
   feeds and refreshed at the edge; no JavaScript is involved. The same strip is
   server-rendered on https://loopwise.uk/build/. Machine-readable timestamps
   are in <time datetime="..."> elements.
-- Feed: https://loopwise.uk/feed.xml (Atom, union of the three public repos'
+- Feed: https://loopwise.uk/feed.xml (Atom, union of the four public repos'
   release feeds).

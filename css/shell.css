@@ -17,7 +17,7 @@
 
 /* ---------- announce: truncated static hairline (scrolls away; sticky header is nav alone) ---------- */
 .announce{background:rgba(10,14,20,.6);border-bottom:1px solid var(--line)}
-.announce-inner{display:flex;align-items:center;justify-content:center;gap:.5rem;max-width:72rem;margin:0 auto;padding:.3rem 1.5rem;font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.02em;color:var(--faint)}
+.announce-inner{display:flex;align-items:center;justify-content:center;gap:.5rem;max-width:72rem;margin:0 auto;padding:.3rem 1.5rem;font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.02em;color:var(--text-3)}
 .announce-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .announce b{color:var(--muted);font-weight:600}
 .pulse{flex:none;width:.4rem;height:.4rem;border-radius:50%;background:var(--faint)}
@@ -66,7 +66,12 @@ footer.site{display:flex;flex-direction:column;margin:5rem 0 2.5rem;padding-top:
 .to-top:hover{color:var(--teal);border-color:var(--shell-ring);text-decoration:none}
 .to-top:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
 footer.site .sitemap{display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr;gap:3.5rem 3rem;margin:2.5rem 0 2.75rem;border:0;padding:0}
-footer.site .col .kicker{display:flex;align-items:center;gap:.5rem;margin:0 0 1rem;font-family:"JetBrains Mono",monospace;font-size:.68rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+/* footer kicker: colour is intentionally NOT set here. styles.css:219 declares
+   footer.site .col .kicker as var(--teal); an earlier version of this rule set
+   var(--faint) and, being later in source order at equal specificity, silently
+   overrode the teal and dropped it to 4.47:1 on the light page. Leave it alone
+   so the declared teal (4.78:1 on cream) wins. */
+footer.site .col .kicker{display:flex;align-items:center;gap:.5rem;margin:0 0 1rem;font-family:"JetBrains Mono",monospace;font-size:.68rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase}
 .brand-lockup{display:inline-flex;align-items:center;gap:.55rem;color:var(--text);font-weight:800;font-size:.98rem;letter-spacing:-.01em}
 .brand-lockup svg{flex:none;display:block}
 footer.site .col p{margin:0 0 .6rem;line-height:1.7;max-width:22rem}
@@ -77,8 +82,8 @@ footer.site .col ul a{color:var(--muted);text-decoration:none;border-radius:4px;
 footer.site .col ul a:hover{color:var(--teal);text-decoration:none}
 footer.site .col p a{color:var(--muted);transition:color .15s ease}
 footer.site .col p a:hover{color:var(--teal)}
-footer.site .col .hint{color:var(--faint);font-size:.78rem;margin-top:.7rem;line-height:1.6}
-footer.site .legal{border-top:1px solid var(--line);padding-top:1.25rem;margin-top:0;font-size:.74rem;line-height:1.6;color:var(--faint);letter-spacing:.01em}
+footer.site .col .hint{color:var(--text-3);font-size:.78rem;margin-top:.7rem;line-height:1.6}
+footer.site .legal{border-top:1px solid var(--line);padding-top:1.25rem;margin-top:0;font-size:.74rem;line-height:1.6;color:var(--text-3);letter-spacing:.01em}
 @media(max-width:900px){
   footer.site .sitemap{grid-template-columns:repeat(2,1fr);gap:2.75rem 2rem}
 }
@@ -98,9 +103,9 @@ footer.site .legal{border-top:1px solid var(--line);padding-top:1.25rem;margin-t
 .dead-end-card .lede{margin-left:auto;margin-right:auto;max-width:28rem}
 .dead-end .cta-row{margin-bottom:0;margin-top:.25rem}
 .ghost-links{display:flex;flex-wrap:wrap;justify-content:center;gap:.35rem;margin:0 0 1.25rem}
-.ghost-links a{padding:.32rem .8rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--faint);font-size:.76rem;font-weight:500;text-decoration:none;transition:color .15s ease,border-color .15s ease}
+.ghost-links a{padding:.32rem .8rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text-3);font-size:.76rem;font-weight:500;text-decoration:none;transition:color .15s ease,border-color .15s ease}
 .ghost-links a:hover{color:var(--text);border-color:var(--shell-ring);text-decoration:none}
-.slim-foot{border-top:1px solid var(--line);padding:1.25rem 1.5rem 1.5rem;text-align:center;font-family:"JetBrains Mono",monospace;font-size:.74rem;letter-spacing:.02em;color:var(--faint)}
+.slim-foot{border-top:1px solid var(--line);padding:1.25rem 1.5rem 1.5rem;text-align:center;font-family:"JetBrains Mono",monospace;font-size:.74rem;letter-spacing:.02em;color:var(--text-3)}
 .slim-foot a{color:var(--muted)}
 
 /* ---------- motion guards ---------- */
@@ -111,11 +116,58 @@ footer.site .legal{border-top:1px solid var(--line);padding-top:1.25rem;margin-t
   nav .links a,.ghost-links a,.to-top,nav .links a.nav-pill{transition:none}
 }
 
-/* 404 in light mode. shell.css loads after styles.css, so the :root palette
-   swap alone is not enough here — the dead-end chrome hardcodes its own
-   surfaces. Kept in this file so it wins the cascade without !important. */
-@media (prefers-color-scheme: light){
-  .dead-end-top{background:rgba(255,255,255,.78)}
+/* ---------- light mode ----------
+   shell.css loads after styles.css and hardcodes its own chrome surfaces, so
+   the :root palette swap alone cannot reach nav / .announce / .dead-end-top.
+   That is why these overrides live here, in the file that owns the elements,
+   rather than relying on token re-points.
+
+   Chrome is SOLID in light mode, not glass. A translucent white bar over a
+   near-white page leaves the 1px border at ~1.37:1 (effectively invisible) and
+   makes the bar's effective background depend on whatever scrolls underneath,
+   which makes contrast unstable. Solid removes both failure modes.
+
+   Kept in this file so it wins the cascade without !important. */
+@media screen and (prefers-color-scheme: light){
+  /* The --shell-* family drives hover rings and the :has() active-section
+     highlight. Their dark-mode values are bright teal (45,212,191) which is
+     near-invisible on cream, so re-tint them to the light-mode accent. */
+  :root{
+    --shell-glow:rgba(10,126,114,.07);
+    --shell-hairline:rgba(10,126,114,.24);
+    --shell-wash:rgba(10,126,114,.10);
+    --shell-ring:rgba(10,126,114,.45);
+    --shell-pill-text:#fff;
+  }
+
+  nav,.announce,.dead-end-top{
+    background:var(--chrome-bg);
+    border-bottom-color:var(--chrome-line);
+  }
+  /* Text was already flipping with the token swap; these pin it explicitly so
+     the chrome cannot silently regress to a dark-on-dark pairing. */
+  nav .links a,nav a.nav-pill,a.brand,.announce-inner{color:var(--muted)}
+  nav .links a:hover{color:var(--text);background:rgba(20,24,29,.05)}
+  nav a.nav-pill:hover{color:var(--text);background:rgba(20,24,29,.05)}
+  a.brand .wordmark span{color:var(--muted)}
+  .announce b{color:var(--teal)}
+
+  /* Button boundaries are UI components: WCAG 1.4.11 wants 3:1, and --line on
+     white measures 1.37:1. */
+  nav a.nav-pill,.ghost-links a,.to-top{border-color:#a9b0a8}
+
+  /* The 404 numeral was drawn with a white-to-teal gradient clipped to text,
+     plus a 22%-alpha teal stroke: ~1.36:1 on cream, i.e. invisible. Give it a
+     dark-mode teal gradient and a readable stroke instead. */
+  .dead-end-card .code-404{
+    /* Use background-IMAGE, not the `background` shorthand: the shorthand
+       resets background-clip to border-box, which unfilled the text clip and
+       painted the gradient as a solid teal box over the numeral. The clip and
+       the transparent colour must both be restated for the light gradient. */
+    color:transparent;
+    background-image:linear-gradient(180deg,#0a7e72 30%,#065a53);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-stroke:1px rgba(10,126,114,.55);
+  }
   .dead-end-main{background:radial-gradient(46rem 20rem at 50% -4rem,rgba(10,126,114,.07),transparent 70%)}
-  .dead-end-card .code-404{color:transparent;-webkit-text-stroke:1px rgba(10,126,114,.22)}
 }

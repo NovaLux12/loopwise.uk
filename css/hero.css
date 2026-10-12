@@ -45,8 +45,14 @@
 
 /* ---- device: confident, properly proportioned ---- */
 .hero-visual .phone-card{position:relative;width:min(100%,380px);padding:1.25rem;border-radius:22px;background:linear-gradient(180deg,rgba(20,29,46,.9),rgba(13,20,33,.95));border:1px solid #263650;box-shadow:0 30px 80px -24px rgba(0,0,0,.7),0 0 0 1px rgba(45,212,191,.06),0 0 64px -18px rgba(45,212,191,.25)}
+/* The phone-mock card is deliberately dark in BOTH schemes (a phone screen is
+   dark regardless of OS theme), so its chart strokes must stay bright teal.
+   They are stroke="currentColor" in the markup, so pin currentColor to the
+   bright teal here — otherwise they inherit --text and go near-black on the
+   dark card in light mode. */
+.hero-visual .phone-card{color:#2dd4bf}
 .hero-visual .phone-card svg{width:100%;height:auto;display:block}
-.hero-visual-cap{margin:.9rem 0 0;font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.hero-visual-cap{margin:.9rem 0 0;font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
 
 /* ---- CGM trace: draw-on, gradient fill, tracer ---- */
 .cgm-trace{fill:none;stroke:var(--teal);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}

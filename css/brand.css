@@ -1,0 +1,8 @@
+/* brand.css — the brand mark's stroke colour.
+   currentColor so the same inline SVG works in both schemes: bright teal on
+   the dark navy nav (10.4:1), darkened teal on the light page (4.8:1, passes
+   WCAG 1.4.11 non-text 3:1). Defined on :root so it inherits wherever the
+   SVG sits, including the footer lockup. */
+:root{--brand-mark:#2dd4bf}
+@media (prefers-color-scheme: light){:root{--brand-mark:#0a7e72}}
+.brand-mark{color:var(--brand-mark)}

@@ -8,8 +8,19 @@
 @font-face{font-family:"Fraunces";src:url("/assets/fonts/fraunces-var.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
 @font-face{font-family:"JetBrains Mono";src:url("/assets/fonts/jetbrains-mono-var.woff2") format("woff2");font-weight:100 800;font-style:normal;font-display:swap}
 :root{
+  /* color-scheme drives UA scrollbars, form controls and the canvas behind the
+     page. Without it a light-mode reader gets dark scrollbars on white. */
+  color-scheme:dark light;
   --bg:#0a0e14; --surface:#101724; --surface2:#141d2e; --line:#1f2a3d;
   --text:#e8edf4; --muted:#93a0b4; --faint:#77879f;
+  /* --text-3: the smallest legitimate body text. Separate from --faint because
+     --faint has two jobs it cannot do at once — small text on a LIGHT surface
+     needs >=4.5:1 (so light mode darkens it) while text on the dark .term /
+     phone-card surfaces needs to stay light (so darkening it would break those).
+     One value cannot serve both; --faint keeps the decorative/dark-surface job,
+     --text-3 takes small-text-on-light. Dark values are identical, so dark
+     mode is byte-for-byte unchanged by this split. */
+  --text-3:#77879f;
   --teal:#2dd4bf; --amber:#f5a524; --red:#fb5e7a; --blue:#5aa9ff;
   --radius:14px;
 }
@@ -73,7 +84,7 @@ h1{font-size:clamp(2.2rem,5.2vw,3.6rem);line-height:1.08;letter-spacing:-.03em;m
 .tracer-phone{offset-path:path('M32,274 C70,268 90,264 110,268 S150,256 170,262 S210,276 230,270 S270,264 288,270');offset-distance:0%;animation:trip 7s linear 5.2s infinite}
 /* metrics ticker — signature motion divider, CSS only */
 .ticker{margin-top:1.5rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:.6rem 0;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 2rem,#000 calc(100% - 2rem),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 2rem,#000 calc(100% - 2rem),transparent 100%)}
-.ticker-track{display:inline-flex;gap:2.5rem;width:max-content;white-space:nowrap;animation:tick 45s linear infinite;font-family:"JetBrains Mono",monospace;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.ticker-track{display:inline-flex;gap:2.5rem;width:max-content;white-space:nowrap;animation:tick 45s linear infinite;font-family:"JetBrains Mono",monospace;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3)}
 .ticker-track span b{color:var(--teal);font-weight:600}
 @keyframes tick{to{transform:translateX(-50%)}}
 /* hero: serif H1 + teal underline accent (Fraunces) */
@@ -147,13 +158,19 @@ h2{font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:-.02em;margin:0 0 .5rem;fon
 .tool{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.3rem 1.25rem}
 .tool h3{margin:0 0 .15rem;font-size:1.05rem}
 .tool h3 code{font-family:"JetBrains Mono",monospace;font-size:.85rem;color:var(--teal)}
-.tool .meta{font-family:"JetBrains Mono",monospace;font-size:.72rem;color:var(--faint);letter-spacing:.06em;margin-bottom:.7rem}
+.tool .meta{font-family:"JetBrains Mono",monospace;font-size:.72rem;color:var(--text-3);letter-spacing:.06em;margin-bottom:.7rem}
 .tool p{font-size:.9rem;color:var(--muted);margin:0 0 .9rem}
 .term{background:#070b11;border:1px solid var(--line);border-radius:10px;padding:.9rem 1rem;font-family:"JetBrains Mono",monospace;font-size:.76rem;line-height:1.7;color:#c4cfdd;overflow-x:auto;white-space:pre}
 .term{user-select:all;-webkit-user-select:all;cursor:text}
-.term .c{color:var(--faint)}
-.term .g{color:var(--teal)}
-.term .a{color:var(--amber)}
+/* .term keeps its dark panel in BOTH schemes (a terminal is dark), so --faint
+   here is sitting on #070b11, not on the page. The light-mode --faint was 4.26:1
+   there. Pin comments to a fixed value that holds on the dark panel in both. */
+.term .c{color:#8d97a8}
+/* .term is a terminal panel: dark in BOTH schemes. Its syntax colours must
+   therefore be mode-INVARIANT — binding them to --teal/--amber meant light
+   mode painted dark-mode-teal on the dark panel and measured 3.33-3.98:1. */
+.term .g{color:#2dd4bf}
+.term .a{color:#f5a524}
 /* pipeline */
 .pipe{display:flex;align-items:stretch;margin-top:1.5rem;overflow-x:auto;padding-bottom:.5rem}
 .node{flex:1 0 8.5rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:.9rem .8rem;text-align:center}
@@ -220,8 +237,8 @@ footer.site .col .kicker{color:var(--teal);display:block;margin-bottom:.6rem}
 footer.site .col p{margin:0 0 .4rem;line-height:1.55}
 footer.site .col ul{list-style:none;margin:0;padding:0}
 footer.site .col li{margin:0 0 .3rem}
-footer.site .col .hint{color:var(--faint);font-size:.78rem;margin-top:.4rem}
-footer.site .legal{border-top:1px solid var(--line);padding-top:1rem;font-size:.78rem;color:var(--faint)}
+footer.site .col .hint{color:var(--text-3);font-size:.78rem;margin-top:.4rem}
+footer.site .legal{border-top:1px solid var(--line);padding-top:1rem;font-size:.78rem;color:var(--text-3)}
 /* B2: social proof + conversion */
 nav .links a.nav-pill{display:inline-block;padding:.4rem .95rem;border-radius:999px;font-weight:700;font-size:.82rem;background:var(--teal);color:#052e2a;margin-left:.4rem}
 nav .links a.nav-pill:hover{filter:brightness(1.08);text-decoration:none;color:#052e2a}
@@ -237,7 +254,7 @@ nav .links a.nav-pill:hover{filter:brightness(1.08);text-decoration:none;color:#
 /* photo slot — same-origin image, swaps 1:1 for real photography later */
 .photo-slot{margin:1.5rem 0 0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
 .photo-slot img{display:block;width:100%;height:auto}
-.photo-slot figcaption{padding:.7rem 1.25rem;font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.photo-slot figcaption{padding:.7rem 1.25rem;font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3)}
 .mid-cta{margin:2rem 0 0;background:var(--surface2);border:1px solid rgba(45,212,191,.3);border-radius:var(--radius);padding:1.4rem 1.5rem;display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap}
 .mid-cta p{margin:0;color:var(--muted);font-size:.95rem;flex:1 1 16rem}
 .mid-cta p b{color:var(--text)}
@@ -253,7 +270,7 @@ nav .links a.nav-pill:hover{filter:brightness(1.08);text-decoration:none;color:#
 .compare-wrap{margin-top:1.5rem;overflow-x:auto}
 .compare{width:100%;border-collapse:collapse;font-size:.88rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
 .compare th,.compare td{text-align:left;padding:.6rem .9rem;border-bottom:1px solid var(--line)}
-.compare th{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.compare th{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
 .compare tr:last-child td{border-bottom:none}
 .compare td:last-child,.compare th:last-child{color:var(--teal);font-weight:600}
 /* print stylesheet — clean output for clinics and the maintainer */
@@ -268,18 +285,33 @@ nav .links a.nav-pill:hover{filter:brightness(1.08);text-decoration:none;color:#
   .skip{color:#fff}
 
   :root{
+    color-scheme:light;
     --bg:#fbfbfa; --surface:#fff; --surface2:#f4f5f3; --line:#d8dcd6;
     --text:#14181d; --muted:#4d5762; --faint:#6b7682;
+    /* #6b7682 on #fbfbfa is 4.47:1 — a hair under AA for small text. #686f7b
+       is 4.89:1 and still reads as the same muted grey. */
+    --text-3:#686f7b;
     --teal:#0a7e72; --amber:#8a5a00; --red:#a01030; --blue:#0b4a8a;
+    /* Light chrome: SOLID, not glass. A translucent white bar over a near-white
+       page has almost no edge (the 1px --line border measured 1.37:1) and its
+       backdrop-filter makes the nav's effective background depend on whatever
+       scrolls underneath, which makes contrast unstable. Solid removes both.
+       shell.css overrides the nav/announce to use these. */
+    --chrome-bg:#fff;
+    --chrome-line:#d8dcd6;
+    /* Comparison-table header wash. The dark literal rgba(10,14,20,.55) sat on
+       the light page as a grey band with unreadable column heads (1.20-1.68:1). */
+    --cv-head-wash:#f4f5f3;
+    --cv-loop-wash:rgba(10,126,114,.10);
   }
   ::selection{background:rgba(10,126,114,.18)}
   .announce{background:#f2f4f2}
 }
 
 @media print{
-  :root{--bg:#fff;--surface:#fff;--surface2:#fafafa;--line:#bbb;--text:#000;--muted:#333;--faint:#666;--teal:#0a7e72;--amber:#8a5a00;--red:#a01030;--blue:#0b4a8a}
+  :root{--bg:#fff;--surface:#fff;--surface2:#fafafa;--line:#bbb;--text:#000;--muted:#333;--faint:#666;--text-3:#666;--teal:#0a7e72;--amber:#8a5a00;--red:#a01030;--blue:#0b4a8a}
   body{background:#fff;color:#000;font-size:11pt;line-height:1.4}
-  nav,.hero::before,.cta-row,.contact-cta,.announce,.phone-card,.hero-pills,.mid-cta,.nav-pill,.ticker{display:none!important}
+  nav,.hero::before,.cta-row,.contact-cta,.announce,.phone-card,.hero-pills,.mid-cta,.nav-pill,.ticker,.scroll-progress,.dead-end-top{display:none!important}
   .hero{padding:0}
   .hero>svg{display:none}
   .hero>div.principles{margin-top:1rem;grid-template-columns:repeat(3,1fr);break-inside:avoid}

@@ -45,7 +45,9 @@ main>section[id]{border-top:1px solid var(--line);padding-top:clamp(1.75rem,4vw,
 /* ---------- shared repo product header ---------- */
 .repo-bar{display:flex;align-items:center;gap:.9rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:.85rem 1.1rem;margin:.5rem 0 1rem;position:relative;overflow:hidden}
 .repo-bar h2{margin:0;font-size:clamp(1.3rem,2.4vw,1.65rem);letter-spacing:-.02em}
-.repo-mark{flex:none;width:2.4rem;height:2.4rem;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(45,212,191,.08);border:1px solid rgba(45,212,191,.35)}
+/* Its inner svg is stroke="currentColor", so pin the colour here or the mark
+   inherits --text and the teal accent disappears (caught in review). */
+.repo-mark{flex:none;width:2.4rem;height:2.4rem;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(45,212,191,.08);border:1px solid rgba(45,212,191,.35);color:var(--teal)}
 .repo-slug{font-family:"JetBrains Mono",monospace;font-size:.78rem;color:var(--muted);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .repo-slug code{font-size:inherit;color:inherit}
 a.repo-slug:hover{color:var(--teal);text-decoration:none}
@@ -85,7 +87,9 @@ a.repo-slug:hover{color:var(--teal);text-decoration:none}
 .tool-panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.3rem 1.3rem 1.35rem}
 .tool-panel h3{font-size:1.15rem}
 .term-win{background:#070b11;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:1rem}
-.term-bar{display:flex;align-items:center;gap:.42rem;padding:.6rem .95rem;border-bottom:1px solid var(--line);font-family:"JetBrains Mono",monospace;font-size:.72rem;color:var(--faint);letter-spacing:.04em}
+/* The terminal window chrome sits on the always-dark .term panel, so its
+   colour must be mode-invariant like the syntax colours in styles.css. */
+.term-bar{display:flex;align-items:center;gap:.42rem;padding:.6rem .95rem;border-bottom:1px solid var(--line);font-family:"JetBrains Mono",monospace;font-size:.72rem;color:#8d97a8;letter-spacing:.04em}
 .term-bar i{width:.62rem;height:.62rem;border-radius:50%;background:#2a3547}
 .term-bar i:first-child{background:var(--teal)}
 .term-bar .term-title{margin-left:.35rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}

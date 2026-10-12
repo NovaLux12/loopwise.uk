@@ -5,6 +5,8 @@
 :root{
   --cv-hair:rgba(232,237,244,.09);
   --cv-panel:linear-gradient(180deg,#111a29 0%,#0d1420 100%);
+  --cv-head-wash:rgba(10,14,20,.55);
+  --cv-loop-wash:rgba(45,212,191,.08);
   --cv-paper:#f6f3ec;
   --cv-paper-ink:#17202e;
   --cv-paper-mute:#5a6478;
@@ -22,11 +24,18 @@
   :root{
     --cv-hair:rgba(20,24,29,.08);
     --cv-panel:linear-gradient(180deg,#fff 0%,#fafaf7 100%);
+    /* Thead band. rgba(10,14,20,.55) composited to rgb(118,121,123) over the
+       light page and took the column heads to 1.20-1.68:1. */
+    --cv-head-wash:#f4f5f3;
+    --cv-loop-wash:rgba(10,126,114,.10);
   }
   /* Stroke that read as a 28% teal whisper on dark navy becomes a vanishing
      mark on white. Re-tint to the dark-mode teal at a higher opacity so the
-     01/02/03 still reads as a number, not a smudge. */
-  .offer-num{-webkit-text-stroke-color:rgba(10,126,114,.55)}
+     01/02/03 still reads as a number, not a smudge.
+     NOTE: this used to sit here at (0,1,0) and was DEAD — the base .offer-num
+     rule further down the file re-declares the -webkit-text-stroke shorthand,
+     which resets stroke-color, and being later in source order it won. The
+     light override is now applied at the end of this file instead. */
   /* The teal chip in the proof first-card uses solid teal bg + #052e2a text
      for ~7:1 contrast in dark mode. In light mode the same pair is ~1.5:1
      and the chip becomes a dark blob. Flip to a tinted background with the
@@ -47,7 +56,11 @@
 .offer-num{position:absolute;top:.55rem;right:.9rem;font-family:"Spectral",Georgia,serif;
   font-weight:600;font-size:3.4rem;line-height:1;color:transparent;font-variant-numeric:lining-nums tabular-nums;
   -webkit-text-stroke:1px rgba(45,212,191,.28);user-select:none}
-.offer-icon{display:block;margin-bottom:.7rem;opacity:.95}
+/* stroke="currentColor" in the markup, so the icon needs an explicit colour
+   source. Without this it inherits --text from body and loses its teal accent
+   entirely (caught in review: 3 icons on / were silently rendering as body
+   text). var(--teal) keeps them teal AND scheme-aware. */
+.offer-icon{display:block;margin-bottom:.7rem;opacity:.95;color:var(--teal)}
 .cv-offer .offer .tag{margin-bottom:.55rem}
 .cv-offer .offer h3{font-size:1.06rem}
 .cv-offer .offer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;
@@ -62,9 +75,9 @@ table.cv-compare{background:transparent;border:0;font-size:.9rem;min-width:34rem
 .cv-compare col.c-manual{width:33%}
 .cv-compare col.c-loop{width:43%}
 .cv-compare th,.cv-compare td{padding:.8rem 1.1rem;border-bottom:1px solid var(--cv-hair)}
-.cv-compare thead,.cv-compare tr:first-child{background:rgba(10,14,20,.55)}
+.cv-compare thead,.cv-compare tr:first-child{background:var(--cv-head-wash,#f4f5f3)}
 .cv-compare .manual-h{color:var(--muted);font-weight:600}
-table.cv-compare th.loop-h{color:var(--teal);background:rgba(45,212,191,.08);
+table.cv-compare th.loop-h{color:var(--teal);background:var(--cv-loop-wash,rgba(10,126,114,.10));
   box-shadow:inset 0 2px 0 var(--cv-yes);letter-spacing:.1em;text-align:left}
 .cv-compare .cmp-blank{color:transparent;user-select:none}
 .cv-compare tr td:first-child{color:var(--muted);font-weight:600;font-size:.82rem;white-space:nowrap}
@@ -92,7 +105,7 @@ table.cv-compare th.loop-h{color:var(--teal);background:rgba(45,212,191,.08);
 .ship-kick code{font-family:"JetBrains Mono",monospace;font-size:.7rem;font-weight:600;color:#052e2a;
   background:var(--teal);border-radius:6px;padding:.1rem .45rem;letter-spacing:0;text-transform:none;white-space:nowrap}
 .cv-shipped .proof-item span code{font-family:"JetBrains Mono",monospace;font-size:.76rem;color:var(--text);white-space:nowrap}
-p.ship-links{margin:.7rem 0 0;font-family:"JetBrains Mono",monospace;font-size:.74rem;letter-spacing:.02em;color:var(--faint)}
+p.ship-links{margin:.7rem 0 0;font-family:"JetBrains Mono",monospace;font-size:.74rem;letter-spacing:.02em;color:var(--text-3)}
 p.ship-links a{color:var(--teal)}
 p.ship-links a:hover{color:var(--text)}
 /* ---------- compare verify links (R3): cells read as evidence, mailto stays the action ---------- */
@@ -165,10 +178,13 @@ table.cv-compare.cv-compare{font-size:.92rem;min-width:44rem}
   padding:.7rem 1.4rem;border-bottom:2px solid var(--cv-paper-ink);
   font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}
 .paper-mast .mast-no{color:var(--cv-paper-mute)}
-.cv-paper > .when{display:block;padding:1rem 1.4rem 0;color:#0a7e72}
+/* The paper artefact is mode-INVARIANT (a printed clinic document is paper in
+   both schemes), so this fix is deliberately NOT inside a light block -- it
+   failed at 4.47:1 in dark mode too. #0a7e72 on #f6f3ec -> #097068 = 5.37:1. */
+.cv-paper > .when{display:block;padding:1rem 1.4rem 0;color:#097068}
 .cv-paper > h3{padding:0 1.4rem;color:var(--cv-paper-ink);font-family:"Fraunces",Georgia,serif;
   font-weight:700;font-size:1.4rem;letter-spacing:-.01em;text-box:trim-both cap alphabetic}
-.cv-paper > h3 em{color:#0a7e72}
+.cv-paper > h3 em{color:#097068}
 .cv-paper > p{padding:0 1.4rem;color:#33405a;font-size:.94rem}
 .cv-paper > ul{margin:.4rem 0 0;padding:.9rem 1.4rem .4rem 2.5rem;color:#33405a;list-style:none}
 .cv-paper > ul li{position:relative;margin-bottom:.45rem}
@@ -304,7 +320,7 @@ table.cv-compare.cv-compare{font-size:.92rem;min-width:44rem}
 
 /* Fig caption under the sample brief — the hero caption's register, extended
    to the second artefact so the captioned exhibit becomes a system, not a one-off. */
-.paper-cap{margin:.9rem 0 0;font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:center}
+.paper-cap{margin:.9rem 0 0;font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);text-align:center}
 
 /* -- Paper focal moment ---------------------------------------------------
    The sample brief is the one authored artefact on the page. It gets the only
@@ -327,4 +343,18 @@ table.cv-compare.cv-compare{font-size:.92rem;min-width:44rem}
     from{transform:rotate(-1.5deg) scale(1.35);opacity:0}
     to{transform:rotate(-1.5deg) scale(1);opacity:.62}
   }
+}
+
+/* ---------- relocated light-mode fix (must stay LAST in this file) ----------
+   .offer-num's light-mode stroke override originally sat at the top of this
+   file inside the prefers-color-scheme block. It was DEAD: the base .offer-num
+   rule further down re-declares the -webkit-text-stroke SHORTHAND, which resets
+   stroke-color, and being later in source order at equal specificity it won.
+   The 01/02/03 numerals therefore stayed at dark-mode rgba(45,212,191,.28) in
+   light mode -- a 28% teal whisper on white.
+   Placed last so source order now does what the author intended.
+   Scoped to `screen` so it can never out-rank the @media print block above,
+   which flattens the stroke to grey for the printed page. */
+@media screen and (prefers-color-scheme: light){
+  .offer-num{-webkit-text-stroke-color:rgba(10,126,114,.55)}
 }
