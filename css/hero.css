@@ -132,3 +132,24 @@
 @media (prefers-reduced-motion: reduce){
   .cgm-trace.low{animation:none!important;stroke-width:3.2}
 }
+
+/* ---------- light mode: soften the phone card's footprint ----------
+   The card itself stays dark on purpose — it's a device mock, and a phone
+   showing a 06:42 brief is realistically dark in either OS theme.
+
+   What DID jar was its shadow. In light mode a heavy pure-black spread
+   (rgba(0,0,0,.7), 80px blur) over cream reads as a hole punched in the
+   page, and the 64px teal glow underneath reads as a stain rather than
+   depth. This is a softer, cooler, closer shadow with the teal glow dropped.
+
+   Dark mode is untouched. Appended at the END of this file on purpose: light
+   overrides written higher up get defeated by later base rules of equal
+   specificity, which is how .announce, .offer-num and .cv-safety all broke. */
+@media screen and (prefers-color-scheme: light){
+  .hero-visual .phone-card{
+    box-shadow:
+      0 0 0 1px rgba(45,212,191,.06),
+      0 12px 28px -20px rgba(15,23,42,.32),
+      0 2px 8px -6px rgba(15,23,42,.18);
+  }
+}
