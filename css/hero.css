@@ -153,3 +153,61 @@
       0 2px 8px -6px rgba(15,23,42,.18);
   }
 }
+
+/* ---------- light mode: a LIGHT phone mock ----------
+   Shadow-softening was treating the symptom. A 440px near-black mass is
+   jarring on cream whatever shadow it wears, so the card itself is now
+   light too.
+
+   Done entirely in CSS: presentation attributes on <rect>/<text>/<circle>
+   lose to any CSS `fill`, so attribute selectors retheme the artwork without
+   editing the markup in index.html and build.html. `fill="none"` is untouched.
+
+   Mapping (dark -> light):
+     #101724 card face      -> #fff          #1f2a3d hairline -> #d8dcd6
+     #0a0e14 notch / chip   -> #eceeea      #141d2e notif    -> #f7f8f6
+     #0d1420 chart panel    -> #fbfbfa      #e8edf4 ink      -> #14181d
+     #93a0b4 secondary      -> #4d5762      #77879f tertiary -> #4d5762
+     #2dd4bf accent         -> #0a7e72 (dark-mode teal is 1.86:1 on white)
+     #f5a524 amber marker   -> #8a5a00      url(#cgmFill)     -> dark teal wash
+   currentColor strokes (checkmark, plot gridlines) follow --teal via the
+   colour set below, so they retheme too. */
+@media screen and (prefers-color-scheme: light){
+  .hero-visual .phone-card{
+    color:#0a7e72;
+    background:linear-gradient(180deg,#fff,#f7f7f4);
+    border:1px solid #d8dcd6;
+    box-shadow:
+      0 0 0 1px rgba(10,126,114,.05),
+      0 10px 24px -18px rgba(15,23,42,.22),
+      0 2px 6px -4px rgba(15,23,42,.10);
+  }
+  /* Card face + hairline */
+  .phone-card [fill="#101724"]{fill:#fff}
+  .phone-card [stroke="#1f2a3d"]{stroke:#d8dcd6}
+  /* Notch, app-icon chip, grid rules */
+  .phone-card [fill="#0a0e14"]{fill:#eceeea}
+  .phone-card [stroke="#1f2a3d"]{stroke:#dfe3dd}
+  /* Notification panel + chart panel */
+  .phone-card [fill="#141d2e"]{fill:#f7f8f6}
+  .phone-card [fill="#0d1420"]{fill:#fbfbfa}
+  /* Ink */
+  .phone-card [fill="#e8edf4"]{fill:#14181d}
+  .phone-card [fill="#93a0b4"]{fill:#4d5762}
+  .phone-card [fill="#77879f"]{fill:#4d5762}
+  /* Accents */
+  .phone-card [fill="#2dd4bf"]{fill:#0a7e72}
+  .phone-card [fill="#f5a524"]{fill:#8a5a00}
+  /* Plot washes */
+  .phone-card [fill="rgba(45,212,191,.06)"]{fill:rgba(10,126,114,.07)}
+  .phone-card [fill="rgba(93,107,130,.18)"]{fill:rgba(10,126,114,.13)}
+  /* Area-under-curve gradient */
+  .phone-card #cgmFill stop:first-child{stop-color:#0a7e72;stop-opacity:.20}
+  .phone-card #cgmFill stop:last-child{stop-color:#0a7e72;stop-opacity:0}
+
+  /* The primary CTA carried a 28px teal glow that reads as a dated halo on
+     cream. Tighten it to a contact shadow that matches the card. */
+  .hero-copy .cta-row .btn.primary{
+    box-shadow:0 1px 2px rgba(15,23,42,.10);
+  }
+}
