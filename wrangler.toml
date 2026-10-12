@@ -1,0 +1,28 @@
+# wrangler.toml — deployment config for the loopwise-health Worker.
+#
+# Why this file exists: without it, `wrangler deploy` enables `workers.dev` and
+# preview URLs BY DEFAULT, which published the Worker at
+# https://loopwise-health.9s6bbkpj85.workers.dev — outside the Cloudflare edge,
+# so the security headers the Worker sets (CSP, HSTS, frame options) did not
+# apply on that hostname.
+#
+# ⚠️ DELIBERATELY NO `routes` KEY.
+# `loopwise-health` is attached to two live routes — `loopwise.uk/*` and
+# `www.loopwise.uk/*`. Wrangler treats `routes` as declarative: it reconciles
+# the remote state to match what is in this file. If `routes` were absent,
+# those two would be REMOVED and the site would go dark on the next deploy.
+# Wrangler only touches routes when the key is present, so omitting it keeps
+# them intact. Verified against the live API on 2026-10-12:
+#   routes: loopwise.uk/*, www.loopwise.uk/*  (both -> script loopwise-health)
+# If you ever DO add a `routes` block here, copy those two patterns verbatim.
+#
+# `bindings` is empty (no vars, no KV, no secrets), so nothing needs
+# `--keep-vars` today.
+
+name = "loopwise-health"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+
+# Keep the Worker behind the Cloudflare edge only.
+workers_dev = false
+preview_urls = false
