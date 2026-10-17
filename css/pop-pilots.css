@@ -89,10 +89,10 @@
 #pilots .pilot-cta:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:2px}
 
 /* ---------- slotmap meter: fills while the section is hovered ---------- */
-#pilots .slotmap-meter .fill-live{transform-origin:left center}
+#pilots .slotmap-meter .fill-pending{transform-origin:left center}
 #pilots .slotmap-meter .fill-open{transform-origin:left center}
 @keyframes meterfill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-#pilots:hover .slotmap-meter .fill-live{animation:meterfill 1.1s ease-out}
+#pilots:hover .slotmap-meter .fill-pending{animation:meterfill 1.1s ease-out}
 #pilots:hover .slotmap-meter .fill-open{animation:meterfill 1.1s ease-out .3s backwards}
 
 /* ---------- guards ---------- */
@@ -100,10 +100,10 @@
   #pilots .pilot,#pilots .slotmap li,#pilots .pilot-cta,#pilots .pilot-cta .arr{transition:none!important;transform:none!important}
   #pilots .pilot:hover,#pilots .slotmap li:hover{transform:none!important}
   #pilots .slotmap li:hover .dot,#pilots .slotmap li.is-live:hover .dot{animation:none!important}
-  #pilots:hover .slotmap-meter .fill-live,#pilots:hover .slotmap-meter .fill-open{animation:none!important}
+  #pilots:hover .slotmap-meter .fill-pending,#pilots:hover .slotmap-meter .fill-open{animation:none!important}
 }
 @media print{
   #pilots .pilot,#pilots .slotmap li{transform:none!important;box-shadow:none!important}
-  #pilots .slotmap-meter .fill-live,#pilots .slotmap-meter .fill-open{transform:none!important;animation:none!important}
+  #pilots .slotmap-meter .fill-pending,#pilots .slotmap-meter .fill-open{transform:none!important;animation:none!important}
   #pilots .pilot-cta{background:none!important;padding-bottom:0;text-decoration:underline}
 }

@@ -239,7 +239,7 @@
       <div class="pilot is-pending">
         <span class="pilot-state pending"><span class="dot" aria-hidden="true"></span>Reserved · slot 01 · hardware pending</span>
         <b>Maintainer's own setup</b>
-        <p>Reserved for the maintainer's own 780G, which arrives in November 2026. Nothing has run on real hardware yet: the bridge has never been executed against a live CareLink account. Medtronic has rolled out MFA since the upstream code was written, so the first login is expected to need work — tracked openly in <a href="https://github.com/NovaLux12/carelink-bridge/issues/12">issue&nbsp;#12</a>.</p>
+        <p>Reserved for the maintainer's own 780G, which arrives in November 2026. Nothing has run on real hardware yet: the bridge has never been executed against a live CareLink account. Medtronic has rolled out MFA on most CareLink accounts since the upstream code was written, so the first login is expected to need work — tracked openly in <a href="https://github.com/NovaLux12/carelink-bridge/issues/12">issue&nbsp;#12</a>.</p>
       </div>
       <div class="pilot empty is-open">
         <span class="pilot-state recruiting"><span class="dot" aria-hidden="true"></span>Recruiting · slot 02</span>
@@ -300,7 +300,7 @@
     <h2>Don&rsquo;t take our word for it.</h2>
     <p class="section-sub">There are no testimonials here, because no hardware has run this yet and nobody has used it long enough to promise anything. So here is what you can check yourself instead, right now. Start with <a href="/research/">the CareLink API research</a> &mdash; every claim this project makes about Medtronic&rsquo;s servers is cited there, against evidence you can re-run yourself.</p>
     <div class="cv-proof cv-shipped">
-      <a class="proof-item ship-first" href="https://github.com/NovaLux12/carelink-bridge/blob/main/CHANGELOG.md"><span class="ship-kick">Latest release · August 2026</span><b>Eight releases so far, and a written changelog for each</b><span>The unreleased backlog is longer than any single release. Read the history, read the code, run it yourself. Nothing here asks you to take it on trust.</span></a>
+      <a class="proof-item ship-first" href="https://github.com/NovaLux12/carelink-bridge/blob/main/CHANGELOG.md"><span class="ship-kick">Latest bridge release · July 2026</span><b>Eight releases so far, and a written changelog for each</b><span>The unreleased backlog is longer than any single release. Read the history, read the code, run it yourself. Nothing here asks you to take it on trust.</span></a>
       <a class="proof-item" href="https://github.com/NovaLux12/carelink-bridge/actions"><b>Every change is tested automatically</b><span>The test results are public, including the ones that failed.</span></a>
       <a class="proof-item" href="/build/"><b>MIT licence, all four tools</b><span>Three of them are public: read them, copy them, change them, check them. That is what an MIT licence means, and the fourth will join them.</span></a>
       <a class="proof-item" href="#sample-brief"><b>A sample brief, today</b><span>See exactly what a morning looks like before you commit.</span></a>
@@ -332,7 +332,7 @@
       </details>
       <details class="faq">
         <summary>Which pumps and CGMs does the bridge support?</summary>
-        <p>Medtronic 780G pumps with a Guardian 4 or Simplera sensor is what this is built for, and the maintainer&rsquo;s own 780G arrives in November 2026 — so nothing has been validated on that hardware yet. Other Medtronic pumps that upload to CareLink will probably work but have not been properly tested, so treat them as untested rather than supported.</p>
+        <p>A Medtronic 780G with a Guardian 4 or Simplera sensor is what this is built for, and the maintainer&rsquo;s own 780G arrives in November 2026 — so nothing has been validated on that hardware yet. Other Medtronic pumps that upload to CareLink will probably work but have not been properly tested, so treat them as untested rather than supported.</p>
       </details>
       <details class="faq">
         <summary>How much does it cost?</summary>
