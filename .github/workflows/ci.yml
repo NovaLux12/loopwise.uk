@@ -10,6 +10,9 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  # Claims drift when nobody touches this repo, so re-check daily.
+  schedule:
+    - cron: '23 6 * * *'
 
 # Cancels superseded runs on the same ref.
 concurrency:
@@ -76,8 +79,6 @@ jobs:
     # archived, a release is published, a licence changes. Re-check daily so
     # drift surfaces as a failing build rather than as a wrong page.
     runs-on: ubuntu-latest
-    schedule:
-      - cron: '23 6 * * *'
     permissions:
       contents: read
       issues: write
