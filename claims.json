@@ -30,7 +30,10 @@
         "repo": "bridge",
         "field": "license.spdx_id"
       },
-      "expect": "MIT"
+      "expect": "MIT",
+      "htmlMustContain": {
+        "build.html": "Public &middot; MIT"
+      }
     },
     {
       "id": "bridge.language",
@@ -67,7 +70,10 @@
         "repo": "bridge",
         "field": "parent.full_name"
       },
-      "expect": "domien-f/carelink-bridge"
+      "expect": "domien-f/carelink-bridge",
+      "htmlMustContain": {
+        "build.html": "domien-f/carelink-bridge"
+      }
     },
     {
       "id": "bridge.releaseCount",
@@ -79,7 +85,10 @@
         "repo": "bridge"
       },
       "expect": 8,
-      "note": "Homepage says 'Eight releases so far'."
+      "note": "Homepage says 'Eight releases so far'.",
+      "htmlMustContain": {
+        "index.html": "Eight releases so far"
+      }
     },
     {
       "id": "bridge.latestReleaseTag",
@@ -91,7 +100,10 @@
         "repo": "bridge",
         "field": "tag_name"
       },
-      "expect": "v0.2.0"
+      "expect": "v0.2.0",
+      "htmlMustContain": {
+        "build.html": "<code>v0.2.0</code>"
+      }
     },
     {
       "id": "bridge.adrCount",
@@ -108,7 +120,10 @@
         ]
       },
       "expect": 8,
-      "note": "Site says 'eight architecture decision records' in two places."
+      "note": "Site says 'eight architecture decision records' in two places.",
+      "htmlMustContain": {
+        "build.html": "Eight architecture decision records"
+      }
     },
     {
       "id": "bridge.hasCodeOfConduct",
@@ -133,7 +148,10 @@
         "repo": "bridge",
         "path": ".github/CODEOWNERS"
       },
-      "expect": true
+      "expect": true,
+      "htmlMustContain": {
+        "build.html": "<code>CODEOWNERS</code>"
+      }
     },
     {
       "id": "bridge.architectureDocPath",
@@ -146,7 +164,10 @@
         "path": "docs/ARCHITECTURE.md"
       },
       "expect": true,
-      "note": "Site links it as docs/ARCHITECTURE.md. It is NOT at the repo root."
+      "note": "Site links it as docs/ARCHITECTURE.md. It is NOT at the repo root.",
+      "htmlMustContain": {
+        "build.html": "<code>docs/ARCHITECTURE.md</code>"
+      }
     },
     {
       "id": "bridge.securityDoc",
@@ -183,7 +204,10 @@
         "path": "pyproject.toml",
         "key": "requires-python"
       },
-      "expect": ">=3.9"
+      "expect": ">=3.9",
+      "htmlMustContain": {
+        "build.html": "Python, standard library only"
+      }
     },
     {
       "id": "reports.ciPythonFloor",
@@ -197,7 +221,10 @@
         "key": "python-version"
       },
       "expect": "3.9",
-      "note": "The old site claimed CI only exercised 3.11-3.13. It does not."
+      "note": "The old site claimed CI only exercised 3.11-3.13. It does not.",
+      "htmlMustContain": {
+        "build.html": "CI on Python 3.9 to 3.13"
+      }
     },
     {
       "id": "reports.ciPythonCeiling",
@@ -248,7 +275,10 @@
         "path": ".github/workflows/ci.yml",
         "key": "python-version"
       },
-      "expect": "3.9"
+      "expect": "3.9",
+      "htmlMustContain": {
+        "build.html": "CI on Python 3.9 to 3.13"
+      }
     },
     {
       "id": "graph.ciPythonCeiling",
@@ -286,7 +316,11 @@
         "type": "countPublicOf"
       },
       "expect": 4,
-      "note": "Homepage says '5 repos, 4 public'."
+      "note": "Homepage says '5 repos, 4 public'.",
+      "htmlMustContain": {
+        "build.html": "repositories · four public and MIT",
+        "index.html": "repos, 4 public"
+      }
     },
     {
       "id": "bridge.firstRealRunIssueOpen",
@@ -299,7 +333,10 @@
         "number": 12
       },
       "expect": "open",
-      "note": "Issue #12 tracks what the first real hardware run is expected to break; the homepage links to it as proof of honesty. Guarding its state, not a count: open_issues_count includes pull requests and drifts on every triage."
+      "note": "Issue #12 tracks what the first real hardware run is expected to break; the homepage links to it as proof of honesty. Guarding its state, not a count: open_issues_count includes pull requests and drifts on every triage.",
+      "htmlMustContain": {
+        "index.html": "carelink-bridge/issues/12"
+      }
     }
   ]
 }

@@ -10,10 +10,6 @@
   border-color:rgba(45,212,191,.55);
   box-shadow:0 14px 34px -18px rgba(45,212,191,.5);
 }
-#pilots .pilot:hover .pilot-state.live,#pilots .pilot:focus-within .pilot-state.live{
-  box-shadow:0 0 0 .3rem rgba(45,212,191,.18),0 0 18px rgba(45,212,191,.35);
-  border-color:var(--teal);
-}
 #pilots .pilot:hover .pilot-state.recruiting,#pilots .pilot:focus-within .pilot-state.recruiting{
   border-color:var(--teal);
   border-style:solid;
@@ -35,12 +31,10 @@
   box-shadow:0 10px 26px -16px rgba(45,212,191,.5);
 }
 #pilots .slotmap li:hover .dot{background:var(--teal)}
-#pilots .slotmap li.is-live:hover{transform:translateX(3px)}
 
 /* recruiting dots breathe on row hover; live dot breathes deeper on hover */
 @keyframes breathe{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(45,212,191,.45)}50%{transform:scale(1.45);box-shadow:0 0 0 .4rem rgba(45,212,191,0)}}
 #pilots .slotmap li:hover .dot{animation:breathe 1.6s ease-in-out infinite}
-#pilots .slotmap li.is-live:hover .dot{animation:breathe 1.6s ease-in-out infinite}
 
 /* ---------- cross-highlight: row <-> card, both directions ---------- */
 /* hovering slot row 01/02/03 lifts the matching pilot card */
@@ -99,7 +93,7 @@
 @media(prefers-reduced-motion:reduce){
   #pilots .pilot,#pilots .slotmap li,#pilots .pilot-cta,#pilots .pilot-cta .arr{transition:none!important;transform:none!important}
   #pilots .pilot:hover,#pilots .slotmap li:hover{transform:none!important}
-  #pilots .slotmap li:hover .dot,#pilots .slotmap li.is-live:hover .dot{animation:none!important}
+  #pilots .slotmap li:hover .dot{animation:none!important}
   #pilots:hover .slotmap-meter .fill-pending,#pilots:hover .slotmap-meter .fill-open{animation:none!important}
 }
 @media print{

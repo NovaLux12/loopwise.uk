@@ -229,8 +229,21 @@ for (const claim of manifest.claims) {
   }
 
   if (actual === null) {
-    softFailures += 1;
-    results.push({ id: claim.id, pass: false, kind: 'UNVERIFIED', actual: 'not found' });
+    // A 404 is a real answer, not an absence of one: no claim in claims.json
+    // expects null, so a repo, directory, issue or file the site depends on
+    // has gone missing. That is drift, and it must fail the build. Treating
+    // it as merely "unverified" meant deleting docs/adr or closing issue #12
+    // left the page still claiming "eight ADRs" and still linking to #12.
+    hardFailures += 1;
+    results.push({
+      id: claim.id,
+      pass: false,
+      kind: 'FAIL',
+      expect: claim.expect,
+      actual: 'not found',
+      assertedIn: claim.assertedIn,
+      note: claim.note,
+    });
     continue;
   }
 

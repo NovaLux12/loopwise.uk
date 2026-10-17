@@ -136,7 +136,7 @@
     </div>
     <div class="hero-pills">
       <a class="pill" href="#quickstart"><b>15 min</b><span>bridge setup, per the guide</span></a>
-      <a class="pill" href="#repos"><b>3</b><span>public repos, 1 private preview</span></a>
+      <a class="pill" href="#repos"><b>4</b><span>public repos, 1 private preview</span></a>
       <a class="pill" href="#security"><b>0</b><span>telemetry, ever</span></a>
     </div>
     <div class="stats">
@@ -222,13 +222,13 @@ cd ns-cgm-graph
   <section id="repos" class="reveal cv-section">
     <div class="kicker">Repositories · five, four public and MIT</div>
     <h2>The repository index.</h2>
-    <p class="section-sub">Four are public and readable today. The fifth is in private preview and will be opened when it is ready. Figures below are from the GitHub API on 9 October 2026.</p>
+    <p class="section-sub">Four are public and readable today. The fifth is in private preview and will be opened when it is ready. Every figure below is re-checked against the GitHub API by <code>claims.json</code> on each build, so this page cannot drift away from the repositories without failing.</p>
     <div class="duo">
       <div class="card">
         <span class="tag safe">Public · MIT</span>
         <h3><code>carelink-bridge</code></h3>
         <p>TypeScript. Copies Medtronic pump and CGM data into Nightscout by signing into CareLink the way the official app does.</p>
-        <p><b>Community fork</b> of <code>domien-f/carelink-bridge</code>. Eight releases, v0.1.0 through <code>v0.2.0</code> (22 July 2026). CI on Node 20 and 22. Eight architecture decision records. 8 open issues.</p>
+        <p><b>Community fork</b> of <code>domien-f/carelink-bridge</code>. Eight releases, v0.1.0 through <code>v0.2.0</code> (22 July 2026). CI on Node 20 and 22. Eight architecture decision records. Open issues are public too.</p>
         <p><a href="https://github.com/NovaLux12/carelink-bridge">github.com/NovaLux12/carelink-bridge</a></p>
       </div>
       <div class="card">
@@ -318,7 +318,7 @@ cd ns-cgm-graph
       <div class="card"><span class="tag">Accountable</span><h3>A human, on the record</h3><p>Email is read by the maintainer, not by the agent. Replies typically come within one to two working days, UK evenings. If something is wrong, the person who answers is the person who is accountable for it.</p></div>
       <div class="card"><span class="tag">Computed by</span><h3>Hosted inference, disclosed</h3><p>The overnight brief, the clinic report and repository triage run on hosted inference. Composing your brief means your glucose history does reach the model provider as part of that step. The bridge itself copies data between your own machines and talks to no model at all.</p></div>
     </div>
-    <div class="scope-note cv-scope"><span class="scope-rail" aria-hidden="true"></span><div><b>How to check this:</b> every commit, review, test run and release in all five repositories is public, and <code>CODEOWNERS</code> names the single required approver. If you want the agent&rsquo;s work reviewed by more than one person, that is the gap to fill first.</div></div>
+    <div class="scope-note cv-scope"><span class="scope-rail" aria-hidden="true"></span><div><b>How to check this:</b> every commit, review and test run in the four public repositories is public, and <code>CODEOWNERS</code> names the single required approver. The fifth repository is in private preview, so nothing in it can be checked yet &mdash; which is the honest reason it is marked private rather than public. If you want the agent&rsquo;s work reviewed by more than one person, that is the gap to fill first.</div></div>
   </section>
   <section id="releases" class="reveal cv-section">
     <div class="kicker">Releases · what actually shipped</div>
