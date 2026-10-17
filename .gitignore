@@ -4,12 +4,16 @@ node_modules/
 AGENTS.md
 APPLY.md
 IDENTITY.md
+MEMORY.md
 PROGRESS.md
 README.md
 SOUL.md
 USER.md
+learning/
 memory/
 media/
+proactivity/
+tools/
 worker.js
 
 hv.txt
