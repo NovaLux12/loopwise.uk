@@ -7,8 +7,18 @@ on:
 permissions:
   contents: read
 jobs:
-  smoke:
+  verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - run: node --version
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Lint HTML
+        run: npx html-validate index.html build.html research.html
+      - name: Lint CSS
+        run: npx stylelint "styles.css" "css/*.css"
+      - name: Check internal links and anchors
+        run: node scripts/check-links.mjs
