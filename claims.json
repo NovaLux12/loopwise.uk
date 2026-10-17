@@ -287,6 +287,19 @@
       },
       "expect": 4,
       "note": "Homepage says '5 repos, 4 public'."
+    },
+    {
+      "id": "bridge.firstRealRunIssueOpen",
+      "assertedIn": [
+        "index.html#proof"
+      ],
+      "check": {
+        "type": "issueState",
+        "repo": "bridge",
+        "number": 12
+      },
+      "expect": "open",
+      "note": "Issue #12 tracks what the first real hardware run is expected to break; the homepage links to it as proof of honesty. Guarding its state, not a count: open_issues_count includes pull requests and drifts on every triage."
     }
   ]
 }

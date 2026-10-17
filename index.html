@@ -304,6 +304,7 @@
       <a class="proof-item" href="https://github.com/NovaLux12/carelink-bridge/actions"><b>Every change is tested automatically</b><span>The test results are public, including the ones that failed.</span></a>
       <a class="proof-item" href="/build/"><b>MIT licence, all four tools</b><span>Three of them are public: read them, copy them, change them, check them. That is what an MIT licence means, and the fourth will join them.</span></a>
       <a class="proof-item" href="#sample-brief"><b>A sample brief, today</b><span>See exactly what a morning looks like before you commit.</span></a>
+      <a class="proof-item" href="https://github.com/NovaLux12/carelink-bridge/issues"><b>The bugs I already know about</b><span>Every open issue is written by me and names its own uncertainty. <b>Read #12</b>, which tracks what the first real run is expected to break.</span></a>
     </div>
     <!--ACT: the Cloudflare Worker splices a live "repo activity" fragment here,
          built from GitHub's public Atom feeds. No JavaScript reaches the browser.
@@ -340,7 +341,7 @@
       </details>
       <details class="faq">
         <summary>Can my clinic use the reports?</summary>
-        <p>That is the point of the whole thing. The reports already produce a machine-readable file plus a breakdown for each day, so any number can be checked against the readings it came from. The polished, clinic-ready version is what is being built now. Ask for it and you will be told honestly whether it is ready yet.</p>
+        <p>That is the point of the whole thing. The reports already produce a machine-readable file plus a breakdown for each day, so any number can be checked against the readings it came from. One thing worth saying plainly: this is <b>not</b> an AGP report. Clinics already know the Ambulatory Glucose Profile, which is a licensed format built to be filed rather than read &mdash; fourteen days of data and a fixed set of eight metrics. This is a different job, written to be read by a person first. Expect it to state how many days it covers and what share of your sensor was active, so you can see whether it had enough data to be worth anything. The polished, clinic-ready version is what is being built now. Ask for it and you will be told honestly whether it is ready yet.</p>
       </details>
       <details class="faq">
         <summary>Where does my data live?</summary>
@@ -362,7 +363,7 @@
   </section>
 
   <div class="mid-cta cv-midcta">
-    <div class="midcta-copy"><span class="midcta-kick">Open source · four public repositories</span><p>Every claim on this page sits on top of code you can read. <b>The bridge, the reporting tools, the decisions behind them and the live release history</b> are all on one page.</p></div>
+    <div class="midcta-copy"><span class="midcta-kick">Open source · four public repositories</span><p>Every claim on this page sits on top of code you can read. <b>The bridge, the reporting tools, the decisions behind them and the live release history</b> are all on one page. The bridge is a community fork of <a href="https://github.com/domien-f/carelink-bridge">domien-f/carelink-bridge</a>, kept alive here and reported upstream &mdash; it is not original work, and it is not affiliated with Medtronic.</p></div>
     <a class="btn" href="/build/">For developers</a>
   </div>
 

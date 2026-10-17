@@ -118,6 +118,17 @@ const checks = {
     return Array.isArray(r) ? r.length : null;
   },
 
+  /**
+   * State of one specific issue. Preferred over counting open issues:
+   * open_issues_count also counts open pull requests, and it drifts every
+   * time anything is triaged, so asserting it would fail CI for no useful
+   * reason.
+   */
+  async issueState({ repo, number }) {
+    const r = await api(`/repos/${full(repo)}/issues/${number}`);
+    return r ? r.state : null;
+  },
+
   async latestRelease({ repo, field }) {
     const r = await api(`/repos/${full(repo)}/releases?per_page=100`);
     if (!Array.isArray(r) || r.length === 0) return null;
