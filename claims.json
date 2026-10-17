@@ -319,7 +319,7 @@
       "note": "Homepage says '5 repos, 4 public'.",
       "htmlMustContain": {
         "build.html": "repositories · four public and MIT",
-        "index.html": "repositories, 4 public"
+        "index.html": "<b>5</b><span>repositories, 4 public</span>"
       }
     },
     {
@@ -344,13 +344,25 @@
         "index.html#proof"
       ],
       "check": {
-        "type": "countPublicOf"
+        "type": "countPublicTools"
       },
-      "expect": 4,
-      "note": "4 tools exist (bridge, ns-reports, ns-cgm-graph, nightscout-mcp); 3 are public. The repository count is 5 because carelink-api-research is documentation rather than a tool. Both framings appear on the homepage, so both are pinned here.",
+      "expect": 3,
+      "note": "3 of the 4 tools are public; nightscout-mcp is not. Counted from the manifest's explicit tools list, not inferred from the repository count — the two happen to be related but are not the same measurement.",
       "htmlMustContain": {
-        "index.html": "tools, 3 public and MIT"
+        "index.html": "<em>4</em></b><span>tools, 3 public and MIT</span>"
       }
+    }
+  ],
+  "tools": [
+    "bridge",
+    "reports",
+    "graph",
+    "mcp"
+  ],
+  "nonTools": [
+    {
+      "alias": "research",
+      "why": "carelink-api-research is captured API evidence and research notes, not something anyone runs."
     }
   ]
 }

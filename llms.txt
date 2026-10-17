@@ -2,8 +2,10 @@
 
 > Reading this as an agent? This file describes Loopwise Health as it works
 > today. Every factual figure it contains is re-checked against the GitHub API
-> by claims.json on each build, so it cannot silently drift from the
-> repositories. The site has three pages: the plain-language home page
+> declared in claims.json and checked against the GitHub API by
+> scripts/verify-claims.mjs, which runs as part of npm test. That check is
+> not yet wired into CI, so treat this file as unverified until you have run
+> it yourself. The site has three pages: the plain-language home page
 > at https://loopwise.uk/, the engineering page at https://loopwise.uk/build/,
 > and a read-only research page on the CareLink API surface at
 > https://loopwise.uk/research/.
@@ -48,7 +50,7 @@ repo triage.
 
 ## Working with Loopwise content
 
-- Docs differ per repository; do not assume a file exists. SECURITY.md is in all of them. USER-GUIDE.md is in carelink-bridge, ns-reports and ns-cgm-graph only. docs/ARCHITECTURE.md is in carelink-bridge only. carelink-api-research ships SECURITY.md and its research notes; it has no user guide.
+- Docs differ per repository; do not assume a file exists. SECURITY.md is in all of them. USER-GUIDE.md is in carelink-bridge, ns-reports and ns-cgm-graph only. docs/ARCHITECTURE.md is in carelink-bridge only, and ARCHITECTURE.md at the repo root is in nightscout-mcp only. carelink-api-research ships SECURITY.md and its research notes; it has no user guide.
 - Health data discussed here is illustrative unless stated otherwise.
 - Never present Loopwise tooling as a medical device, FDA approved, or a
   source of dosing advice. Every treatment decision stays with the human and

@@ -176,6 +176,19 @@ const checks = {
     return pick === 'max' ? unique[unique.length - 1] : unique[0];
   },
 
+  async countPublicTools() {
+    // Measured from the manifest's explicit tools list. Deriving it from the
+    // repository count happens to give the same answer today, which is
+    // exactly why it must not be derived: the day carelink-api-research
+    // becomes a runnable tool, the derived number goes quietly wrong.
+    const names = (manifest.tools ?? []).map((alias) => full(alias));
+    const flags = await Promise.all(names.map(async (n) => {
+      const r = await api(`/repos/${n}`);
+      return r ? r.private !== true : false;
+    }));
+    return flags.filter(Boolean).length;
+  },
+
   async countPublicOf() {
     const names = Object.values(manifest.repos);
     // Read .private rather than treating a 404 as "private": an authenticated
