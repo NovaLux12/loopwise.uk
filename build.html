@@ -68,7 +68,7 @@
     <div class="hero-main">
       <div class="hero-copy">
         <span class="eyebrow">Developer surface · not the patient-facing page</span>
-        <h1>Four repositories, <span class="u-accent">one</span> data path.</h1>
+        <h1>Five repositories, <span class="u-accent">one</span> data path.</h1>
         <p class="lede">A CareLink-to-Nightscout bridge in TypeScript, an MCP server that lets an agent read your Nightscout, and two stdlib-only Python tools. Start below, or read how the pieces fit.</p>
         <div class="cta-row">
           <a class="btn primary" href="#quickstart">Quick start</a>
@@ -80,7 +80,7 @@
           <svg viewBox="0 0 320 430" role="img" aria-labelledby="phoneTitle">
         <title id="phoneTitle">Illustrative phone lock screen with a Loopwise morning brief notification at 06:42</title>
         <defs>
-          <linearGradient id="cgmFill" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="cgm-fill" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stop-color="#2dd4bf" stop-opacity=".28"/>
             <stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/>
           </linearGradient>
@@ -115,7 +115,7 @@
         <rect x="115" y="272" width="19" height="42" fill="rgba(93,107,130,.18)"/>
         <line x1="115" y1="272" x2="115" y2="314" stroke="#77879f" stroke-width="1" stroke-dasharray="3 3"/>
         <line x1="134" y1="272" x2="134" y2="314" stroke="#77879f" stroke-width="1" stroke-dasharray="3 3"/>
-        <path class="cgm-fill" d="M34,300 C58,296 74,292 96,288 S122,282 142,287 S162,293 182,296 S204,302 222,310 S238,322 250,318 S262,304 274,300 S282,297 286,296 L286,340 L34,340 Z" fill="url(#cgmFill)"/>
+        <path class="cgm-fill" d="M34,300 C58,296 74,292 96,288 S122,282 142,287 S162,293 182,296 S204,302 222,310 S238,322 250,318 S262,304 274,300 S282,297 286,296 L286,340 L34,340 Z" fill="url(#cgm-fill)"/>
         <path class="cgm-trace" d="M34,300 C58,296 74,292 96,288 S122,282 142,287 S162,293 182,296 S204,302 222,310 S238,322 250,318 S262,304 274,300 S282,297 286,296"/>
         <path class="cgm-trace low" d="M222,310 S238,322 250,318 S262,304 272,301"/>
         <circle cx="250" cy="318" r="3" fill="#f5a524"><animate attributeName="opacity" values="1;.35;1" dur="2.4s" repeatCount="indefinite"/></circle>
@@ -158,7 +158,7 @@
     <p class="section-sub">The bridge signs into Medtronic&rsquo;s CareLink service the way the official app does and copies pump and sensor readings into a Nightscout site you run. The user guide budgets about fifteen minutes for the setup itself.</p>
     <div class="grid">
       <div class="card"><span class="tag neutral">Requirement</span><h3>Node.js 20 or newer</h3><p>The package declares <code>engines.node &gt;=20.0.0</code>. CI runs on Node 20 and 22, so anything outside that range is untested.</p></div>
-      <div class="card"><span class="tag neutral">Requirement</span><h3>A Medtronic pump on CareLink</h3><p>Anything that uploads to CareLink. The 780G with a Guardian 4 or Simplera sensor is the combination actually exercised by the maintainer&rsquo;s own setup.</p></div>
+      <div class="card"><span class="tag neutral">Requirement</span><h3>A Medtronic pump on CareLink</h3><p>Anything that uploads to CareLink. The maintainer&rsquo;s own 780G arrives November 2026, so no combination has been exercised on real hardware yet.</p></div>
       <div class="card"><span class="tag neutral">Requirement</span><h3>Somewhere always on</h3><p>A VPS or a machine that stays awake. The installer is idempotent and there is a hardened systemd unit in the repository.</p></div>
     </div>
     <div class="term-win"><div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span class="term-title">carelink-bridge</span></div><div class="term"><span class="c"># verbatim from the README of NovaLux12/carelink-bridge</span>
@@ -169,9 +169,9 @@ npm install &amp;&amp; npm run build
 <span class="g">npm run doctor             # pre-flight check</span>
 <span class="g">npm run login              # one-time OAuth login</span>
 <span class="a">npm start                  # fetch loop</span></div></div>
-    <div class="docs-strip">Then read <code>USER-GUIDE.md</code> for the full stack — Nightscout, the bridge, and the tunnel. The repository also ships <code>ARCHITECTURE.md</code> <code>SECURITY.md</code> <code>CONTRIBUTING.md</code> <code>ROADMAP.md</code> <code>CHANGELOG.md</code> and eight architecture decision records under <code>docs/adr/</code>.</div>
+    <div class="docs-strip">Then read <code>USER-GUIDE.md</code> for the full stack — Nightscout, the bridge, and the tunnel. The repository also ships <code>docs/ARCHITECTURE.md</code> <code>SECURITY.md</code> <code>CONTRIBUTING.md</code> <code>ROADMAP.md</code> <code>CHANGELOG.md</code> and eight architecture decision records under <code>docs/adr/</code>.</div>
     <div class="grid dev-row">
-      <div class="card"><span class="tag">Already have Nightscout data?</span><h3>Two stdlib-only Python tools</h3><p>Neither talks to Medtronic. They read an existing Nightscout instance and turn history into a weekly report or an SVG chart. Python 3.9 and up; CI currently exercises 3.11 to 3.13.</p></div>
+      <div class="card"><span class="tag">Already have Nightscout data?</span><h3>Two stdlib-only Python tools</h3><p>Neither talks to Medtronic. They read an existing Nightscout instance and turn history into a weekly report or an SVG chart. Python 3.9 and up; CI exercises 3.9 to 3.13.</p></div>
       <div class="card"><span class="tag">ns-reports</span><h3>Weekly numbers</h3><p>Averages, time in range, lows and highs, basal/bolus split, per-day breakdowns. Text or JSON.</p></div>
       <div class="card"><span class="tag">ns-cgm-graph</span><h3>SVG charts</h3><p>Recent CGM history as clean SVG, for reports or dashboards. No matplotlib, no browser, no dependencies.</p></div>
     </div>
@@ -200,11 +200,11 @@ cd ns-cgm-graph
 <span class="c"># pip in a venv</span>
 <span class="a">pip install .</span></div></div>
   </section>
-  <section id="architecture" class="reveal cv-section">
+  <section id="architecture" class="reveal cv-section" aria-labelledby="architecture-heading">
     <div class="kicker">Architecture · sensor to sentence</div>
-    <h2>How the pieces fit.</h2>
-    <p class="section-sub">Four repositories, one direction of data flow. Everything reads or writes Nightscout, which is the source of truth; nothing writes back to CareLink and nothing touches dosing.</p>
-    <ol class="pipe cv-pipe pipe-list" aria-label="Data flow: pump and sensor upload to CareLink; carelink-bridge copies that into Nightscout; nightscout-mcp lets an agent read it; the Python tools turn history into reports and charts; the Claude layer composes those into briefs and clinic documents.">
+    <h2 id="architecture-heading">How the pieces fit.</h2>
+    <p class="section-sub">Five repositories, one direction of data flow. Everything reads or writes Nightscout, which is the source of truth; nothing writes back to CareLink and nothing touches dosing.</p>
+    <ol class="pipe cv-pipe pipe-list">
       <li class="node"><span class="node-step" aria-hidden="true">1</span><b>Pump + sensor</b><span>780G · Guardian 4 · Simplera</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
       <li class="node"><span class="node-step" aria-hidden="true">2</span><b>CareLink</b><span>Medtronic&rsquo;s cloud</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
       <li class="node"><span class="node-step" aria-hidden="true">3</span><b>carelink-bridge</b><span>fetch · normalise · upload</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
@@ -242,14 +242,14 @@ cd ns-cgm-graph
         <span class="tag safe">Public · MIT</span>
         <h3><code>ns-reports</code></h3>
         <p>Python, standard library only. Turns Nightscout history into weekly numbers: averages, variability, time in range, lows and highs, basal/bolus split, per-day.</p>
-        <p><b>Version <code>v0.2.0</code></b>, published by tag. No GitHub release object exists for it yet. CI on Python 3.11 to 3.13.</p>
+        <p><b>Version <code>v0.2.0</code></b>, published by tag. No GitHub release object exists for it yet. CI on Python 3.9 to 3.13.</p>
         <p><a href="https://github.com/NovaLux12/ns-reports">github.com/NovaLux12/ns-reports</a></p>
       </div>
       <div class="card">
         <span class="tag safe">Public · MIT</span>
         <h3><code>ns-cgm-graph</code></h3>
         <p>Python, standard library only. Renders recent CGM data as SVG over any window — hours or days — for reports, dashboards and briefs.</p>
-        <p><b>One release, <code>v0.1.0</code></b> (20 August 2026). CI on Python 3.11 to 3.13. No matplotlib, no browser, no dependencies.</p>
+        <p><b>One release, <code>v0.1.0</code></b> (20 August 2026). CI on Python 3.9 to 3.13. No matplotlib, no browser, no dependencies.</p>
         <p><a href="https://github.com/NovaLux12/ns-cgm-graph">github.com/NovaLux12/ns-cgm-graph</a></p>
       </div>
     </div>
@@ -305,7 +305,7 @@ cd ns-cgm-graph
       <div class="card"><span class="tag">Report a flaw</span><h3>security.txt, per RFC 9116</h3><p>Served at <code>/.well-known/security.txt</code> and <code>/security.txt</code>. Prefer GitHub private vulnerability reporting on the repository where the flaw lives.</p></div>
       <div class="card"><span class="tag">Report a flaw</span><h3>Do not open a public issue</h3><p>A public issue leaks the detail to everyone at once. Private advisory or email first, always.</p></div>
     </div>
-    <div class="scope-note cv-scope"><span class="scope-rail" aria-hidden="true"></span><div><b>Known gaps, stated plainly:</b> the repository does not ship a code of conduct or CODEOWNERS, and the two Python tools claim Python 3.9 and up while CI only exercises 3.11 to 3.13. <code>ns-reports</code> is versioned by tag and has no GitHub release object. These are being fixed, not hidden — check the repositories rather than take this page&rsquo;s word for it.</div></div>
+    <div class="scope-note cv-scope"><span class="scope-rail" aria-hidden="true"></span><div><b>Known gaps, stated plainly:</b> no pump has run this yet, so nothing is validated on real hardware. <code>carelink-bridge</code> is a fork, not original work, and <code>nightscout-mcp</code> is private, so one of the four tools cannot be read. <code>ns-reports</code> is versioned by tag with no GitHub release object, and there is exactly one reviewer. These are being fixed, not hidden — check the repositories rather than take this page&rsquo;s word for it.</div></div>
   </section>
   <section id="releases" class="reveal cv-section">
     <div class="kicker">Releases · what actually shipped</div>
@@ -322,11 +322,11 @@ cd ns-cgm-graph
     <h2>How to help.</h2>
     <p class="section-sub">This is one person&rsquo;s project, so the useful contributions are specific ones: reproduce something, fix a doc, test on hardware nobody else has.</p>
     <div class="grid">
-      <div class="card"><span class="tag">Most useful</span><h3>Test on your hardware</h3><p>The bridge is exercised on one pump and one sensor combination. Anyone with a different Medtronic setup who can report what does and does not work removes a whole class of blind spot.</p></div>
+      <div class="card"><span class="tag">Most useful</span><h3>Test on your hardware</h3><p>The bridge has not yet run on any pump or sensor combination. Anyone with a different Medtronic setup who can report what does and does not work removes a whole class of blind spot.</p></div>
       <div class="card"><span class="tag">Most useful</span><h3>Report upstream, not downstream</h3><p>Some defects belong to <code>domien-f/carelink-bridge</code>. A fix traced upstream survives the upstream project waking up; a patch only here gets stranded.</p></div>
       <div class="card"><span class="tag">Useful</span><h3>Issues before pull requests</h3><p>Public issues for bugs and features — they move faster than email and leave a trail. The bridge ships a <code>CONTRIBUTING.md</code>; read it first.</p></div>
       <div class="card"><span class="tag">Useful</span><h3>Architecture records</h3><p>Eight ADRs exist for the bridge. New decisions deserve the same treatment: what was decided, and what would reverse it.</p></div>
-      <div class="card"><span class="tag">Honest gap</span><h3>No code of conduct yet</h3><p>There is no <code>CODE_OF_CONDUCT.md</code> in any repository. Until one exists, the maintainer&rsquo;s rule is simple: be decent, and assume good faith.</p></div>
+      <div class="card"><span class="tag">Honest gap</span><h3>One reviewer, not two</h3><p>A code of conduct and <code>CODEOWNERS</code> ship with every repository that has code in it. What does not exist is a second pair of eyes: <code>CODEOWNERS</code> names a single owner, so every change is reviewed by one person. If you would rather be that person, start here.</p></div>
       <div class="card"><span class="tag">Private by default</span><h3>Do not file a security flaw publicly</h3><p>Use <code>security.txt</code> or GitHub private advisories. A public issue spreads the detail before anyone can patch it.</p></div>
     </div>
   </section>

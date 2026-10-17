@@ -20,6 +20,10 @@
   color:var(--teal);
   box-shadow:0 0 14px rgba(45,212,191,.25);
 }
+#pilots .pilot:hover .pilot-state.pending,#pilots .pilot:focus-within .pilot-state.pending{
+  box-shadow:0 0 0 .3rem rgba(245,165,36,.16),0 0 18px rgba(245,165,36,.32);
+  border-color:var(--amber);
+}
 #pilots .pilot .pilot-state{transition:border-color .22s ease,color .22s ease,box-shadow .28s ease}
 
 /* ---------- slotmap rows: hover state ---------- */

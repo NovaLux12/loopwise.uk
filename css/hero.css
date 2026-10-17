@@ -169,7 +169,7 @@
      #0d1420 chart panel    -> #fbfbfa      #e8edf4 ink      -> #14181d
      #93a0b4 secondary      -> #4d5762      #77879f tertiary -> #4d5762
      #2dd4bf accent         -> #0a7e72 (dark-mode teal is 1.86:1 on white)
-     #f5a524 amber marker   -> #8a5a00      url(#cgmFill)     -> dark teal wash
+     #f5a524 amber marker   -> #8a5a00      url(#cgm-fill)     -> dark teal wash
    currentColor strokes (checkmark, plot gridlines) follow --teal via the
    colour set below, so they retheme too. */
 @media screen and (prefers-color-scheme: light){
@@ -202,8 +202,8 @@
   .phone-card [fill="rgba(45,212,191,.06)"]{fill:rgba(10,126,114,.07)}
   .phone-card [fill="rgba(93,107,130,.18)"]{fill:rgba(10,126,114,.13)}
   /* Area-under-curve gradient */
-  .phone-card #cgmFill stop:first-child{stop-color:#0a7e72;stop-opacity:.20}
-  .phone-card #cgmFill stop:last-child{stop-color:#0a7e72;stop-opacity:0}
+  .phone-card #cgm-fill stop:first-child{stop-color:#0a7e72;stop-opacity:.20}
+  .phone-card #cgm-fill stop:last-child{stop-color:#0a7e72;stop-opacity:0}
 
   /* The primary CTA carried a 28px teal glow that reads as a dated halo on
      cream. Tighten it to a contact shadow that matches the card. */
