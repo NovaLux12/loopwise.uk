@@ -78,6 +78,10 @@ jobs:
     # Claims drift even when nobody touches this repo: a repository gets
     # archived, a release is published, a licence changes. Re-check daily so
     # drift surfaces as a failing build rather than as a wrong page.
+    #
+    # Schedule only. Without this the job runs on every push and PR too, and
+    # would try to file an issue from a branch that is about to fix the drift.
+    if: github.event_name == 'schedule'
     runs-on: ubuntu-latest
     permissions:
       contents: read
