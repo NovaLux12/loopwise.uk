@@ -29,6 +29,12 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--text);font-family:"Spectral",Georgia,"Times New Roman",serif;font-size:1.0625rem;line-height:1.65;-webkit-font-smoothing:antialiased;font-kerning:normal}
 ::selection{background:rgba(45,212,191,.3)}
 a{color:var(--teal);text-decoration:none}
+/* Links in prose are underlined. WCAG 1.4.1 needs more than colour, and the
+   teal measures only 1.42:1 against surrounding muted text in dark and 1.48:1
+   in light (axe link-in-text-block, 2026-10-17) — colour alone was carrying the
+   whole distinction. Buttons, pills, the brand mark and nav keep it off. */
+p a,li a,dd a,td a,footer a,.safety a,.announce a{text-decoration:underline;text-underline-offset:.18em}
+a.btn,a.pill,a.brand,a.skip,nav a{text-decoration:none}
 a:hover{text-decoration:underline}
 a:focus-visible,.btn:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
 /* announcement bar — honest, single line, persists on mobile */
