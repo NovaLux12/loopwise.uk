@@ -1,0 +1,368 @@
+{
+  "$comment": [
+    "Every verifiable factual claim the site makes, with the source it must agree",
+    "with. scripts/verify-claims.mjs re-checks each one against the live GitHub",
+    "API and exits non-zero on drift, so a stale claim fails CI instead of",
+    "quietly rotting on a page. This generalises the stale-claim-reaper workflow",
+    "in carelink-api-research from research claims to the claims this site publishes.",
+    "",
+    "Add a claim here whenever a number or name appears in the HTML. If a claim",
+    "cannot be machine-checked, do not add it — and do not state it as a fact."
+  ],
+  "version": 1,
+  "owner": "NovaLux12",
+  "repos": {
+    "bridge": "NovaLux12/carelink-bridge",
+    "reports": "NovaLux12/ns-reports",
+    "graph": "NovaLux12/ns-cgm-graph",
+    "research": "NovaLux12/carelink-api-research",
+    "mcp": "NovaLux12/nightscout-mcp"
+  },
+  "claims": [
+    {
+      "id": "bridge.licence",
+      "assertedIn": [
+        "build.html#repos",
+        "index.html#proof"
+      ],
+      "check": {
+        "type": "repo",
+        "repo": "bridge",
+        "field": "license.spdx_id"
+      },
+      "expect": "MIT",
+      "htmlMustContain": {
+        "build.html": "Public &middot; MIT"
+      }
+    },
+    {
+      "id": "bridge.language",
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "repo",
+        "repo": "bridge",
+        "field": "language"
+      },
+      "expect": "TypeScript"
+    },
+    {
+      "id": "bridge.isFork",
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "repo",
+        "repo": "bridge",
+        "field": "fork"
+      },
+      "expect": true,
+      "note": "The site discloses the fork. If this ever becomes false, the disclosure must change too."
+    },
+    {
+      "id": "bridge.forkParent",
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "repo",
+        "repo": "bridge",
+        "field": "parent.full_name"
+      },
+      "expect": "domien-f/carelink-bridge",
+      "htmlMustContain": {
+        "build.html": "domien-f/carelink-bridge"
+      }
+    },
+    {
+      "id": "bridge.releaseCount",
+      "assertedIn": [
+        "index.html#proof"
+      ],
+      "check": {
+        "type": "releaseCount",
+        "repo": "bridge"
+      },
+      "expect": 8,
+      "note": "Homepage says 'Eight releases so far'.",
+      "htmlMustContain": {
+        "index.html": "Eight releases so far"
+      }
+    },
+    {
+      "id": "bridge.latestReleaseTag",
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "latestRelease",
+        "repo": "bridge",
+        "field": "tag_name"
+      },
+      "expect": "v0.2.0",
+      "htmlMustContain": {
+        "build.html": "<code>v0.2.0</code>"
+      }
+    },
+    {
+      "id": "bridge.adrCount",
+      "assertedIn": [
+        "build.html#repos",
+        "build.html#contributing"
+      ],
+      "check": {
+        "type": "dirCount",
+        "repo": "bridge",
+        "path": "docs/adr",
+        "exclude": [
+          "README.md"
+        ]
+      },
+      "expect": 8,
+      "note": "Site says 'eight architecture decision records' in two places.",
+      "htmlMustContain": {
+        "build.html": "Eight architecture decision records"
+      }
+    },
+    {
+      "id": "bridge.hasCodeOfConduct",
+      "assertedIn": [
+        "build.html#contributing"
+      ],
+      "check": {
+        "type": "pathExists",
+        "repo": "bridge",
+        "path": "CODE_OF_CONDUCT.md"
+      },
+      "expect": true,
+      "note": "The old site claimed no repository had one. It does."
+    },
+    {
+      "id": "bridge.hasCodeowners",
+      "assertedIn": [
+        "build.html#contributing"
+      ],
+      "check": {
+        "type": "pathExists",
+        "repo": "bridge",
+        "path": ".github/CODEOWNERS"
+      },
+      "expect": true,
+      "htmlMustContain": {
+        "build.html": "<code>CODEOWNERS</code>"
+      }
+    },
+    {
+      "id": "bridge.architectureDocPath",
+      "assertedIn": [
+        "build.html#quickstart"
+      ],
+      "check": {
+        "type": "pathExists",
+        "repo": "bridge",
+        "path": "docs/ARCHITECTURE.md"
+      },
+      "expect": true,
+      "note": "Site links it as docs/ARCHITECTURE.md. It is NOT at the repo root.",
+      "htmlMustContain": {
+        "build.html": "<code>docs/ARCHITECTURE.md</code>"
+      }
+    },
+    {
+      "id": "bridge.securityDoc",
+      "assertedIn": [
+        "build.html#quickstart"
+      ],
+      "check": {
+        "type": "pathExists",
+        "repo": "bridge",
+        "path": "SECURITY.md"
+      },
+      "expect": true
+    },
+    {
+      "id": "reports.licence",
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "repo",
+        "repo": "reports",
+        "field": "license.spdx_id"
+      },
+      "expect": "MIT"
+    },
+    {
+      "id": "reports.requiresPython",
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "tomlKey",
+        "repo": "reports",
+        "path": "pyproject.toml",
+        "key": "requires-python"
+      },
+      "expect": ">=3.9",
+      "htmlMustContain": {
+        "build.html": "Python, standard library only"
+      }
+    },
+    {
+      "id": "reports.ciPythonFloor",
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "ciMatrix",
+        "repo": "reports",
+        "path": ".github/workflows/ci.yml",
+        "key": "python-version"
+      },
+      "expect": "3.9",
+      "note": "The old site claimed CI only exercised 3.11-3.13. It does not.",
+      "htmlMustContain": {
+        "build.html": "CI on Python 3.9 to 3.13"
+      }
+    },
+    {
+      "id": "reports.ciPythonCeiling",
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "ciMatrix",
+        "repo": "reports",
+        "path": ".github/workflows/ci.yml",
+        "key": "python-version",
+        "pick": "max"
+      },
+      "expect": "3.13"
+    },
+    {
+      "id": "graph.licence",
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "repo",
+        "repo": "graph",
+        "field": "license.spdx_id"
+      },
+      "expect": "MIT"
+    },
+    {
+      "id": "graph.latestReleaseTag",
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "latestRelease",
+        "repo": "graph",
+        "field": "tag_name"
+      },
+      "expect": "v0.1.0"
+    },
+    {
+      "id": "graph.ciPythonFloor",
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "ciMatrix",
+        "repo": "graph",
+        "path": ".github/workflows/ci.yml",
+        "key": "python-version"
+      },
+      "expect": "3.9",
+      "htmlMustContain": {
+        "build.html": "CI on Python 3.9 to 3.13"
+      }
+    },
+    {
+      "id": "graph.ciPythonCeiling",
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "ciMatrix",
+        "repo": "graph",
+        "path": ".github/workflows/ci.yml",
+        "key": "python-version",
+        "pick": "max"
+      },
+      "expect": "3.13"
+    },
+    {
+      "id": "research.licence",
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "repo",
+        "repo": "research",
+        "field": "license.spdx_id"
+      },
+      "expect": "MIT"
+    },
+    {
+      "id": "project.publicRepoCount",
+      "assertedIn": [
+        "index.html#proof",
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "countPublicOf"
+      },
+      "expect": 4,
+      "note": "Homepage says '5 repos, 4 public'.",
+      "htmlMustContain": {
+        "build.html": "repositories · four public and MIT",
+        "index.html": "<b>5</b><span>repositories, 4 public</span>"
+      }
+    },
+    {
+      "id": "bridge.firstRealRunIssueOpen",
+      "assertedIn": [
+        "index.html#proof"
+      ],
+      "check": {
+        "type": "issueState",
+        "repo": "bridge",
+        "number": 12
+      },
+      "expect": "open",
+      "note": "Issue #12 tracks what the first real hardware run is expected to break; the homepage links to it as proof of honesty. Guarding its state, not a count: open_issues_count includes pull requests and drifts on every triage.",
+      "htmlMustContain": {
+        "index.html": "carelink-bridge/issues/12"
+      }
+    },
+    {
+      "id": "project.publicToolCount",
+      "assertedIn": [
+        "index.html#proof"
+      ],
+      "check": {
+        "type": "countPublicTools"
+      },
+      "expect": 3,
+      "note": "3 of the 4 tools are public; nightscout-mcp is not. Counted from the manifest's explicit tools list, not inferred from the repository count — the two happen to be related but are not the same measurement.",
+      "htmlMustContain": {
+        "index.html": "<em>4</em></b><span>tools, 3 public and MIT</span>"
+      }
+    }
+  ],
+  "tools": [
+    "bridge",
+    "reports",
+    "graph",
+    "mcp"
+  ],
+  "nonTools": [
+    {
+      "alias": "research",
+      "why": "carelink-api-research is captured API evidence and research notes, not something anyone runs."
+    }
+  ]
+}

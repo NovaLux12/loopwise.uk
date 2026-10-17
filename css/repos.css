@@ -21,12 +21,14 @@ main>section[id]{border-top:1px solid var(--line);padding-top:clamp(1.75rem,4vw,
 #pilots .pilots{counter-reset:slot;margin-top:0;background:none;border:0;padding:0;grid-template-columns:1fr;gap:.8rem}
 #pilots .pilot{counter-increment:slot;position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-left:1px solid var(--line);border-radius:var(--radius);padding:1.1rem 4.5rem 1.1rem 1.25rem}
 #pilots .pilot::after{content:"0" counter(slot);position:absolute;top:.55rem;right:.9rem;font-family:"JetBrains Mono",monospace;font-size:1.9rem;font-weight:600;line-height:1;color:transparent;-webkit-text-stroke:1px var(--line)}
-#pilots .pilot.is-live{border-color:rgba(45,212,191,.5);background:linear-gradient(180deg,rgba(45,212,191,.08),var(--surface) 58%)}
 #pilots .pilot.is-open{border-style:dashed}
+#pilots .pilot.is-pending{border-color:rgba(245,165,36,.5);background:linear-gradient(180deg,rgba(245,165,36,.08),var(--surface) 58%)}
 .pilot-state{display:inline-flex;align-items:center;gap:.45rem;font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(45,212,191,.45);border-radius:999px;padding:.15rem .65rem;margin-bottom:.6rem}
 .pilot-state .dot{width:.45rem;height:.45rem;border-radius:50%;background:var(--teal);animation:pulse 2.2s ease-out infinite}
 .pilot-state.recruiting{color:var(--muted);border-color:var(--faint);border-style:dashed}
 .pilot-state.recruiting .dot{background:var(--faint);animation:none}
+.pilot-state.pending{color:var(--amber);border-color:rgba(245,165,36,.45)}
+.pilot-state.pending .dot{background:var(--amber);animation:none}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(45,212,191,.5)}100%{box-shadow:0 0 0 .55rem rgba(45,212,191,0)}}
 #pilots .photo-side{margin:0;position:sticky;top:5rem;display:flex;flex-direction:column}
 #pilots .photo-side figcaption{border-top:1px solid var(--line);display:flex;gap:.5rem;align-items:baseline}
@@ -114,19 +116,19 @@ a.repo-slug:hover{color:var(--teal);text-decoration:none}
 .slotmap li{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .6rem;background:var(--surface2);border:1px dashed var(--faint);border-radius:10px;padding:.7rem .85rem;font-size:.86rem;color:var(--muted)}
 .slotmap li b{color:var(--text);font-size:.9rem}
 .slotmap li span:last-child{flex-basis:100%;font-size:.8rem}
-.slotmap li.is-live{border-style:solid;border-color:rgba(45,212,191,.5);background:linear-gradient(180deg,rgba(45,212,191,.08),var(--surface2))}
 .slotmap .dot{width:.45rem;height:.45rem;border-radius:50%;background:var(--faint);flex:none}
-.slotmap li.is-live .dot{background:var(--teal);animation:pulse 2.2s ease-out infinite}
+.slotmap li.is-pending{border-style:solid;border-color:rgba(245,165,36,.5);background:linear-gradient(180deg,rgba(245,165,36,.08),var(--surface2))}
+.slotmap li.is-pending .dot{background:var(--amber);animation:none}
 .slotmap-meter{display:flex;height:.45rem;border-radius:999px;overflow:hidden;margin-top:1rem;border:1px solid var(--line)}
-.slotmap-meter .fill-live{flex:1;background:var(--teal)}
+.slotmap-meter .fill-pending{flex:1;background:var(--amber)}
 .slotmap-meter .fill-open{flex:2;background:repeating-linear-gradient(90deg,rgba(147,160,180,.55) 0 5px,transparent 5px 10px)}
 .slotmap-legend{display:flex;justify-content:space-between;margin-top:.45rem;font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
 #pilots .status-side figcaption{border-top:1px solid var(--line);margin-top:1rem}
 
 /* ---------- guards ---------- */
 @media(prefers-reduced-motion:reduce){
-  .pilot-state .dot,.slotmap li.is-live .dot,.repo-pipe .repo-bar::after,.repo-agent .repo-slug::after{animation:none!important}
-  #pilots .pilot.is-live,.repo-grid .card:has(.tag.safe){background:var(--surface)}
+  .pilot-state .dot,.repo-pipe .repo-bar::after,.repo-agent .repo-slug::after{animation:none!important}
+  #pilots .pilot.is-pending,.repo-grid .card:has(.tag.safe){background:var(--surface)}
 }
 @media print{
   #pilots .pilot::after{display:none}

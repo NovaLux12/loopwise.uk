@@ -1,0 +1,145 @@
+name: CI
+
+# This repository publishes factual claims about four other repositories.
+# The point of this workflow is to make a stale claim fail the build instead
+# of quietly rotting on a page — the failure mode that produced the original
+# "known gaps" section on /build/.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  # Claims drift when nobody touches this repo, so re-check daily.
+  schedule:
+    - cron: '23 6 * * *'
+
+# Cancels superseded runs on the same ref.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Lint HTML
+        run: npx html-validate index.html build.html research.html
+
+      - name: Lint CSS
+        run: npx stylelint "styles.css" "css/*.css"
+
+      - name: Check internal links and anchors
+        run: node scripts/check-links.mjs
+
+      - name: Verify published claims against the GitHub API
+        env:
+          # Raises the API rate limit from 60/h unauthenticated to 5000/h.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # exit 1 = a claim is genuinely wrong. exit 2 = the GitHub API was
+        # unreachable. `outcome` cannot tell those apart, so record the code
+        # and gate on it below: an outage must never fail the build.
+        run: |
+          set +e
+          node scripts/verify-claims.mjs
+          code=$?
+          set -e
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit $code
+        continue-on-error: true
+        id: claims
+
+      - name: Fail if a published claim drifted
+        if: steps.claims.outputs.exit_code == '1'
+        run: |
+          echo "::error::A published claim no longer matches reality."
+          echo "Either the site is now wrong, or claims.json is out of date."
+          exit 1
+
+      - name: Note that claims could not be checked
+        if: steps.claims.outputs.exit_code == '2'
+        run: |
+          echo "::warning::The GitHub API was unreachable, so claims were not"
+          echo "::warning::verified. Not treated as drift." 
+
+  claims-weekly:
+    # Claims drift even when nobody touches this repo: a repository gets
+    # archived, a release is published, a licence changes. Re-check daily so
+    # drift surfaces as a failing build rather than as a wrong page.
+    #
+    # Schedule only. Without this the job runs on every push and PR too, and
+    # would try to file an issue from a branch that is about to fix the drift.
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Re-verify claims
+        id: verify
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/verify-claims.mjs --json > claims-result.json
+
+      - name: File an issue if a claim drifted
+        if: steps.verify.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # The push in question was not necessarily today, so re-run the
+          # same checks here rather than re-parsing the report.
+          set +e
+          node scripts/verify-claims.mjs > /dev/null 2>&1
+          code=$?
+          set -e
+          if [ "$code" = "0" ]; then
+            echo "claims now pass; nothing to file"
+            exit 0
+          fi
+          if [ "$code" != "1" ]; then
+            # exit 2 = the GitHub API was unreachable. Filing an issue for
+            # that would be a false alarm: nothing about the site changed.
+            echo "claims could not be checked (exit $code); not filing"
+            exit 0
+          fi
+          TITLE="A published claim no longer matches reality"
+          # Never file duplicates: a drifting claim would otherwise open an
+          # issue every single day until somebody acted on it.
+          EXISTING=$(gh issue list --search "$TITLE in:title" --state open --json number --jq '.[0].number' || true)
+          if [ -n "$EXISTING" ]; then
+            echo "issue #$EXISTING already open; not filing a duplicate"
+            exit 0
+          fi
+          {
+            echo "The daily claim check failed. Run \`node scripts/verify-claims.mjs\` locally to see what drifted."
+            echo ""
+            echo '```'
+            node scripts/verify-claims.mjs || true
+            echo '```'
+            echo ""
+            echo "Either the page is now wrong, or \`claims.json\` needs updating. Both are real bugs: the first is a false claim on the site, the second means the drift check has stopped protecting it."
+          } > /tmp/body.md
+          gh issue create --title "$TITLE" --body-file /tmp/body.md --label automation || \
+            gh issue create --title "$TITLE" --body-file /tmp/body.md

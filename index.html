@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Loopwise Health · your Type 1 data, in plain English</title>
-<meta name="description" content="Loopwise Health is a small open-source project for people with Type 1 diabetes. A short read of your overnight numbers each morning, a one-page report your clinic can use, and open-source code anyone can read. Research and educational tooling, not a medical device.">
+<meta name="description" content="A short read of your overnight Type 1 numbers each morning, a one-page report your clinic can use, and open-source code you can read. Not a medical device.">
 <meta name="author" content="Loopwise Health">
-<meta name="color-scheme" content="dark">
+<meta name="color-scheme" content="dark light">
 <meta property="og:title" content="Loopwise Health · your Type 1 data, in plain English">
 <meta property="og:description" content="A short read of your overnight numbers each morning, and a one-page report your clinic can use. Open source, one maintainer, research use only.">
 <meta property="og:type" content="website">
@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en_GB">
 <link rel="canonical" href="https://loopwise.uk/">
 <link rel="alternate" type="application/atom+xml" href="https://loopwise.uk/feed.xml" title="Loopwise Health · repository releases">
-<link rel="describedby" href="https://loopwise.uk/llms.txt">
+<link rel="alternate" type="text/plain" title="Plain-text summary for language models" href="https://loopwise.uk/llms.txt">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0a0e14">
 <meta property="og:image" content="https://loopwise.uk/assets/og-card.png">
@@ -49,7 +49,7 @@
 </head>
 
 <body>
-<div class="announce" role="status">
+<div class="announce">
   <span class="announce-inner"><span class="pulse" aria-hidden="true"></span><span class="announce-text"><b>2 pilot slots open</b> · research and educational use only · never doses insulin</span></span>
 </div>
 <a class="skip" href="#main">Skip to content</a>
@@ -72,7 +72,7 @@
         <p class="lede">A few plain lines about last night each morning, and a one-page report your clinic can actually use. You stay in charge of every decision. It never doses insulin. It never replaces your pump or meter.</p>
         <div class="cta-row">
           <a class="btn primary" href="mailto:founder@loopwise.uk?subject=Pilot%20enquiry">Ask about a pilot slot</a>
-          <a class="btn" href="#sample-brief">See a real morning brief</a>
+          <a class="btn" href="#sample-brief">See a sample morning brief</a>
         </div>
       </div>
       <div class="hero-visual">
@@ -80,7 +80,7 @@
           <svg viewBox="0 0 320 430" role="img" aria-labelledby="phoneTitle">
         <title id="phoneTitle">Illustrative phone lock screen with a Loopwise morning brief notification at 06:42</title>
         <defs>
-          <linearGradient id="cgmFill" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="cgm-fill" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stop-color="#2dd4bf" stop-opacity=".28"/>
             <stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/>
           </linearGradient>
@@ -115,7 +115,7 @@
         <rect x="115" y="272" width="19" height="42" fill="rgba(93,107,130,.18)"/>
         <line x1="115" y1="272" x2="115" y2="314" stroke="#77879f" stroke-width="1" stroke-dasharray="3 3"/>
         <line x1="134" y1="272" x2="134" y2="314" stroke="#77879f" stroke-width="1" stroke-dasharray="3 3"/>
-        <path class="cgm-fill" d="M34,300 C58,296 74,292 96,288 S122,282 142,287 S162,293 182,296 S204,302 222,310 S238,322 250,318 S262,304 274,300 S282,297 286,296 L286,340 L34,340 Z" fill="url(#cgmFill)"/>
+        <path class="cgm-fill" d="M34,300 C58,296 74,292 96,288 S122,282 142,287 S162,293 182,296 S204,302 222,310 S238,322 250,318 S262,304 274,300 S282,297 286,296 L286,340 L34,340 Z" fill="url(#cgm-fill)"/>
         <path class="cgm-trace" d="M34,300 C58,296 74,292 96,288 S122,282 142,287 S162,293 182,296 S204,302 222,310 S238,322 250,318 S262,304 274,300 S282,297 286,296"/>
         <path class="cgm-trace low" d="M222,310 S238,322 250,318 S262,304 272,301"/>
         <circle cx="250" cy="318" r="3" fill="#f5a524"><animate attributeName="opacity" values="1;.35;1" dur="2.4s" repeatCount="indefinite"/></circle>
@@ -134,19 +134,19 @@
       </div>
     </div>
     <div class="hero-pills">
-      <a class="pill" href="#proof"><b>4</b><span>repos, MIT licence</span></a>
+      <a class="pill" href="#proof"><b>5</b><span>repositories, 4 public</span></a>
       <a class="pill" href="#pilots"><b>2</b><span>pilot slots open now</span></a>
       <a class="pill" href="#who-its-for"><b>0</b><span>insulin decisions made for you</span></a>
     </div>
     <div class="stats">
       <div class="stat" tabindex="0"><b><em>1</em></b><span>short brief each morning, a few lines long</span><span class="so-what">See exactly what one looks like · the sample brief</span></div>
       <div class="stat" tabindex="0"><b><em>1</em></b><span>page a week your clinic can read</span><span class="so-what">Averages, time in range, lows and highs · proof</span></div>
-      <div class="stat" tabindex="0"><b><em>4</em></b><span>MIT-licensed tools, three public</span><span class="so-what">Read the code yourself · how it is built</span></div>
+      <div class="stat" tabindex="0"><b><em>4</em></b><span>tools, 3 public and MIT</span><span class="so-what">Read the code yourself · how it is built</span></div>
       <div class="stat" tabindex="0"><b><em>0</em></b><span>dosing decisions delegated to software</span><span class="so-what">Research and educational tooling only · questions</span></div>
     </div>
     <div class="principles">
       <div class="principle"><b>Your data stays yours</b><span>It goes to a Nightscout site you run yourself. Nothing is sent to us, and there is no tracking of any kind.</span></div>
-      <div class="principle"><b>Open source, honestly</b><span>Three of the four are public and MIT-licensed, so anyone can read every line. The fourth is in private preview and will be too. Nothing here asks you to take it on trust.</span></div>
+      <div class="principle"><b>Open source, honestly</b><span>Four tools do the work and three are public and MIT-licensed, so anyone can read every line. A fifth repository holds the captured CareLink API evidence. The fourth tool is in private preview and will join them. Nothing here asks you to take it on trust.</span></div>
       <div class="principle"><b>One person, reading your email</b><span>Built and maintained by a single maintainer in the UK. No support desk, no ticket queue. A person reads every message.</span></div>
     </div>
   </header>
@@ -211,7 +211,7 @@
     <div class="phases cv-phases">
       <div class="phase now"><span class="phase-state" aria-hidden="true">Might suit you</span><h3>This could be for you</h3><span class="when">If these are true</span><ul>
         <li><b>You have Type 1 diabetes</b> · as an adult, or as a parent or carer of a child who does.</li>
-        <li><b>You use a Medtronic pump and sensor</b> · the 780G with a Guardian 4 or Simplera sensor is what is being tested against.</li>
+        <li><b>You use a Medtronic pump and sensor</b> · the 780G with a Guardian 4 or Simplera sensor is what this is being built for. No pump has run it yet.</li>
         <li><b>You want a short read, not another dashboard.</b> If you already have three apps open and none of them tell you anything, this is aimed at you.</li>
         <li><b>You are comfortable with a little setup</b>, or you know someone who is, or you would like help with it.</li>
       </ul></div>
@@ -223,6 +223,7 @@
       </ul></div>
       <div class="phase later"><span class="phase-state" aria-hidden="true">What you would need</span><h3>To get started</h3><span class="when">Honestly listed</span><ul>
         <li><b>A Medtronic pump that uploads to CareLink</b> · CareLink is Medtronic&rsquo;s own cloud service, which your pump already talks to.</li>
+        <li><b>Patience for a first run</b> · nothing has run on real hardware yet. The maintainer is in the same position as the first pilots, and will be the first to report what breaks.</li>
         <li><b>Somewhere to run a small program</b> · a computer of your own, or a small rented server, left switched on.</li>
         <li><b>A Nightscout site</b> · free, open-source, and yours. The guide walks you through it in about fifteen minutes.</li>
         <li><b>An email address</b> · that genuinely is the whole onboarding. There is no form and no signup.</li>
@@ -230,15 +231,15 @@
     </div>
   </section>
   <section id="pilots" aria-label="Pilot users">
-    <div class="kicker">Pilot programme · one live · two open</div>
-    <h2>Pilot programme: in progress.</h2>
-    <p class="section-sub">This is a small project run by one person, and it is being built carefully. The maintainer runs it on their own pump every day; two more slots are open now. No logos, no press, no invented numbers.</p>
+    <div class="kicker">Pilot programme · none live yet · two open</div>
+    <h2>Pilot programme: recruiting, not yet running.</h2>
+    <p class="section-sub">This is a small project run by one person, and it is being built carefully. No hardware has run it yet — the maintainer's 780G arrives in November 2026, and it will be the first. Two slots are open now and will be filled after that first run. No logos, no press, no invented numbers.</p>
     <div class="pilot-board">
     <div class="pilots">
-      <div class="pilot is-live">
-        <span class="pilot-state live"><span class="dot" aria-hidden="true"></span>Live · slot 01 · self-hosted</span>
+      <div class="pilot is-pending">
+        <span class="pilot-state pending"><span class="dot" aria-hidden="true"></span>Reserved · slot 01 · hardware pending</span>
         <b>Maintainer's own setup</b>
-        <p>Running on the maintainer's own setup, every night, with the same setup the pilots will use. Their 780G pump arrives in November, so some parts of it are still waiting to be tested on that hardware.</p>
+        <p>Reserved for the maintainer's own 780G, which arrives in November 2026. Nothing has run on real hardware yet: the bridge has never been executed against a live CareLink account. Medtronic has rolled out MFA on most CareLink accounts since the upstream code was written, so the first login is expected to need work — tracked openly in <a href="https://github.com/NovaLux12/carelink-bridge/issues/12">issue&nbsp;#12</a>.</p>
       </div>
       <div class="pilot empty is-open">
         <span class="pilot-state recruiting"><span class="dot" aria-hidden="true"></span>Recruiting · slot 02</span>
@@ -254,15 +255,15 @@
       </div>
     </div>
     <figure class="photo-slot photo-side status-side">
-      <div class="slotmap" role="group" aria-label="Pilot slot status: slot 01 live self-hosted, slots 02 and 03 recruiting">
-        <div class="slotmap-head"><span class="slotmap-title">Pilot places</span><span>one live · two open</span></div>
+      <div class="slotmap" role="group" aria-label="Pilot slot status: slot 01 reserved pending hardware, slots 02 and 03 recruiting">
+        <div class="slotmap-head"><span class="slotmap-title">Pilot places</span><span>none live · two open</span></div>
         <ol>
-          <li class="is-live"><span class="dot" aria-hidden="true"></span><b>Slot 01 · live</b><span>The maintainer · self-hosted</span></li>
+          <li class="is-pending"><span class="dot" aria-hidden="true"></span><b>Slot 01 · reserved</b><span>The maintainer · hardware pending</span></li>
           <li><span class="dot" aria-hidden="true"></span><b>Slot 02 · recruiting</b><span>A household · pump and sensor</span></li>
           <li><span class="dot" aria-hidden="true"></span><b>Slot 03 · recruiting</b><span>A carer · the second reader</span></li>
         </ol>
-        <div class="slotmap-meter" aria-hidden="true"><span class="fill-live"></span><span class="fill-open"></span></div>
-        <div class="slotmap-legend" aria-hidden="true"><span>live</span><span>recruiting</span></div>
+        <div class="slotmap-meter" aria-hidden="true"><span class="fill-pending"></span><span class="fill-open"></span></div>
+        <div class="slotmap-legend" aria-hidden="true"><span>reserved</span><span>recruiting</span></div>
       </div>
       <figcaption>Status board · live slotmap, updated with the section</figcaption>
     </figure>
@@ -274,6 +275,7 @@
     <p class="section-sub">Doing it by hand works. It just costs you evenings. Loopwise keeps exactly the same data and takes the graft out of it.</p>
     <div class="compare-wrap cv-compare-wrap">
       <table class="compare cv-compare">
+      <caption class="visually-hidden">How Loopwise compares with reading your data by hand</caption>
         <colgroup><col class="c-row"><col class="c-manual"><col class="c-loop"></colgroup>
         <tbody>
         <tr><th scope="col"><span class="cmp-blank">Step</span></th><th scope="col" class="manual-h">By hand</th><th scope="col" class="loop-h">Loopwise</th></tr>
@@ -296,12 +298,13 @@
   <section id="proof" class="cv-section" aria-label="Why you can trust Loopwise">
     <div class="kicker">Proof, not promises</div>
     <h2>Don&rsquo;t take our word for it.</h2>
-    <p class="section-sub">There are no testimonials here, because the pilot programme is still filling and nobody has used this for long enough to promise anything. So here is what you can check yourself instead, right now.</p>
+    <p class="section-sub">There are no testimonials here, because no hardware has run this yet and nobody has used it long enough to promise anything. So here is what you can check yourself instead, right now. Start with <a href="/research/">the CareLink API research</a> &mdash; every claim this project makes about Medtronic&rsquo;s servers is cited there, against evidence you can re-run yourself.</p>
     <div class="cv-proof cv-shipped">
-      <a class="proof-item ship-first" href="https://github.com/NovaLux12/carelink-bridge/blob/main/CHANGELOG.md"><span class="ship-kick">Latest release · July 2026</span><b>Eight releases so far, and a written changelog for each</b><span>Thirty-one changes since that release. Read the history, read the code, run it yourself. Nothing here asks you to take it on trust.</span></a>
+      <a class="proof-item ship-first" href="https://github.com/NovaLux12/carelink-bridge/blob/main/CHANGELOG.md"><span class="ship-kick">Latest bridge release · July 2026</span><b>Eight releases so far, and a written changelog for each</b><span>The unreleased backlog is longer than any single release. Read the history, read the code, run it yourself. Nothing here asks you to take it on trust.</span></a>
       <a class="proof-item" href="https://github.com/NovaLux12/carelink-bridge/actions"><b>Every change is tested automatically</b><span>The test results are public, including the ones that failed.</span></a>
       <a class="proof-item" href="/build/"><b>MIT licence, all four tools</b><span>Three of them are public: read them, copy them, change them, check them. That is what an MIT licence means, and the fourth will join them.</span></a>
-      <a class="proof-item" href="#sample-brief"><b>A sample brief, today</b><span>See exactly what a morning looks like before you commit.</span></a>
+      <a class="proof-item proof-wide" href="#sample-brief"><b>A sample brief, today</b><span>See exactly what a morning looks like before you commit.</span></a>
+      <a class="proof-item proof-wide" href="https://github.com/NovaLux12/carelink-bridge/issues"><b>The bugs I already know about</b><span>Every open issue is written by me and names its own uncertainty. <b>Read #12</b>, which tracks what the first real run is expected to break.</span></a>
     </div>
     <!--ACT: the Cloudflare Worker splices a live "repo activity" fragment here,
          built from GitHub's public Atom feeds. No JavaScript reaches the browser.
@@ -322,7 +325,7 @@
     <div class="faq-list cv-faq">
       <details class="faq">
         <summary>What exactly is Loopwise Health?</summary>
-        <p>A small project run by one person. It copies your pump and sensor data out of Medtronic's CareLink service into Nightscout, an open-source diabetes platform you run yourself, then turns that data into a short morning brief and a one-page report for your clinic.</p>
+        <p>A small project run by one person. It copies your pump and sensor data out of Medtronic's CareLink service into Nightscout, an open-source diabetes platform you run yourself, then turns that data into a short morning brief and a one-page report for your clinic. What Medtronic actually publishes is mapped, endpoint by endpoint, in <a href="/research/">the CareLink API research</a>.</p>
       </details>
       <details class="faq">
         <summary>Is it safe? Does it dose insulin for me?</summary>
@@ -330,7 +333,7 @@
       </details>
       <details class="faq">
         <summary>Which pumps and CGMs does the bridge support?</summary>
-        <p>Medtronic 780G pumps with a Guardian 4 or Simplera sensor is what is actively being tested, because that is the maintainer's own setup. Other Medtronic pumps that upload to CareLink will probably work but have not been properly tested, so treat them as untested rather than supported.</p>
+        <p>A Medtronic 780G with a Guardian 4 or Simplera sensor is what this is built for, and the maintainer&rsquo;s own 780G arrives in November 2026 — so nothing has been validated on that hardware yet. Other Medtronic pumps that upload to CareLink will probably work but have not been properly tested, so treat them as untested rather than supported.</p>
       </details>
       <details class="faq">
         <summary>How much does it cost?</summary>
@@ -338,7 +341,7 @@
       </details>
       <details class="faq">
         <summary>Can my clinic use the reports?</summary>
-        <p>That is the point of the whole thing. The reports already produce a machine-readable file plus a breakdown for each day, so any number can be checked against the readings it came from. The polished, clinic-ready version is what is being built now. Ask for it and you will be told honestly whether it is ready yet.</p>
+        <p>That is the point of the whole thing. The reports already produce a machine-readable file plus a breakdown for each day, so any number can be checked against the readings it came from. One thing worth saying plainly: this is <b>not</b> an AGP report. Clinics already know the Ambulatory Glucose Profile, which is a licensed format built to be filed rather than read &mdash; fourteen days of data and a fixed set of eight metrics. This is a different job, written to be read by a person first. Expect it to state how many days it covers and what share of your sensor was active, so you can see whether it had enough data to be worth anything. The polished, clinic-ready version is what is being built now. Ask for it and you will be told honestly whether it is ready yet.</p>
       </details>
       <details class="faq">
         <summary>Where does my data live?</summary>
@@ -360,7 +363,7 @@
   </section>
 
   <div class="mid-cta cv-midcta">
-    <div class="midcta-copy"><span class="midcta-kick">Open source · four public repos</span><p>Every claim on this page sits on top of code you can read. <b>The bridge, the reporting tools, the decisions behind them and the live release history</b> are all on one page.</p></div>
+    <div class="midcta-copy"><span class="midcta-kick">Open source · four public repositories</span><p>Every claim on this page sits on top of code you can read. <b>The bridge, the reporting tools, the decisions behind them and the live release history</b> are all on one page. The bridge is a community fork of <a href="https://github.com/domien-f/carelink-bridge">domien-f/carelink-bridge</a>, kept alive here and reported upstream &mdash; it is not original work, and it is not affiliated with Medtronic.</p></div>
     <a class="btn" href="/build/">For developers</a>
   </div>
 
