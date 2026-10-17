@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Loopwise Health · your Type 1 data, in plain English</title>
-<meta name="description" content="Loopwise Health is a small open-source project for people with Type 1 diabetes. A short read of your overnight numbers each morning, a one-page report your clinic can use, and open-source code anyone can read. Research and educational tooling, not a medical device.">
+<meta name="description" content="A short read of your overnight Type 1 numbers each morning, a one-page report your clinic can use, and open-source code you can read. Not a medical device.">
 <meta name="author" content="Loopwise Health">
-<meta name="color-scheme" content="dark">
+<meta name="color-scheme" content="dark light">
 <meta property="og:title" content="Loopwise Health · your Type 1 data, in plain English">
 <meta property="og:description" content="A short read of your overnight numbers each morning, and a one-page report your clinic can use. Open source, one maintainer, research use only.">
 <meta property="og:type" content="website">
@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en_GB">
 <link rel="canonical" href="https://loopwise.uk/">
 <link rel="alternate" type="application/atom+xml" href="https://loopwise.uk/feed.xml" title="Loopwise Health · repository releases">
-<link rel="describedby" href="https://loopwise.uk/llms.txt">
+<link rel="alternate" type="text/plain" title="Plain-text summary for language models" href="https://loopwise.uk/llms.txt">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0a0e14">
 <meta property="og:image" content="https://loopwise.uk/assets/og-card.png">
@@ -49,7 +49,7 @@
 </head>
 
 <body>
-<div class="announce" role="status">
+<div class="announce">
   <span class="announce-inner"><span class="pulse" aria-hidden="true"></span><span class="announce-text"><b>2 pilot slots open</b> · research and educational use only · never doses insulin</span></span>
 </div>
 <a class="skip" href="#main">Skip to content</a>
@@ -275,6 +275,7 @@
     <p class="section-sub">Doing it by hand works. It just costs you evenings. Loopwise keeps exactly the same data and takes the graft out of it.</p>
     <div class="compare-wrap cv-compare-wrap">
       <table class="compare cv-compare">
+      <caption class="visually-hidden">How Loopwise compares with reading your data by hand</caption>
         <colgroup><col class="c-row"><col class="c-manual"><col class="c-loop"></colgroup>
         <tbody>
         <tr><th scope="col"><span class="cmp-blank">Step</span></th><th scope="col" class="manual-h">By hand</th><th scope="col" class="loop-h">Loopwise</th></tr>
@@ -297,7 +298,7 @@
   <section id="proof" class="cv-section" aria-label="Why you can trust Loopwise">
     <div class="kicker">Proof, not promises</div>
     <h2>Don&rsquo;t take our word for it.</h2>
-    <p class="section-sub">There are no testimonials here, because no hardware has run this yet and nobody has used it long enough to promise anything. So here is what you can check yourself instead, right now.</p>
+    <p class="section-sub">There are no testimonials here, because no hardware has run this yet and nobody has used it long enough to promise anything. So here is what you can check yourself instead, right now. Start with <a href="/research/">the CareLink API research</a> &mdash; every claim this project makes about Medtronic&rsquo;s servers is cited there, against evidence you can re-run yourself.</p>
     <div class="cv-proof cv-shipped">
       <a class="proof-item ship-first" href="https://github.com/NovaLux12/carelink-bridge/blob/main/CHANGELOG.md"><span class="ship-kick">Latest release · August 2026</span><b>Eight releases so far, and a written changelog for each</b><span>The unreleased backlog is longer than any single release. Read the history, read the code, run it yourself. Nothing here asks you to take it on trust.</span></a>
       <a class="proof-item" href="https://github.com/NovaLux12/carelink-bridge/actions"><b>Every change is tested automatically</b><span>The test results are public, including the ones that failed.</span></a>
@@ -323,7 +324,7 @@
     <div class="faq-list cv-faq">
       <details class="faq">
         <summary>What exactly is Loopwise Health?</summary>
-        <p>A small project run by one person. It copies your pump and sensor data out of Medtronic's CareLink service into Nightscout, an open-source diabetes platform you run yourself, then turns that data into a short morning brief and a one-page report for your clinic.</p>
+        <p>A small project run by one person. It copies your pump and sensor data out of Medtronic's CareLink service into Nightscout, an open-source diabetes platform you run yourself, then turns that data into a short morning brief and a one-page report for your clinic. What Medtronic actually publishes is mapped, endpoint by endpoint, in <a href="/research/">the CareLink API research</a>.</p>
       </details>
       <details class="faq">
         <summary>Is it safe? Does it dose insulin for me?</summary>
