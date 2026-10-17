@@ -3,9 +3,9 @@
 > Reading this as an agent? This file describes Loopwise Health as it works
 > today. Every factual figure it contains is re-checked against the GitHub API
 > declared in claims.json and checked against the GitHub API by
-> scripts/verify-claims.mjs, which runs as part of npm test. That check is
-> not yet wired into CI, so treat this file as unverified until you have run
-> it yourself. The site has three pages: the plain-language home page
+> scripts/verify-claims.mjs, which runs in CI on every push and every morning.
+> A figure that stops matching the repositories fails the build, so this file
+> cannot drift far from the truth without something going red first. The site has three pages: the plain-language home page
 > at https://loopwise.uk/, the engineering page at https://loopwise.uk/build/,
 > and a read-only research page on the CareLink API surface at
 > https://loopwise.uk/research/.
