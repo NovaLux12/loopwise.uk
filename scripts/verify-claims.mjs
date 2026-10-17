@@ -36,7 +36,15 @@ async function api(path) {
   const headers = { Accept: 'application/vnd.github+json', 'User-Agent': UA };
   if (TOKEN) headers.Authorization = `Bearer ${TOKEN}`;
   const res = await fetch(url, { headers });
+  const exhausted = res.headers.get('x-ratelimit-remaining') === '0';
   if (res.status === 404) {
+    // GitHub answers 404 both for "this does not exist" and, under rate
+    // limiting, for "we are not telling you". Collapsing the second case into
+    // the first turns an exhausted API into a confident `false`, which then
+    // reads as a drifted claim. Keep them apart.
+    if (exhausted) {
+      throw new Error(`rate limit exhausted while checking ${path}`);
+    }
     apiCache.set(path, null);
     return null;
   }
@@ -165,16 +173,15 @@ const checks = {
     // Read .private rather than treating a 404 as "private": an authenticated
     // request for your own private repo returns 200, not 404, so a
     // status-code check would quietly count nightscout-mcp as public.
-    const flags = await Promise.all(
-      names.map(async (n) => {
-        try {
-          const r = await api(`/repos/${n}`);
-          return r ? r.private !== true : false;
-        } catch {
-          return false;
-        }
-      })
-    );
+    //
+    // Errors must propagate. Swallowing them and defaulting to `false` turns
+    // a rate-limited request into a confident "not public", which then reads
+    // as a drifted claim — precisely the failure this script exists to catch
+    // honestly.
+    const flags = await Promise.all(names.map(async (n) => {
+      const r = await api(`/repos/${n}`);
+      return r ? r.private !== true : false;
+    }));
     return flags.filter(Boolean).length;
   },
 };
@@ -184,6 +191,9 @@ const checks = {
 const results = [];
 let hardFailures = 0;
 let softFailures = 0;
+let infraFailures = 0;
+
+const INFRA = /rate limit|HTTP 5\d\d|ENOTFOUND|ECONNRESET|EAI_AGAIN|fetch failed|network/i;
 
 for (const claim of manifest.claims) {
   const { check } = claim;
@@ -201,28 +211,44 @@ for (const claim of manifest.claims) {
     }
   }
 
-  // A null actual on a 404 means "not found", which is a real answer for
-  // pathExists(false) but a broken expectation for everything else.
-  const pass = !error && JSON.stringify(actual) === JSON.stringify(claim.expect);
-
-  if (pass) {
-    results.push({ id: claim.id, pass: true, expect: claim.expect, actual });
+  // Three outcomes, kept strictly separate on purpose:
+  //   FAIL        the claim disagrees with reality -> the build should fail
+  //   UNVERIFIED  we could not check it              -> a warning, not a failure
+  //   INFRA       the API was unreachable            -> NOT a claim problem
+  // Conflating the last two makes a transient rate limit look like a false
+  // claim on the site, which is both alarming and wrong.
+  if (error) {
+    if (INFRA.test(error)) {
+      infraFailures += 1;
+      results.push({ id: claim.id, pass: false, kind: 'INFRA', actual: '(not checked)', error });
+      continue;
+    }
+    softFailures += 1;
+    results.push({ id: claim.id, pass: false, kind: 'UNVERIFIED', actual: '(not checked)', error });
     continue;
   }
 
-  const kind = error || actual === null ? 'UNVERIFIED' : 'FAIL';
-  if (kind === 'UNVERIFIED') softFailures += 1;
-  else hardFailures += 1;
-  results.push({
-    id: claim.id,
-    pass: false,
-    kind,
-    expect: claim.expect,
-    actual: actual === undefined ? '(not checked)' : actual,
-    error,
-    assertedIn: claim.assertedIn,
-    note: claim.note,
-  });
+  if (actual === null) {
+    softFailures += 1;
+    results.push({ id: claim.id, pass: false, kind: 'UNVERIFIED', actual: 'not found' });
+    continue;
+  }
+
+  const pass = JSON.stringify(actual) === JSON.stringify(claim.expect);
+  if (pass) {
+    results.push({ id: claim.id, pass: true, expect: claim.expect, actual });
+  } else {
+    hardFailures += 1;
+    results.push({
+      id: claim.id,
+      pass: false,
+      kind: 'FAIL',
+      expect: claim.expect,
+      actual,
+      assertedIn: claim.assertedIn,
+      note: claim.note,
+    });
+  }
 
   // optional: the literal must still be present in the page that states it
   if (claim.htmlMustContain) {
@@ -245,9 +271,10 @@ if (AS_JSON) {
   console.log(
     JSON.stringify(
       {
-        ok: hardFailures === 0 && softFailures === 0,
+        ok: hardFailures === 0 && softFailures === 0 && infraFailures === 0,
         hardFailures,
         softFailures,
+        infraFailures,
         total: results.length,
         results,
       },
@@ -258,16 +285,18 @@ if (AS_JSON) {
 } else {
   const pad = Math.max(...results.map((r) => r.id.length));
   for (const r of results) {
-    const mark = r.pass ? 'ok  ' : r.kind === 'UNVERIFIED' ? 'warn' : 'FAIL';
+    const mark = r.pass ? 'ok  ' : r.kind === 'INFRA' ? 'net ' : r.kind === 'UNVERIFIED' ? 'warn' : 'FAIL';
     const got = r.actual === null ? 'not found' : JSON.stringify(r.actual);
     console.log(`[${mark}] ${r.id.padEnd(pad)}  expect ${JSON.stringify(r.expect)}  got ${got}`);
     if (r.error) console.log(`         ${r.error}`);
-    if (!r.pass && r.assertedIn) console.log(`         stated in: ${r.assertedIn.join(', ')}`);
-    if (!r.pass && r.note) console.log(`         note: ${r.note}`);
+    if (!r.pass && r.kind === 'FAIL' && r.assertedIn) {
+      console.log(`         stated in: ${r.assertedIn.join(', ')}`);
+    }
+    if (!r.pass && r.kind === 'FAIL' && r.note) console.log(`         note: ${r.note}`);
   }
   console.log(
-    `\n${results.length} claims checked · ${results.length - hardFailures - softFailures} ok · ` +
-      `${hardFailures} failed · ${softFailures} unverified`
+    `\n${results.length} claims checked · ${results.length - hardFailures - softFailures - infraFailures} ok · ` +
+      `${hardFailures} failed · ${softFailures} unverified · ${infraFailures} unreachable`
   );
   if (hardFailures) {
     console.log(
@@ -275,6 +304,14 @@ if (AS_JSON) {
         'claims.json is out of date. Fix whichever is actually untrue before merging.'
     );
   }
+  if (infraFailures && !hardFailures) {
+    console.log(
+      '\nSome claims could not be reached. This is a network or rate-limit\n' +
+        'problem, NOT evidence that a claim is wrong.'
+    );
+  }
 }
 
-process.exit(hardFailures === 0 ? 0 : 1);
+// exit 1 = a claim is wrong (block the merge)
+// exit 2 = the check could not run (retry; do not block on it)
+process.exit(hardFailures > 0 ? 1 : infraFailures > 0 ? 2 : 0);
