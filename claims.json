@@ -21,128 +21,270 @@
   "claims": [
     {
       "id": "bridge.licence",
-      "assertedIn": ["build.html#repos", "index.html#proof"],
-      "check": { "type": "repo", "repo": "bridge", "field": "license.spdx_id" },
+      "assertedIn": [
+        "build.html#repos",
+        "index.html#proof"
+      ],
+      "check": {
+        "type": "repo",
+        "repo": "bridge",
+        "field": "license.spdx_id"
+      },
       "expect": "MIT"
     },
     {
       "id": "bridge.language",
-      "assertedIn": ["build.html#repos"],
-      "check": { "type": "repo", "repo": "bridge", "field": "language" },
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "repo",
+        "repo": "bridge",
+        "field": "language"
+      },
       "expect": "TypeScript"
     },
     {
       "id": "bridge.isFork",
-      "assertedIn": ["build.html#repos"],
-      "check": { "type": "repo", "repo": "bridge", "field": "fork" },
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "repo",
+        "repo": "bridge",
+        "field": "fork"
+      },
       "expect": true,
       "note": "The site discloses the fork. If this ever becomes false, the disclosure must change too."
     },
     {
       "id": "bridge.forkParent",
-      "assertedIn": ["build.html#repos"],
-      "check": { "type": "repo", "repo": "bridge", "field": "parent.full_name" },
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "repo",
+        "repo": "bridge",
+        "field": "parent.full_name"
+      },
       "expect": "domien-f/carelink-bridge"
     },
     {
       "id": "bridge.releaseCount",
-      "assertedIn": ["index.html#proof"],
-      "check": { "type": "releaseCount", "repo": "bridge" },
+      "assertedIn": [
+        "index.html#proof"
+      ],
+      "check": {
+        "type": "releaseCount",
+        "repo": "bridge"
+      },
       "expect": 8,
       "note": "Homepage says 'Eight releases so far'."
     },
     {
       "id": "bridge.latestReleaseTag",
-      "assertedIn": ["build.html#repos"],
-      "check": { "type": "latestRelease", "repo": "bridge", "field": "tag_name" },
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "latestRelease",
+        "repo": "bridge",
+        "field": "tag_name"
+      },
       "expect": "v0.2.0"
     },
     {
       "id": "bridge.adrCount",
-      "assertedIn": ["build.html#repos", "build.html#contributing"],
-      "check": { "type": "dirCount", "repo": "bridge", "path": "docs/adr", "exclude": ["README.md"] },
+      "assertedIn": [
+        "build.html#repos",
+        "build.html#contributing"
+      ],
+      "check": {
+        "type": "dirCount",
+        "repo": "bridge",
+        "path": "docs/adr",
+        "exclude": [
+          "README.md"
+        ]
+      },
       "expect": 8,
       "note": "Site says 'eight architecture decision records' in two places."
     },
     {
       "id": "bridge.hasCodeOfConduct",
-      "assertedIn": ["build.html#contributing"],
-      "check": { "type": "pathExists", "repo": "bridge", "path": "CODE_OF_CONDUCT.md" },
+      "assertedIn": [
+        "build.html#contributing"
+      ],
+      "check": {
+        "type": "pathExists",
+        "repo": "bridge",
+        "path": "CODE_OF_CONDUCT.md"
+      },
       "expect": true,
       "note": "The old site claimed no repository had one. It does."
     },
     {
       "id": "bridge.hasCodeowners",
-      "assertedIn": ["build.html#contributing"],
-      "check": { "type": "pathExists", "repo": "bridge", "path": ".github/CODEOWNERS" },
+      "assertedIn": [
+        "build.html#contributing"
+      ],
+      "check": {
+        "type": "pathExists",
+        "repo": "bridge",
+        "path": ".github/CODEOWNERS"
+      },
       "expect": true
     },
     {
       "id": "bridge.architectureDocPath",
-      "assertedIn": ["build.html#quickstart"],
-      "check": { "type": "pathExists", "repo": "bridge", "path": "docs/ARCHITECTURE.md" },
+      "assertedIn": [
+        "build.html#quickstart"
+      ],
+      "check": {
+        "type": "pathExists",
+        "repo": "bridge",
+        "path": "docs/ARCHITECTURE.md"
+      },
       "expect": true,
       "note": "Site links it as docs/ARCHITECTURE.md. It is NOT at the repo root."
     },
     {
       "id": "bridge.securityDoc",
-      "assertedIn": ["build.html#quickstart"],
-      "check": { "type": "pathExists", "repo": "bridge", "path": "SECURITY.md" },
+      "assertedIn": [
+        "build.html#quickstart"
+      ],
+      "check": {
+        "type": "pathExists",
+        "repo": "bridge",
+        "path": "SECURITY.md"
+      },
       "expect": true
     },
     {
       "id": "reports.licence",
-      "assertedIn": ["build.html#repos"],
-      "check": { "type": "repo", "repo": "reports", "field": "license.spdx_id" },
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "repo",
+        "repo": "reports",
+        "field": "license.spdx_id"
+      },
       "expect": "MIT"
     },
     {
       "id": "reports.requiresPython",
-      "assertedIn": ["build.html#repos"],
-      "check": { "type": "tomlKey", "repo": "reports", "path": "pyproject.toml", "key": "requires-python" },
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "tomlKey",
+        "repo": "reports",
+        "path": "pyproject.toml",
+        "key": "requires-python"
+      },
       "expect": ">=3.9"
     },
     {
       "id": "reports.ciPythonFloor",
-      "assertedIn": ["build.html#repos"],
-      "check": { "type": "ciMatrix", "repo": "reports", "path": ".github/workflows/ci.yml", "key": "python-version" },
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "ciMatrix",
+        "repo": "reports",
+        "path": ".github/workflows/ci.yml",
+        "key": "python-version"
+      },
       "expect": "3.9",
       "note": "The old site claimed CI only exercised 3.11-3.13. It does not."
     },
     {
       "id": "reports.ciPythonCeiling",
-      "assertedIn": ["build.html#repos"],
-      "check": { "type": "ciMatrix", "repo": "reports", "path": ".github/workflows/ci.yml", "key": "python-version" },
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "ciMatrix",
+        "repo": "reports",
+        "path": ".github/workflows/ci.yml",
+        "key": "python-version",
+        "pick": "max"
+      },
       "expect": "3.13"
     },
     {
       "id": "graph.licence",
-      "assertedIn": ["build.html#repos"],
-      "check": { "type": "repo", "repo": "graph", "field": "license.spdx_id" },
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "repo",
+        "repo": "graph",
+        "field": "license.spdx_id"
+      },
       "expect": "MIT"
     },
     {
       "id": "graph.latestReleaseTag",
-      "assertedIn": ["build.html#repos"],
-      "check": { "type": "latestRelease", "repo": "graph", "field": "tag_name" },
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "latestRelease",
+        "repo": "graph",
+        "field": "tag_name"
+      },
       "expect": "v0.1.0"
     },
     {
       "id": "graph.ciPythonFloor",
-      "assertedIn": ["build.html#repos"],
-      "check": { "type": "ciMatrix", "repo": "graph", "path": ".github/workflows/ci.yml", "key": "python-version" },
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "ciMatrix",
+        "repo": "graph",
+        "path": ".github/workflows/ci.yml",
+        "key": "python-version"
+      },
       "expect": "3.9"
     },
     {
+      "id": "graph.ciPythonCeiling",
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "ciMatrix",
+        "repo": "graph",
+        "path": ".github/workflows/ci.yml",
+        "key": "python-version",
+        "pick": "max"
+      },
+      "expect": "3.13"
+    },
+    {
       "id": "research.licence",
-      "assertedIn": ["build.html#repos"],
-      "check": { "type": "repo", "repo": "research", "field": "license.spdx_id" },
+      "assertedIn": [
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "repo",
+        "repo": "research",
+        "field": "license.spdx_id"
+      },
       "expect": "MIT"
     },
     {
       "id": "project.publicRepoCount",
-      "assertedIn": ["index.html#proof", "build.html#repos"],
-      "check": { "type": "countPublicOf" },
+      "assertedIn": [
+        "index.html#proof",
+        "build.html#repos"
+      ],
+      "check": {
+        "type": "countPublicOf"
+      },
       "expect": 4,
       "note": "Homepage says '5 repos, 4 public'."
     }

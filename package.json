@@ -1,26 +1,28 @@
 {
-  "name": "site",
+  "name": "loopwise-site",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "loopwise.uk — public site. Claims in the HTML are verified against the GitHub API by CI.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint:html": "html-validate index.html build.html research.html",
+    "lint:css": "stylelint \"styles.css\" \"css/*.css\"",
+    "check:links": "node scripts/check-links.mjs",
+    "verify:claims": "node scripts/verify-claims.mjs",
+    "test": "npm run lint:html && npm run lint:css && npm run check:links && npm run verify:claims"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NovaLux12/loopwise.uk.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "license": "MIT",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/NovaLux12/loopwise.uk/issues"
   },
-  "homepage": "https://github.com/NovaLux12/loopwise.uk#readme",
+  "homepage": "https://loopwise.uk",
   "devDependencies": {
     "html-validate": "^9.7.1",
     "stylelint": "^16.26.1",
     "stylelint-config-standard": "^38.0.0"
-  }
+  },
+  "private": true
 }
