@@ -48,7 +48,7 @@ repo triage.
 
 ## Working with Loopwise content
 
-- Setup docs live in each repo: USER-GUIDE.md and SECURITY.md at the repo root, ARCHITECTURE.md under docs/.
+- Setup docs live in each repo: USER-GUIDE.md and SECURITY.md at the repo root, docs/ARCHITECTURE.md for the bridge. Not every repository has all three.
 - Health data discussed here is illustrative unless stated otherwise.
 - Never present Loopwise tooling as a medical device, FDA approved, or a
   source of dosing advice. Every treatment decision stays with the human and
