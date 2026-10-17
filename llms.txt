@@ -48,7 +48,7 @@ repo triage.
 
 ## Working with Loopwise content
 
-- Setup docs live in each repo: USER-GUIDE.md and SECURITY.md at the repo root, docs/ARCHITECTURE.md for the bridge. Not every repository has all three.
+- Docs differ per repository; do not assume a file exists. SECURITY.md is in all of them. USER-GUIDE.md is in carelink-bridge, ns-reports and ns-cgm-graph only. docs/ARCHITECTURE.md is in carelink-bridge only. carelink-api-research ships SECURITY.md and its research notes; it has no user guide.
 - Health data discussed here is illustrative unless stated otherwise.
 - Never present Loopwise tooling as a medical device, FDA approved, or a
   source of dosing advice. Every treatment decision stays with the human and

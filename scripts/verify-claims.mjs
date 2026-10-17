@@ -79,10 +79,18 @@ async function raw(repo, path) {
   const ref = await defaultBranch(repo);
   const url = `https://raw.githubusercontent.com/${repo}/${ref}/${path}`;
   const res = await fetch(url, { headers: { 'User-Agent': UA } });
-  const text = res.ok ? await res.text() : null;
-  if (text === null) {
+  if (!res.ok) {
+    // 404 means the file this claim depends on is gone. Returning null sends
+    // that down the "not found -> hard failure" path, which is correct: the
+    // page still asserts the Python floor even though ci.yml no longer
+    // exists. Throwing instead produced a quiet "unverified" and exit 0.
+    if (res.status === 404) {
+      rawCache.set(key, null);
+      return null;
+    }
     throw new Error(`could not fetch ${repo}/${ref}/${path} (HTTP ${res.status})`);
   }
+  const text = await res.text();
   rawCache.set(key, text);
   return text;
 }
@@ -273,6 +281,8 @@ for (const claim of manifest.claims) {
           id: `${claim.id} (html literal in ${file})`,
           pass: false,
           kind: 'FAIL',
+          expect: `literal: ${claim.htmlMustContain[file]}`,
+          actual: 'absent from the page',
           error: `expected ${file} to still contain: ${claim.htmlMustContain[file]}`,
         });
       }

@@ -319,7 +319,7 @@
       "note": "Homepage says '5 repos, 4 public'.",
       "htmlMustContain": {
         "build.html": "repositories · four public and MIT",
-        "index.html": "repos, 4 public"
+        "index.html": "repositories, 4 public"
       }
     },
     {
@@ -336,6 +336,20 @@
       "note": "Issue #12 tracks what the first real hardware run is expected to break; the homepage links to it as proof of honesty. Guarding its state, not a count: open_issues_count includes pull requests and drifts on every triage.",
       "htmlMustContain": {
         "index.html": "carelink-bridge/issues/12"
+      }
+    },
+    {
+      "id": "project.publicToolCount",
+      "assertedIn": [
+        "index.html#proof"
+      ],
+      "check": {
+        "type": "countPublicOf"
+      },
+      "expect": 4,
+      "note": "4 tools exist (bridge, ns-reports, ns-cgm-graph, nightscout-mcp); 3 are public. The repository count is 5 because carelink-api-research is documentation rather than a tool. Both framings appear on the homepage, so both are pinned here.",
+      "htmlMustContain": {
+        "index.html": "tools, 3 public and MIT"
       }
     }
   ]
