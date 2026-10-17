@@ -1,24 +1,72 @@
 name: CI
+
+# This repository publishes factual claims about four other repositories.
+# The point of this workflow is to make a stale claim fail the build instead
+# of quietly rotting on a page — the failure mode that produced the original
+# "known gaps" section on /build/.
+
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+
+# Cancels superseded runs on the same ref.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
+
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+
       - uses: actions/setup-node@v7
         with:
           node-version: '22'
           cache: npm
+
       - run: npm ci
+
       - name: Lint HTML
         run: npx html-validate index.html build.html research.html
+
       - name: Lint CSS
         run: npx stylelint "styles.css" "css/*.css"
+
       - name: Check internal links and anchors
         run: node scripts/check-links.mjs
+
+      - name: Verify published claims against the GitHub API
+        env:
+          # Raises the API rate limit from 60/h unauthenticated to 5000/h.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # exit 1 = a claim is genuinely wrong. exit 2 = the GitHub API was
+        # unreachable. `outcome` cannot tell those apart, so record the code
+        # and gate on it below: an outage must never fail the build.
+        run: |
+          set +e
+          node scripts/verify-claims.mjs
+          code=$?
+          set -e
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit $code
+        continue-on-error: true
+        id: claims
+
+      - name: Fail if a published claim drifted
+        if: steps.claims.outputs.exit_code == '1'
+        run: |
+          echo "::error::A published claim no longer matches reality."
+          echo "Either the site is now wrong, or claims.json is out of date."
+          exit 1
+
+      - name: Note that claims could not be checked
+        if: steps.claims.outputs.exit_code == '2'
+        run: |
+          echo "::warning::The GitHub API was unreachable, so claims were not"
+          echo "::warning::verified. Not treated as drift."
