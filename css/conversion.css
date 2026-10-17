@@ -101,6 +101,7 @@ table.cv-compare th.loop-h{color:var(--teal);background:var(--cv-loop-wash,rgba(
 .cv-compare tr:last-child td{border-bottom:0}
 /* ---------- proof: compact trust strip (R2) + shipped row (R3) ---------- */
 .cv-shipped.cv-proof{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-top:1.5rem}
+.cv-shipped .proof-item.proof-wide{grid-column:span 2}
 .cv-shipped .proof-item.ship-first{grid-column:span 2;border-color:rgba(45,212,191,.45);
   background:linear-gradient(120deg,rgba(45,212,191,.12),rgba(45,212,191,.03) 60%,transparent),var(--cv-panel);
   box-shadow:0 18px 44px -26px rgba(45,212,191,.45)}
@@ -269,7 +270,7 @@ table.cv-compare.cv-compare{font-size:.92rem;min-width:44rem}
 /* ---------- responsive ---------- */
 @media(max-width:900px){
   .cv-phases::before{left:calc(1.25rem + 5px)}
-  .cv-proof{grid-template-columns:repeat(2,1fr)}
+  .cv-shipped.cv-proof{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:640px){
   .offer-num{font-size:2.6rem}
@@ -286,6 +287,7 @@ table.cv-compare.cv-compare{font-size:.92rem;min-width:44rem}
   .cv-shipped.cv-proof{grid-template-columns:minmax(0,1fr)}
   .cv-proof{grid-template-columns:minmax(0,1fr)}
   .cv-shipped .proof-item.ship-first{grid-column:span 1}
+  .cv-shipped .proof-item.proof-wide{grid-column:span 1}
   .cv-pilot .btn,.cv-close .btn{width:100%;text-align:center}
   .cv-sponsor .btn{width:100%;text-align:center}
 }
