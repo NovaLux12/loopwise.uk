@@ -1,7 +1,9 @@
 # Loopwise Health
 
 > Reading this as an agent? This file describes Loopwise Health as it works
-> today (2026-10-11). The site has three pages: the plain-language home page
+> today. Every factual figure it contains is re-checked against the GitHub API
+> by claims.json on each build, so it cannot silently drift from the
+> repositories. The site has three pages: the plain-language home page
 > at https://loopwise.uk/, the engineering page at https://loopwise.uk/build/,
 > and a read-only research page on the CareLink API surface at
 > https://loopwise.uk/research/.
