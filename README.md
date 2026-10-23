@@ -50,10 +50,35 @@ npm test
 
 ## Deployment
 
-The site is served by a Cloudflare Worker; [`wrangler.toml`](wrangler.toml)
+The site is served by a Cloudflare Worker. [`wrangler.toml`](wrangler.toml)
 holds the deployment config, including the routing that keeps it on the
 `loopwise.uk` edge rather than a `workers.dev` subdomain — the security
 headers the Worker sets do not apply off the edge.
+
+### The Worker source is not in this repository
+
+`wrangler.toml` names `worker.js` as the module entrypoint, but `worker.js` is
+**deliberately untracked** (see `.gitignore` for the reasoning). The deployed
+source is maintained in the workspace working copy at
+`projects/loopwise-health/worker.js` and uploaded with a multipart modules
+PUT.
+
+The reason is the `PIN` constant at the top of the Worker. It is a commit
+hash, and the Worker serves the static assets for **that** commit from
+jsDelivr. Tracking `worker.js` here would put the Worker and the assets it
+serves in the same commit — so the Worker would serve the commit that
+contains it, and the pin would be chasing its own tail. The pin is bumped by
+hand for every deploy instead. That coupling is what broke on 2026-10-08.
+
+Concretely, a deploy is:
+
+1. Commit the site files here, and note the commit hash.
+2. Bump `PIN` in the workspace `worker.js` to that hash.
+3. Upload the Worker with a multipart modules PUT — **not** `wrangler deploy`,
+   which would enable `workers.dev` and take the site off the `loopwise.uk`
+   edge.
+4. The Worker now serves the assets from step 1 and reports repo activity
+   from the live API.
 
 ## Licence
 
