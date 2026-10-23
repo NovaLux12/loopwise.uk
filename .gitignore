@@ -1,19 +1,18 @@
+# Build output and local scratch.
 .tmp/
 node_modules/
 *.log
-AGENTS.md
-APPLY.md
-IDENTITY.md
-MEMORY.md
-PROGRESS.md
-SOUL.md
-USER.md
-learning/
-memory/
-media/
-proactivity/
-tools/
-worker.js
 
-hv.txt
-sl.txt
+# The edge Worker is deliberately NOT tracked.
+#
+# `wrangler.toml` names `worker.js` as the module entrypoint, but the file
+# itself stays out of git on purpose: it pins the commit whose assets the
+# Worker serves, and that pin is bumped by hand for every deploy. Tracking it
+# would put the Worker and the assets it serves in the same commit, and the
+# Worker would then serve the commit that contains it. That coupling broke on
+# 2026-10-08.
+#
+# The deployed source is maintained in the workspace working copy
+# (projects/loopwise-health/worker.js) and uploaded with a multipart modules
+# PUT. See the site README's Deploy section.
+worker.js
