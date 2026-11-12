@@ -19,7 +19,7 @@ person.
 ## A site that cannot quietly rot
 
 Every factual figure the pages publish is declared in
-[`claims.json`](claims.json) — 23 of them at present — together with the
+[`claims.json`](claims.json) — 29 of them at present — together with the
 source it must agree with. [`scripts/verify-claims.mjs`](scripts/verify-claims.mjs)
 re-checks each one against the live GitHub API and exits non-zero on drift, so
 a stale claim fails the build instead of rotting quietly on a page.
@@ -31,8 +31,9 @@ by a reader noticing.
 
 The check types are the interesting part — they are not all "look up a
 repository": `repo`, `ciMatrix`, `countPublicOf`, `countPublicTools`,
-`dirCount`, `issueState`, `latestRelease`, `pathExists`, `releaseCount`,
-`tomlKey`.
+`dirCount`, `issueState`, `latestRelease`, `latestReleaseDate`,
+`latestReleaseMonth`, `numberArray`, `pathExists`, `releaseCount`,
+`releaseCountSum`, `tomlKey`.
 
 ## Development
 

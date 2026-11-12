@@ -12,9 +12,9 @@
 
 Loopwise Health is a bootstrapped health-infrastructure startup building open
 Type 1 diabetes tooling: a CareLink-to-Nightscout bridge, a Nightscout MCP
-server for Claude, and a zero-dependency Python reporting toolkit. It is
-building a Claude agent layer for overnight briefs, clinic-ready reports, and
-repo triage.
+server for any MCP-capable agent, and a zero-dependency Python reporting
+toolkit. It is building an agent layer for overnight briefs, clinic-ready
+reports, and repo triage.
 
 ## The three pages
 
