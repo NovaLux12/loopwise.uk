@@ -78,32 +78,134 @@
     {
       "id": "bridge.releaseCount",
       "assertedIn": [
-        "index.html#proof"
+        "index.html#proof",
+        "build.html#releases"
       ],
       "check": {
         "type": "releaseCount",
         "repo": "bridge"
       },
-      "expect": 8,
-      "note": "Homepage says 'Eight releases so far'.",
+      "expect": 10,
+      "note": "Homepage says 'Ten releases so far'. build.html#releases also says '10 releases'.",
       "htmlMustContain": {
-        "index.html": "Eight releases so far"
+        "index.html": "Ten releases so far",
+        "build.html": "<h3>10 releases</h3>"
       }
     },
     {
       "id": "bridge.latestReleaseTag",
       "assertedIn": [
-        "build.html#repos"
+        "build.html#repos",
+        "build.html#releases",
+        "build.html (announce bar)"
       ],
       "check": {
         "type": "latestRelease",
         "repo": "bridge",
         "field": "tag_name"
       },
-      "expect": "v0.2.0",
+      "expect": "v0.3.1",
+      "note": "Stated four times across /build/: the announce bar, the repo card, the releases card, and the stat subtitle range.",
       "htmlMustContain": {
-        "build.html": "<code>v0.2.0</code>"
+        "build.html": "<b>carelink-bridge v0.3.1</b>"
       }
+    },
+    {
+      "id": "bridge.latestReleaseDate",
+      "assertedIn": [
+        "build.html#releases"
+      ],
+      "check": {
+        "type": "latestReleaseDate",
+        "repo": "bridge"
+      },
+      "expect": "2026-11-12",
+      "note": "The releases card prints this date in prose. Date-only, because a timestamp would fail on nothing but would be noise to compare.",
+      "htmlMustContain": {
+        "build.html": "12 November 2026"
+      }
+    },
+    {
+      "id": "bridge.latestReleaseMonth",
+      "assertedIn": [
+        "index.html#proof"
+      ],
+      "check": {
+        "type": "latestReleaseMonth",
+        "repo": "bridge"
+      },
+      "expect": "2026-11",
+      "note": "Homepage kicker says 'Latest bridge release · November 2026'. Month resolution only: that is all the sentence claims.",
+      "htmlMustContain": {
+        "index.html": "Latest bridge release · November 2026"
+      }
+    },
+    {
+      "id": "project.totalReleaseCount",
+      "assertedIn": [
+        "build.html#top (stat row)"
+      ],
+      "check": {
+        "type": "releaseCountSum",
+        "repos": [
+          "bridge",
+          "reports",
+          "graph",
+          "research"
+        ]
+      },
+      "expect": 12,
+      "note": "The stat row states a total across the four public repos. Summed from the same four repos the page enumerates, so adding a repo to the page without adding it here fails.",
+      "htmlMustContain": {
+        "build.html": "<em>12</em></b><span>releases shipped across the public repos</span>"
+      }
+    },
+    {
+      "id": "bridge.ciNodeMatrix",
+      "assertedIn": [
+        "build.html#repos",
+        "build.html#releases"
+      ],
+      "check": {
+        "type": "numberArray",
+        "repo": "bridge",
+        "path": ".github/workflows/ci.yml",
+        "key": "node"
+      },
+      "expect": "20,22",
+      "note": "Page says 'CI on Node 20 and 22' in two places. Node majors are bare integers, which ciMatrix cannot read.",
+      "htmlMustContain": {
+        "build.html": "CI on Node 20 and 22"
+      }
+    },
+    {
+      "id": "reports.latestReleaseTag",
+      "assertedIn": [
+        "build.html#repos",
+        "build.html#releases",
+        "build.html#security (known gaps)"
+      ],
+      "check": {
+        "type": "latestRelease",
+        "repo": "reports",
+        "field": "tag_name"
+      },
+      "expect": "v0.2.0",
+      "note": "Was published 2026-10-23. The page claimed for weeks that 'No GitHub release object exists for it yet' — a claim with no check behind it, which is exactly why it rotted. This check exists to stop that recurring.",
+      "htmlMustContain": {
+        "build.html": "<h3>1 release, <code>v0.2.0</code></h3>"
+      }
+    },
+    {
+      "id": "reports.releaseCount",
+      "assertedIn": [
+        "build.html#releases"
+      ],
+      "check": {
+        "type": "releaseCount",
+        "repo": "reports"
+      },
+      "expect": 1
     },
     {
       "id": "bridge.adrCount",

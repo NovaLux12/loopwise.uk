@@ -50,7 +50,7 @@
 
 <body>
 <div class="announce">
-  <span class="announce-inner"><span class="pulse" aria-hidden="true"></span><span class="announce-text"><b>carelink-bridge v0.2.0</b> · nightscout-mcp in private preview — opt-in only, no telemetry · <a href="/">plain-English version</a></span></span>
+  <span class="announce-inner"><span class="pulse" aria-hidden="true"></span><span class="announce-text"><b>carelink-bridge v0.3.1</b> · nightscout-mcp in private preview — opt-in only, no telemetry · <a href="/">plain-English version</a></span></span>
 </div>
 <a class="skip" href="#main">Skip to content</a>
 <nav aria-label="Primary"><div class="wrap">
@@ -141,7 +141,7 @@
     </div>
     <div class="stats">
       <div class="stat" tabindex="0"><b><em>5</em></b><span>repositories · four public and MIT</span><span class="so-what">The fifth is in private preview — see the repository index</span></div>
-      <div class="stat" tabindex="0"><b><em>9</em></b><span>releases shipped across the public repos</span><span class="so-what">v0.1.0 through v0.2.0 on the bridge — see releases</span></div>
+      <div class="stat" tabindex="0"><b><em>12</em></b><span>releases shipped across the public repos</span><span class="so-what">v0.1.0 through v0.3.1 on the bridge — see releases</span></div>
       <div class="stat" tabindex="0"><b><em>2</em></b><span>languages: TypeScript and Python</span><span class="so-what">The Python tools are standard library only — zero dependencies</span></div>
       <div class="stat" tabindex="0"><b><em>0</em></b><span>runtime dependencies in the Python tools</span><span class="so-what">npm run doctor checks the bridge — see quick start</span></div>
     </div>
@@ -211,7 +211,7 @@ cd ns-cgm-graph
       <li class="node"><span class="node-step" aria-hidden="true">3</span><b>carelink-bridge</b><span>fetch · normalise · upload</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
       <li class="node"><span class="node-step" aria-hidden="true">4</span><b>Nightscout</b><span>source of truth, yours</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
       <li class="node"><span class="node-step" aria-hidden="true">5</span><b>tools</b><span>MCP server · reports · graphs</span></li><li class="arrow cv-flow" role="presentation" aria-hidden="true">→</li>
-      <li class="node agent glow"><span class="node-step" aria-hidden="true">6</span><b>Claude layer</b><span>briefs · reports · triage</span></li>
+      <li class="node agent glow"><span class="node-step" aria-hidden="true">6</span><b>agent layer</b><span>briefs · reports · triage</span></li>
     </ol>
     <div class="grid dev-row">
       <div class="card"><span class="tag safe">Your machine</span><h3>Everything from step 1 to 5</h3><p>The bridge, the MCP server and both Python tools run on hardware you control, pointed at a Nightscout instance you host. None of them phone home.</p></div>
@@ -228,7 +228,7 @@ cd ns-cgm-graph
         <span class="tag safe">Public · MIT</span>
         <h3><code>carelink-bridge</code></h3>
         <p>TypeScript. Copies Medtronic pump and CGM data into Nightscout by signing into CareLink the way the official app does.</p>
-        <p><b>Community fork</b> of <code>domien-f/carelink-bridge</code>. Eight releases, v0.1.0 through <code>v0.2.0</code> (22 July 2026). CI on Node 20 and 22. Eight architecture decision records. Open issues are public too.</p>
+        <p><b>Community fork</b> of <code>domien-f/carelink-bridge</code>. Ten releases, v0.1.0 through <code>v0.3.1</code> (12 November 2026). CI on Node 20 and 22. Eight architecture decision records. Open issues are public too.</p>
         <p><a href="https://github.com/NovaLux12/carelink-bridge">github.com/NovaLux12/carelink-bridge</a></p>
       </div>
       <div class="card">
@@ -243,7 +243,7 @@ cd ns-cgm-graph
         <span class="tag safe">Public · MIT</span>
         <h3><code>ns-reports</code></h3>
         <p>Python, standard library only. Turns Nightscout history into weekly numbers: averages, variability, time in range, lows and highs, basal/bolus split, per-day.</p>
-        <p><b>Version <code>v0.2.0</code></b>, published by tag. No GitHub release object exists for it yet. CI on Python 3.9 to 3.13.</p>
+        <p><b>Version <code>v0.2.0</code></b>, released 23 October 2026. CI on Python 3.9 to 3.13.</p>
         <p><a href="https://github.com/NovaLux12/ns-reports">github.com/NovaLux12/ns-reports</a></p>
       </div>
       <div class="card">
@@ -306,7 +306,7 @@ cd ns-cgm-graph
       <div class="card"><span class="tag">Report a flaw</span><h3>security.txt, per RFC 9116</h3><p>Served at <code>/.well-known/security.txt</code> and <code>/security.txt</code>. Prefer GitHub private vulnerability reporting on the repository where the flaw lives.</p></div>
       <div class="card"><span class="tag">Report a flaw</span><h3>Do not open a public issue</h3><p>A public issue leaks the detail to everyone at once. Private advisory or email first, always.</p></div>
     </div>
-    <div class="scope-note cv-scope"><span class="scope-rail" aria-hidden="true"></span><div><b>Known gaps, stated plainly:</b> no pump has run this yet, so nothing is validated on real hardware. <code>carelink-bridge</code> is a fork, not original work, and <code>nightscout-mcp</code> is private, so one of the four tools cannot be read. <code>ns-reports</code> is versioned by tag with no GitHub release object, and there is exactly one reviewer. These are being fixed, not hidden — check the repositories rather than take this page&rsquo;s word for it.</div></div>
+    <div class="scope-note cv-scope"><span class="scope-rail" aria-hidden="true"></span><div><b>Known gaps, stated plainly:</b> no pump has run this yet, so nothing is validated on real hardware. <code>carelink-bridge</code> is a fork, not original work, and <code>nightscout-mcp</code> is private, so one of the four tools cannot be read. There is exactly one reviewer, and the overnight brief and clinic report are still composed by hand. These are being fixed, not hidden — check the repositories rather than take this page&rsquo;s word for it.</div></div>
   </section>
   <section id="how-built" class="reveal cv-section" aria-labelledby="how-built-heading">
     <div class="kicker">Who builds this</div>
@@ -325,9 +325,9 @@ cd ns-cgm-graph
     <h2>Recent releases.</h2>
     <p class="section-sub">Per-repository release notes live in the repositories. This is the shape of what has shipped so far, so you can judge whether the cadence is real.</p>
     <div class="grid">
-      <div class="card"><span class="tag safe">carelink-bridge</span><h3>8 releases</h3><p><code>v0.1.0</code> through <code>v0.2.0</code>, the latest tagged 22 July 2026. Public run history on every push to <code>main</code>, on Node 20 and 22.</p><p><a href="https://github.com/NovaLux12/carelink-bridge/releases">Releases</a> · <a href="https://github.com/NovaLux12/carelink-bridge/blob/main/CHANGELOG.md">Changelog</a></p></div>
+      <div class="card"><span class="tag safe">carelink-bridge</span><h3>10 releases</h3><p><code>v0.1.0</code> through <code>v0.3.1</code>, the latest tagged 12 November 2026. Public run history on every push to <code>main</code>, on Node 20 and 22.</p><p><a href="https://github.com/NovaLux12/carelink-bridge/releases">Releases</a> · <a href="https://github.com/NovaLux12/carelink-bridge/blob/main/CHANGELOG.md">Changelog</a></p></div>
       <div class="card"><span class="tag safe">ns-cgm-graph</span><h3>1 release</h3><p><code>v0.1.0</code>, 20 August 2026. The SVG renderer, stdlib only.</p><p><a href="https://github.com/NovaLux12/ns-cgm-graph/releases">Releases</a></p></div>
-      <div class="card"><span class="tag">ns-reports</span><h3>0 releases, v0.2.0 by tag</h3><p>The release workflow exists but has not produced a release object. Treat the tag as the source of truth until that is fixed.</p><p><a href="https://github.com/NovaLux12/ns-reports/tags">Tags</a></p></div>
+      <div class="card"><span class="tag safe">ns-reports</span><h3>1 release, <code>v0.2.0</code></h3><p><code>v0.2.0</code>, 23 October 2026. The weekly numbers, stdlib only.</p><p><a href="https://github.com/NovaLux12/ns-reports/releases">Releases</a></p></div>
     </div>
   </section>
   <section id="contributing" class="reveal cv-section">

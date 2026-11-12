@@ -155,6 +155,79 @@ const checks = {
     return dig(newest, field);
   },
 
+  /**
+   * Release date of the newest release, as YYYY-MM-DD.
+   *
+   * Separate from latestRelease because the site prints a date in prose
+   * ("the latest tagged 22 July 2026") and a full ISO timestamp in the
+   * manifest would fail on every clock tick. Date-only is the resolution the
+   * page actually states.
+   */
+  async latestReleaseDate({ repo }) {
+    const r = await api(`/repos/${full(repo)}/releases?per_page=100`);
+    if (!Array.isArray(r) || r.length === 0) return null;
+    const newest = [...r].sort((a, b) =>
+      String(b.published_at ?? '').localeCompare(String(a.published_at ?? ''))
+    )[0];
+    return newest.published_at ? String(newest.published_at).slice(0, 10) : null;
+  },
+
+  /**
+   * Just the year and month of the newest release, as YYYY-MM.
+   *
+   * The homepage prints prose ("Latest bridge release · November 2026") with
+   * no day, so asserting the full date there would fail on a new release in
+   * the same month for no reason. This is the resolution that sentence
+   * actually claims.
+   */
+  async latestReleaseMonth({ repo }) {
+    const r = await api(`/repos/${full(repo)}/releases?per_page=100`);
+    if (!Array.isArray(r) || r.length === 0) return null;
+    const newest = [...r].sort((a, b) =>
+      String(b.published_at ?? '').localeCompare(String(a.published_at ?? ''))
+    )[0];
+    return newest.published_at ? String(newest.published_at).slice(0, 7) : null;
+  },
+
+  /**
+   * Sum of release counts over an explicit list of repos.
+   *
+   * The /build/ page states a total across the public repos. That total must
+   * be summed from the same per-repo numbers the page states, never inferred:
+   * a total that is computed from a different set of repos than the page
+   * lists would agree today and diverge the moment a repo is added.
+   */
+  async releaseCountSum({ repos }) {
+    if (!Array.isArray(repos) || repos.length === 0) {
+      throw new Error('releaseCountSum needs a non-empty "repos" array');
+    }
+    const counts = await Promise.all(
+      repos.map(async (alias) => {
+        const r = await api(`/repos/${full(alias)}/releases?per_page=100`);
+        return Array.isArray(r) ? r.length : null;
+      })
+    );
+    if (counts.some((c) => c === null)) return null;
+    return counts.reduce((a, b) => a + b, 0);
+  },
+
+  /**
+   * A YAML flow array of integers under `key`, e.g. `node: [20, 22]`.
+   *
+   * ciMatrix cannot read this: it looks for dotted versions like 3.13, and a
+   * Node major is a bare integer. Reading it as "no match" would silently
+   * unverify the claim instead of failing it.
+   */
+  async numberArray({ repo, path, key }) {
+    const text = await raw(full(repo), path);
+    if (!text) return null;
+    const m = text.match(new RegExp(`^\\s*${key}\\s*:\\s*\\[([^\\]]+)\\]`, 'm'));
+    if (!m) return null;
+    const nums = [...m[1].matchAll(/\d+/g)].map((v) => v[0]);
+    if (nums.length === 0) return null;
+    return [...new Set(nums)].join(',');
+  },
+
   async tomlKey({ repo, path, key }) {
     const text = await raw(full(repo), path);
     if (!text) return null;
